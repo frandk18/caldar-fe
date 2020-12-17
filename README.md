@@ -22,9 +22,9 @@ You will also see any lint errors in the console.
 
 - Franco Di Rosa <fdr.2014@gmail.com>
 - Alexis Pucheta <alexispucheta22@gmail.com>
-- Marcos Melgar
-- Federico Morabito
-- Agustin Crovetto
+- Marcos Melgar <marcosjmelgar@gmail.com>
+- Federico Morabito <morabitofj@gmail.com>
+- Agustin Crovetto <agustin.crovetto@radiumrocket.com>
 
 ---
 
