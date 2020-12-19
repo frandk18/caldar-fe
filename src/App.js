@@ -5,6 +5,7 @@ import NavBar from "./components/layout/NavBar.jsx";
 import Footer from "./components/layout/Footer.jsx";
 import Technician from "./components/routes/technician/Technician.jsx";
 import Building from "./components/routes/building/Building.jsx";
+import Company from './components/routes/company/Company';
 import "./App.css";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" exact />
           <Route path="/technician" component={Technician} />
           <Route path="/building" component={Building} />
+          <Route path="/company" component={Company} />
         </Switch>
       </Router>
     </div>
