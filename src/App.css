@@ -5,3 +5,32 @@
 .section-container {
   display: flex;
 }
+
+.navContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10px;
+  background-color: rgb(129, 129, 202);
+}
+.navLinks {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+.navLinks li {
+  border: 1px solid;
+  padding: 5px;
+}
+
+.navLinks li a {
+  text-decoration: none;
+  color: white;
+}
+
+.navLinks a:visited {
+  color:white;
+}
