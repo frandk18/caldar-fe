@@ -1,12 +1,12 @@
 .SB-div {
-  background-color: #4e4c4c;
+  background-color: #708da6;
   width: 15%;
 }
 
 .SB-link {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  /*font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;*/
   text-decoration: none;
-  color: #787473;
+  color: #fff;
 }
 
 li {

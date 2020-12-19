@@ -1,11 +1,16 @@
 import React from "react";
 
 function Footer() {
-  return (
-    <div>
-      <h1>FOOTER</h1>
-    </div>
-  );
+  return <footer style={footerStyle}>CaldAR® an argentine company</footer>;
 }
+
+const footerStyle = {
+  background: "#094455",
+  textAlign: "center",
+  padding: "5px",
+  marginBottom: "10px",
+  fontSize: "18px",
+  color: "#ffffff",
+};
 
 export default Footer;

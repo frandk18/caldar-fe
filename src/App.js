@@ -6,16 +6,16 @@ import Footer from "./components/layout/Footer.jsx";
 import SideBar from "./components/layout/SideBar.jsx";
 import Technician from "./components/routes/technician/Technician.jsx";
 import Building from "./components/routes/building/Building.jsx";
-import Company from './components/routes/company/Company';
+import Company from "./components/routes/company/Company";
 import "./App.css";
 
 function App() {
   return (
     <div>
-      <Header />
-      <NavBar />
-      <div class="section-container">
+      {/*<Header />*/}
+      <div className="section-container">
         <Router>
+          <NavBar />
           <SideBar />
           <Switch>
             <Route path="/" exact />
@@ -23,8 +23,8 @@ function App() {
             <Route path="/building" component={Building} />
             <Route path="/company" component={Company} />
             <Route path="/boiler" />
-            <Route path="/boiler-models" />
-            <Route path="/companies" />
+            <Route path="/boiler-type" />
+            <Route path="/service" />
             <Route path="/reports" />
           </Switch>
         </Router>

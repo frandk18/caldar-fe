@@ -4,28 +4,33 @@ import "../css/SideBar.css";
 
 function SideBar() {
   return (
-    <div class="SB-div">
+    <div className="SB-div">
       <ul>
-        <Link class="SB-link" to="/">
+        <Link className="SB-link" to="/">
           <li>Home</li>
         </Link>
 
-        <Link class="SB-link" to="/boiler">
-          <li>Boiler</li>
+        <Link className="SB-link" to="/boiler">
+          <li>Boilers</li>
         </Link>
-        <Link class="SB-link" to="/boiler-models">
+
+        <Link className="SB-link" to="/boiler-models">
           <li>Boiler Models</li>
         </Link>
-        <Link class="SB-link" to="/companies">
+
+        <Link className="SB-link" to="/companies">
           <li>Companies</li>
         </Link>
-        <Link class="SB-link" to="/building">
-          <li>Building</li>
+
+        <Link className="SB-link" to="/building">
+          <li>Buildings</li>
         </Link>
-        <Link class="SB-link" to="/technician">
+
+        <Link className="SB-link" to="/technician">
           <li>Technicians</li>
         </Link>
-        <Link class="SB-link" to="/reports">
+
+        <Link className="SB-link" to="/reports">
           <li>Reports</li>
         </Link>
       </ul>
