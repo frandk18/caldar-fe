@@ -3,12 +3,40 @@ import Technicians from "../../../mocks/technician.json";
 import Table from "./Table.jsx";
 import DataForm from "./DataForm.jsx";
 import { v4 as uuidv4 } from "uuid";
+import TableUI from "../../shared/TableUI.jsx";
 
 function Technician() {
   const [technicians, setTechnicians] = useState(Technicians);
   const [newItem, setNewItem] = useState(false);
   const [id, setId] = useState(null);
+  const [headCells] = useState([
+    { id: "fullname", align: "left", disablePadding: true, label: "Full name" },
+    {
+      id: "knowledge",
+      align: "right",
+      disablePadding: true,
+      label: "Knowledge",
+    },
+    { id: "email", align: "right", disablePadding: true, label: "E-mail" },
+    { id: "phone", align: "right", disablePadding: true, label: "Phone" },
+    { id: "address", align: "right", disablePadding: true, label: "Address" },
+    {
+      id: "dateOfBirth",
+      align: "right",
+      disablePadding: true,
+      label: "Birthdate",
+    },
+  ]);
 
+  const fieldObj = [
+    "fullname",
+    "knowledge",
+    "email",
+    "phone",
+    "address",
+    "dateOfBirth",
+  ];
+  const name = "Technician";
   const captureId = (id) => {
     setId(id);
     toggleForm();
@@ -63,6 +91,12 @@ function Technician() {
         newItem={newItem}
         captureId={captureId}
         delItem={delItem}
+      />
+      <TableUI
+        headCells={headCells}
+        technicians={technicians}
+        fieldObj={fieldObj}
+        name={name}
       />
     </React.Fragment>
   );
