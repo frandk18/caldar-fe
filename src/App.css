@@ -16,3 +16,17 @@
   align-items: center;
   list-style: none;
 }
+
+.navLinks li {
+  border: 1px solid;
+  padding: 5px;
+}
+
+.navLinks li a {
+  text-decoration: none;
+  color: white;
+}
+
+.navLinks a:visited {
+  color:white;
+}
