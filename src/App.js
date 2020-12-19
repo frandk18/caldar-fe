@@ -12,9 +12,9 @@ function App() {
   return (
     <div>
       <Header />
-      <NavBar />
       <Footer />
       <Router>
+      <NavBar />
         <Switch>
           <Route path="/" exact />
           <Route path="/technician" component={Technician} />

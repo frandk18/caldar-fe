@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-function NavBar = () =>
+function NavBar () {
   return (
-    <div className='appContainer'>
-      <ul className='navContainer'>
+    <div className='navContainer'>
+      <ul className='navLinks'>
         <li>
           <Link to="/home">Home</Link>
         </li>
@@ -23,6 +23,6 @@ function NavBar = () =>
       </ul>
     </div>
   );
-}
+};
 
 export default NavBar;

@@ -1,3 +1,18 @@
 .App {
   text-align: center;
 }
+
+.navContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10px;
+  background-color: rgb(129, 129, 202);
+}
+.navLinks {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
