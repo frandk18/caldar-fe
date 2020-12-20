@@ -4,6 +4,7 @@ import Table from "./Table.jsx";
 import DataForm from "./DataForm.jsx";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
+import FormUI from "./FormUI.jsx";
 
 function Technician() {
   const [technicians, setTechnicians] = useState(Technicians);
@@ -75,6 +76,24 @@ function Technician() {
     toggleForm();
   };
 
+  const toDelete = (id) => {
+    console.log("deleteee", id);
+    if (id !== null) {
+      setTechnicians([
+        ...technicians.filter((technician) => technician._id.$oid !== id),
+      ]);
+    }
+  };
+
+  const toEdit = (id) => {
+    console.log(id);
+    toggleForm();
+  };
+
+  const toAdd = () => {
+    console.log("NEW");
+  };
+
   return (
     <React.Fragment>
       {newItem && (
@@ -85,18 +104,24 @@ function Technician() {
           toggleForm={toggleForm}
         />
       )}
+      <div>{newItem && <FormUI />}</div>
+      {/*
       <Table
         technicians={technicians}
         toggleForm={toggleForm}
         newItem={newItem}
         captureId={captureId}
         delItem={delItem}
-      />
+      />*/}
       <TableUI
         headCells={headCells}
         technicians={technicians}
         fieldObj={fieldObj}
         name={name}
+        toDelete={toDelete}
+        toEdit={toEdit}
+        toAdd={toAdd}
+        toggleForm={toggleForm}
       />
     </React.Fragment>
   );
