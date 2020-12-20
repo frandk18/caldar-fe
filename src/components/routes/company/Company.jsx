@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Companies from "../../../mocks/companies.json"
 import Table from "./Table.jsx";
 import Form from "./Form.jsx";
 import { v4 as uuidv4 } from "uuid";
 
 function Company() {
-  const [Companies, setCompanies] = useState(Companies);
-  const [showform, setShowForm] = useState(false);
+  const [companies, setCompanies] = useState(Companies);
+  const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
 
@@ -39,8 +39,8 @@ function Company() {
       toggleForm();
     } else {
       updateCompanies = [
-        ...companies.map((companies) => {
-          if (company._id.$oid == newOne._id.$oid) {
+        ...companies.map((company) => {
+          if (company._id.$oid === newOne._id.$oid) {
             company = newOne;
           }
           return company;
@@ -79,7 +79,7 @@ function Company() {
 }
 
 const containerStyle = {
-  display: flex,
+  display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",

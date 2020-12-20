@@ -30,14 +30,14 @@ function Form(props) {
 
     return (
         <div style={formContainer}>
-            <form style={formStyle} onSubmit={habdleSubmit}>
+            <form style={formStyle} onSubmit={handleSubmit}>
                 <legend>{props.editing ? "Edit Company": "New Company"} </legend>
                 <div style={{ display: "flex" }}>
                     <div style={columnStyle}>
                         <label>CIN: </label>
                         <input
                             type="number"
-                            name="cin"
+                            name="CIN"
                             value={newOne.CIN}
                             onChange={handleChange}
                         />
@@ -106,8 +106,17 @@ const formContainer = {
 const formStyle = {
     display: "flex",
     flexDirection: "column",
-    margin: "20px"
+    alignItems: "center",
+    padding: "10px",
+    marginBottom: "10px",
+    borderRadius: "15px"
 };
+
+const columnStyle = {
+    display: "flex",
+    flexDirection: "column",
+    margin: "20px"
+}
 
 const btnContainer = {
     display: "flex",

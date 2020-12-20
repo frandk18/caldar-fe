@@ -2,7 +2,7 @@ import React from "react";
 import Row from "./Row.jsx";
 
 function Table(props) {
-    const companies = props.companies.map((company) => {
+    const companies = props.companies.map((company) => (
         <Row
             key={company._id.$oid}
             company={company}
@@ -10,7 +10,7 @@ function Table(props) {
             captureId={props.captureId}
             delItem={props.delItem}
         />
-    });
+    ));
 
     return (
         <div>

@@ -26,7 +26,7 @@ function Row(props) {
                         props.captureId(props.company._id.$oid);
                     }}
                     >
-                        Create
+                        Edit
                     </button>
             </td>
             <td style={cellStyle}>
