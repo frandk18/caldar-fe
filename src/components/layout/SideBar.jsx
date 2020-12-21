@@ -14,7 +14,7 @@ function SideBar() {
           <li>Boilers</li>
         </Link>
 
-        <Link className="SB-link" to="/boiler-models">
+        <Link className="SB-link" to="/boiler-type">
           <li>Boiler Models</li>
         </Link>
 
