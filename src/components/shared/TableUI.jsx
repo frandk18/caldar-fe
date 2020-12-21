@@ -174,7 +174,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTable(props) {
-  const rows = props.technicians;
+  const rows = props.data;
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -215,7 +215,7 @@ export default function EnhancedTable(props) {
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={{ width: "80vw" }}>
         <Tooltip title="Add">
           <IconButton
             aria-label="Add"
@@ -302,6 +302,8 @@ export default function EnhancedTable(props) {
                             <EditIcon />
                           </IconButton>
                         </Tooltip>
+                      </TableCell>
+                      <TableCell style={{ textAlign: "left" }}>
                         <Tooltip title="Delete">
                           <IconButton
                             aria-label="delete"
