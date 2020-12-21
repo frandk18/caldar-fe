@@ -4,6 +4,7 @@ import Layout from "./components/layout/Layout.jsx";
 import Technician from "./components/routes/technician/Technician.jsx";
 import Building from "./components/routes/building/Building.jsx";
 import Company from "./components/routes/company/Company";
+import BoilerType from "./components/routes/boiler-type/BoilerType.jsx";
 import "./App.css";
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
           <Route path="/building" component={Building} />
           <Route path="/company" component={Company} />
           <Route path="/boiler" />
-          <Route path="/boiler-type" />
+          <Route path="/boiler-type" component={BoilerType} />
           <Route path="/service" />
           <Route path="/reports" />
         </Switch>
