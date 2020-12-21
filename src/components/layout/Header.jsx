@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-//import MenuIcon from "@material-ui/icons/Menu";
 import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";

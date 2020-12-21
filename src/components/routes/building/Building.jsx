@@ -57,7 +57,7 @@ function Building() {
 
   return (
     <React.Fragment>
-      <div style={containerStyle}>
+      <div>
         <div style={titleStyle}>Buildings</div>
         {showForm && (
           <Form

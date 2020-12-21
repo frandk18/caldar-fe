@@ -1,14 +1,13 @@
 import React from "react";
-import HeaderNavBar from "./HeaderNavBar.jsx";
 import Header from "./Header.jsx";
 import NavBar from "./NavBar.jsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    //flexDirection: "column",
   },
   content: {
     flexGrow: 1,
@@ -32,7 +31,7 @@ function Layout(props) {
       <Header />
       <NavBar />
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <Toolbar />
         {props.children}
       </main>
     </div>
