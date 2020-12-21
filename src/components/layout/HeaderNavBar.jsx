@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MiniDrawer() {
+export default function HeaderNavBar() {
   const icons = [
     <PersonIcon />,
     <ApartmentIcon />,
@@ -106,6 +106,15 @@ export default function MiniDrawer() {
     <DynamicFeedIcon />,
     <BuildIcon />,
     <BarChartIcon />,
+  ];
+  const links = [
+    "/technician",
+    "/building",
+    "/company",
+    "/boiler",
+    "/boiler-type",
+    "/service",
+    "/reports",
   ];
   const classes = useStyles();
   const theme = useTheme();
@@ -141,8 +150,8 @@ export default function MiniDrawer() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
@@ -227,7 +236,7 @@ export default function MiniDrawer() {
             "Services",
             "Reports",
           ].map((text, index) => (
-            <ListItem button key={text} component={Link} to="/technician">
+            <ListItem button key={text} component={Link} to={links[index]}>
               <ListItemIcon>{icons[index]}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
