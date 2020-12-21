@@ -4,7 +4,8 @@ import Header from "./Header.jsx";
 import NavBar from "./NavBar.jsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+//import Typography from "@material-ui/core/Typography";
+import Builiding from "../routes/building/Building";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,8 @@ function Layout() {
         <NavBar />
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Typography paragraph>
+          <Builiding />
+          {/*<Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
             dolor purus non enim praesent elementum facilisis leo vel. Risus at
@@ -49,7 +51,7 @@ function Layout() {
             vivamus at augue. At augue eget arcu dictum varius duis at
             consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
             donec massa sapien faucibus et molestie ac.
-          </Typography>
+          </Typography>*/}
         </main>
       </div>
     </div>
