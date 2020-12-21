@@ -8,21 +8,20 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="section-container">
-      <Router>
-        <Layout />
-        <Switch>
-          <Route path="/" exact />
-          <Route path="/technician" component={Technician} />
-          <Route path="/building" component={Building} />
-          <Route path="/company" component={Company} />
-          <Route path="/boiler" />
-          <Route path="/boiler-type" />
-          <Route path="/service" />
-          <Route path="/reports" />
-        </Switch>
-      </Router>
-    </div>
+    <Router>
+      <Layout />
+      <Switch>
+        <Route path="/" exact />
+        <Route path="/technician" component={Technician} />
+        <Route path="/building" component={Building} />
+        <Route path="/company" component={Company} />
+        <Route path="/boiler" />
+        <Route path="/boiler-type" />
+        <Route path="/service" />
+        <Route path="/reports" />
+      </Switch>
+      <Layout />
+    </Router>
   );
 }
 

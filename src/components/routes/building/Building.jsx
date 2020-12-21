@@ -84,9 +84,9 @@ const containerStyle = {
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  border: "2px #707070 solid",
-  borderRadius: "25px",
-  padding: "30px 30px 30px 30px",
+  //border: "2px #707070 solid",
+  //borderRadius: "25px",
+  //padding: "30px 30px 30px 30px",
 };
 
 const titleStyle = {

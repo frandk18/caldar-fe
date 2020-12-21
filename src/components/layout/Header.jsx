@@ -16,6 +16,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    position: "fixed",
   },
   grow: {
     flexGrow: 1,
@@ -67,7 +68,7 @@ function Header() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar className={classes.appBar}>
         <Toolbar>
           <TrendingUpIcon />
           <Typography className={classes.title} variant="h6" noWrap>
