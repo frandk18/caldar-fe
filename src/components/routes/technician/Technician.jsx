@@ -11,20 +11,25 @@ function Technician() {
   const [newItem, setNewItem] = useState(false);
   const [id, setId] = useState(null);
   const [headCells] = useState([
-    { id: "fullname", align: "left", disablePadding: true, label: "Full name" },
+    {
+      id: "fullname",
+      align: "center",
+      disablePadding: false,
+      label: "Full name",
+    },
     {
       id: "knowledge",
-      align: "right",
-      disablePadding: true,
+      align: "center",
+      disablePadding: false,
       label: "Knowledge",
     },
-    { id: "email", align: "right", disablePadding: true, label: "E-mail" },
-    { id: "phone", align: "right", disablePadding: true, label: "Phone" },
-    { id: "address", align: "right", disablePadding: true, label: "Address" },
+    { id: "email", align: "center", disablePadding: false, label: "E-mail" },
+    { id: "phone", align: "center", disablePadding: false, label: "Phone" },
+    { id: "address", align: "center", disablePadding: false, label: "Address" },
     {
       id: "dateOfBirth",
-      align: "right",
-      disablePadding: true,
+      align: "center",
+      disablePadding: false,
       label: "Birthdate",
     },
   ]);

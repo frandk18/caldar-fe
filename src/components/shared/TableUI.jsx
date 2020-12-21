@@ -58,8 +58,8 @@ function EnhancedTableHead(props) {
         <TableCell padding="checkbox"></TableCell>
         {props.headCells.map((headCell) => (
           <TableCell
+            style={{ textAlign: "left" }}
             key={headCell.id}
-            align={headCell.align}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -233,7 +233,7 @@ export default function EnhancedTable(props) {
           name={props.name}
           delete={props.delete}
         />
-        <TableContainer>
+        <TableContainer style={{ textAlign: "center" }}>
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
@@ -262,29 +262,35 @@ export default function EnhancedTable(props) {
                         component="th"
                         id={labelId}
                         scope="row"
-                        padding="none"
+                        style={{ textAlign: "left" }}
                       >
                         {row[props.fieldObj[0]]}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell style={{ textAlign: "left" }}>
                         {row[props.fieldObj[1]]}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell style={{ textAlign: "left" }}>
                         {row[props.fieldObj[2]]}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell style={{ textAlign: "left" }}>
                         {row[props.fieldObj[3]]}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell style={{ textAlign: "left" }}>
                         {row[props.fieldObj[4]]}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell style={{ textAlign: "left" }}>
                         {row[props.fieldObj[5]]}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell style={{ textAlign: "left" }}>
                         {row[props.fieldObj[6]]}
                       </TableCell>
-                      <TableCell>
+                      <TableCell style={{ textAlign: "left" }}>
+                        {row[props.fieldObj[7]]}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "left" }}>
+                        {row[props.fieldObj[8]]}
+                      </TableCell>
+                      <TableCell style={{ textAlign: "left" }}>
                         <Tooltip title="Edit">
                           <IconButton
                             aria-label="edit"
@@ -296,8 +302,6 @@ export default function EnhancedTable(props) {
                             <EditIcon />
                           </IconButton>
                         </Tooltip>
-                      </TableCell>
-                      <TableCell>
                         <Tooltip title="Delete">
                           <IconButton
                             aria-label="delete"
@@ -314,7 +318,7 @@ export default function EnhancedTable(props) {
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={10} />
                 </TableRow>
               )}
             </TableBody>
