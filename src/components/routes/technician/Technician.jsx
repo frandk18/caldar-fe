@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import Technicians from "../../../mocks/technician.json";
-import Table from "./Table.jsx";
-import DataForm from "./DataForm.jsx";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 
 function Technician() {
   const [technicians, setTechnicians] = useState(Technicians);
-  const [newItem, setNewItem] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
   const [headCells] = useState([
     {
@@ -45,18 +44,16 @@ function Technician() {
   const name = "Technician";
   const captureId = (id) => {
     setId(id);
+    if (id !== null) {
+      setEditing(true);
+    }
     toggleForm();
   };
 
   const toggleForm = () => {
-    setNewItem(!newItem);
-  };
-
-  const delItem = (id) => {
-    if (id !== null) {
-      setTechnicians([
-        ...technicians.filter((technician) => technician._id.$oid !== id),
-      ]);
+    setShowForm(!showForm);
+    if (editing) {
+      setEditing(false);
     }
   };
 
@@ -77,12 +74,12 @@ function Technician() {
         }),
       ];
       setTechnicians(updateTechnicians);
+      setEditing(false);
     }
     toggleForm();
   };
 
   const toDelete = (id) => {
-    console.log("deleteee", id);
     if (id !== null) {
       setTechnicians([
         ...technicians.filter((technician) => technician._id.$oid !== id),
@@ -95,21 +92,28 @@ function Technician() {
     toggleForm();
   };
 
-  const toAdd = () => {
-    console.log("NEW");
-  };
+  const toAdd = () => {};
 
   return (
     <React.Fragment>
-      {newItem && (
+      {/*{newItem && (
         <DataForm
           technicians={technicians}
           id={id}
           addEdit={addEdit}
           toggleForm={toggleForm}
         />
+      )}*/}
+      {showForm && (
+        <FormUI
+          toggleForm={toggleForm}
+          showForm={showForm}
+          technicians={technicians}
+          id={id}
+          editing={editing}
+          addEdit={addEdit}
+        />
       )}
-      <div>{newItem && <FormUI />}</div>
       {/*
       <Table
         technicians={technicians}
@@ -124,7 +128,7 @@ function Technician() {
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
-        toEdit={toEdit}
+        toEdit={captureId}
         toAdd={toAdd}
         toggleForm={toggleForm}
       />
