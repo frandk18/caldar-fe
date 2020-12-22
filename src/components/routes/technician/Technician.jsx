@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Technicians from "../../../mocks/technician.json";
-import Table from "./Table.jsx";
+//import Table from "./Table.jsx";
 import DataForm from "./DataForm.jsx";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
@@ -8,7 +8,7 @@ import FormUI from "./FormUI.jsx";
 
 function Technician() {
   const [technicians, setTechnicians] = useState(Technicians);
-  const [newItem, setNewItem] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const [id, setId] = useState(null);
   const [headCells] = useState([
     {
@@ -49,7 +49,7 @@ function Technician() {
   };
 
   const toggleForm = () => {
-    setNewItem(!newItem);
+    setShowForm(!showForm);
   };
 
   const delItem = (id) => {
@@ -101,7 +101,7 @@ function Technician() {
 
   return (
     <React.Fragment>
-      {newItem && (
+      {showForm && (
         <DataForm
           technicians={technicians}
           id={id}
@@ -109,7 +109,7 @@ function Technician() {
           toggleForm={toggleForm}
         />
       )}
-      <div>{newItem && <FormUI />}</div>
+      <div>{showForm && <FormUI />}</div>
       {/*
       <Table
         technicians={technicians}
@@ -120,7 +120,7 @@ function Technician() {
       />*/}
       <TableUI
         headCells={headCells}
-        technicians={technicians}
+        data={technicians}
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
@@ -131,4 +131,5 @@ function Technician() {
     </React.Fragment>
   );
 }
+
 export default Technician;

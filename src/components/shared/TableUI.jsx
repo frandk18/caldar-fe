@@ -58,7 +58,7 @@ function EnhancedTableHead(props) {
         <TableCell padding="checkbox"></TableCell>
         {props.headCells.map((headCell) => (
           <TableCell
-            style={{ textAlign: "left" }}
+            style={{ textAlign: "left", textDecoration: "underline" }}
             key={headCell.id}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
@@ -96,6 +96,7 @@ const useToolbarStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
+    alignContent: "center",
   },
   highlight:
     theme.palette.type === "light"
@@ -109,6 +110,7 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: "1 1 100%",
+    textDecoration: "underline",
   },
 }));
 
@@ -137,6 +139,7 @@ const EnhancedTableToolbar = (props) => {
           variant="h6"
           id="tableTitle"
           component="div"
+          align="center"
         >
           {props.name}
         </Typography>
@@ -156,6 +159,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: "100%",
     marginBottom: theme.spacing(2),
+    border: "2px solid #ccc",
   },
   table: {
     minWidth: 750,
@@ -174,7 +178,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTable(props) {
-  const rows = props.technicians;
+  const rows = props.data;
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -215,7 +219,7 @@ export default function EnhancedTable(props) {
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={{ width: "80vw" }}>
         <Tooltip title="Add">
           <IconButton
             aria-label="Add"
@@ -302,6 +306,8 @@ export default function EnhancedTable(props) {
                             <EditIcon />
                           </IconButton>
                         </Tooltip>
+                      </TableCell>
+                      <TableCell style={{ textAlign: "left" }}>
                         <Tooltip title="Delete">
                           <IconButton
                             aria-label="delete"
