@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import BoilerType from "../../../mocks/boiler-type.json";
-//import Table from "./Table.jsx";
 import Form from "./Form.jsx";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
@@ -55,10 +54,6 @@ function BoilerModel() {
     }
   };
 
-  const toAdd = () => {
-    console.log("NEW");
-  };
-
   const addEdit = (newOne) => {
     let updateBoilerType = null;
     if (newOne._id.$oid === null) {
@@ -104,7 +99,6 @@ function BoilerModel() {
         name={name}
         toDelete={delItem}
         toEdit={captureId}
-        toAdd={toAdd}
         toggleForm={toggleForm}
       />
     </React.Fragment>
@@ -131,11 +125,3 @@ const titleStyle = {
 };
 
 export default BoilerModel;
-
-/*<Table
-boilerType={boilerType}
-toggleForm={toggleForm}
-captureId={captureId}
-delItem={delItem}
-        captureId={captureId}
-/>*/
