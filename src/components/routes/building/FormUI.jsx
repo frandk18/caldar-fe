@@ -105,6 +105,7 @@ function Form(props) {
     },
     input: {
       boxSizing: "border-box",
+      margin: "8",
     },
   }));
 
@@ -216,7 +217,6 @@ function Form(props) {
                         defaultValue={newOne.name}
                         onChange={handleChange}
                         label="Name"
-                        style={{ margin: 8 }}
                         placeholder="John Doe"
                         fullWidth
                         margin="normal"
@@ -232,7 +232,6 @@ function Form(props) {
                         defaultValue={newOne.address}
                         onChange={handleChange}
                         label="Address"
-                        style={{ margin: 8 }}
                         placeholder="Balcarce 54"
                         fullWidth
                         margin="normal"
@@ -248,7 +247,6 @@ function Form(props) {
                         defaultValue={newOne.zipcode}
                         onChange={handleChange}
                         label="Zip Code"
-                        style={{ margin: 8 }}
                         placeholder="4444"
                         fullWidth
                         margin="normal"
@@ -266,7 +264,6 @@ function Form(props) {
                         defaultValue={newOne.contact}
                         onChange={handleChange}
                         label="Contact"
-                        style={{ margin: 8 }}
                         placeholder="John Doe"
                         fullWidth
                         margin="normal"
@@ -281,7 +278,6 @@ function Form(props) {
                         defaultValue={newOne.phone}
                         onChange={handleChange}
                         label="Phone"
-                        style={{ margin: 8 }}
                         placeholder="55555555"
                         fullWidth
                         margin="normal"
@@ -296,7 +292,6 @@ function Form(props) {
                         defaultValue={newOne.email}
                         onChange={handleChange}
                         label="Email"
-                        style={{ margin: 8 }}
                         placeholder="example@something.com"
                         fullWidth
                         margin="normal"
@@ -311,7 +306,6 @@ function Form(props) {
                         defaultValue={newOne.obs}
                         onChange={handleChange}
                         label="Observations"
-                        style={{ margin: 8 }}
                         placeholder="Write some details"
                         fullWidth
                         margin="normal"
