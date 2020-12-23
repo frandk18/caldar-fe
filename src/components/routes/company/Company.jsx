@@ -1,15 +1,47 @@
 import React, { useState } from "react";
-import Companies from "../../../mocks/companies.json"
-import Table from "./Table.jsx";
-import Form from "./Form.jsx";
+import Companies from "../../../mocks/companies.json";
 import { v4 as uuidv4 } from "uuid";
+import TableUI from "../../shared/TableUI.jsx";
+import FormUI from "./FormUI.jsx";
 
 function Company() {
   const [companies, setCompanies] = useState(Companies);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
+  const [headCells] = useState([
+    {
+      id: "CIN",
+      align: "center",
+      disablePadding: false,
+      label: "CIN",
+    },
+    {
+      id: "name",
+      align: "center",
+      disablePadding: false,
+      label: "name",
+    },
+    { id: "email", align: "center", disablePadding: false, label: "E-mail" },
+    { id: "phone", align: "center", disablePadding: false, label: "Phone" },
+    { id: "address", align: "center", disablePadding: false, label: "Address" },
+    {
+      id: "zipcode",
+      align: "center",
+      disablePadding: false,
+      label: "zipcode",
+    },
+  ]);
 
+  const fieldObj = [
+    "CIN",
+    "name",
+    "email",
+    "phone",
+    "address",
+    "zipcode",
+  ];
+  const name = "Company";
   const captureId = (id) => {
     setId(id);
     if (id !== null) {
@@ -20,13 +52,8 @@ function Company() {
 
   const toggleForm = () => {
     setShowForm(!showForm);
-  };
-
-  const delItem = (id) => {
-    if (id !== null) {
-      setCompanies([
-        ...companies.filter((company) => company._id.$oid !== id),
-      ]);
+    if (editing) {
+      setEditing(false);
     }
   };
 
@@ -52,49 +79,60 @@ function Company() {
     toggleForm();
   };
 
-  console.log(editing);
+  const toDelete = (id) => {
+    if (id !== null) {
+      setCompanies([
+        ...companies.filter((company) => company._id.$oid !== id),
+      ]);
+    }
+  };
+
+  const toEdit = (id) => {
+    console.log(id);
+    toggleForm();
+  };
+
+  const toAdd = () => {};
 
   return (
     <React.Fragment>
-      <div style={containerStyle}>
-        <div style={titleStyle}>Companies</div>
-        {showForm && (
-          <Form
-            companies={companies}
-            id={id}
-            editing={editing}
-            addEdit={addEdit}
-            toggleForm={toggleForm}
-          />
-        )}
-        <Table
+      {/*{newItem && (
+        <DataForm
           companies={companies}
+          id={id}
+          addEdit={addEdit}
           toggleForm={toggleForm}
-          captureId={captureId}
-          delItem={delItem}
         />
-      </div>
+      )}*/}
+      {showForm && (
+        <FormUI
+          toggleForm={toggleForm}
+          showForm={showForm}
+          companies={companies}
+          id={id}
+          editing={editing}
+          addEdit={addEdit}
+        />
+      )}
+      {/*
+      <Table
+        companies={companies}
+        toggleForm={toggleForm}
+        newItem={newItem}
+        captureId={captureId}
+        delItem={delItem}
+      />*/}
+      <TableUI
+        headCells={headCells}
+        data={companies}
+        fieldObj={fieldObj}
+        name={name}
+        toDelete={toDelete}
+        toEdit={captureId}
+        toAdd={toAdd}
+        toggleForm={toggleForm}
+      />
     </React.Fragment>
   );
 }
-
-const containerStyle = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  border: "2px #707070 solid",
-  borderRadius: "25px",
-  padding: "30px 50px 50px 50px",
-};
-
-const titleStyle = {
-  fontSize: "22px",
-  fontWeight: "600",
-  color: "#094455",
-  textDecoration: "underline",
-  textAlign: "center",
-  marginBottom: "20px",
-};
-
 export default Company;
