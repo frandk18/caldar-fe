@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import BoilerType from "../../mocks/boiler-type.json";
-import Table from "./Table.jsx";
+import BoilerType from "../../../mocks/boiler-type.json";
+//import Table from "./Table.jsx";
 import Form from "./Form.jsx";
 import { v4 as uuidv4 } from "uuid";
+import TableUI from "../../shared/TableUI.jsx";
 
 function BoilerModel() {
   const [boilerType, setBoilerType] = useState(BoilerType);
@@ -10,6 +11,30 @@ function BoilerModel() {
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
 
+  const [headCells] = useState([
+    {
+      id: "model",
+      align: "center",
+      disablePadding: false,
+      label: "Boiler Model",
+    },
+    {
+      id: "std_maintainance",
+      align: "center",
+      disablePadding: false,
+      label: "Standard maintainance time",
+    },
+    {
+      id: "observation",
+      align: "center",
+      disablePadding: false,
+      label: "Observation",
+    },
+  ]);
+
+  const fieldObj = ["model", "std_maintainance", "observation"];
+
+  const name = "Boiler Type";
   const captureId = (id) => {
     setId(id);
     if (id !== null) {
@@ -28,6 +53,10 @@ function BoilerModel() {
         ...boilerType.filter((boilerType) => boilerType._id.$oid !== id),
       ]);
     }
+  };
+
+  const toAdd = () => {
+    console.log("NEW");
   };
 
   const addEdit = (newOne) => {
@@ -67,13 +96,17 @@ function BoilerModel() {
             toggleForm={toggleForm}
           />
         )}
-        <Table
-          boilerType={boilerType}
-          toggleForm={toggleForm}
-          captureId={captureId}
-          delItem={delItem}
-        />
       </div>
+      <TableUI
+        headCells={headCells}
+        data={boilerType}
+        fieldObj={fieldObj}
+        name={name}
+        toDelete={delItem}
+        toEdit={captureId}
+        toAdd={toAdd}
+        toggleForm={toggleForm}
+      />
     </React.Fragment>
   );
 }
@@ -98,3 +131,11 @@ const titleStyle = {
 };
 
 export default BoilerModel;
+
+/*<Table
+boilerType={boilerType}
+toggleForm={toggleForm}
+captureId={captureId}
+delItem={delItem}
+        captureId={captureId}
+/>*/
