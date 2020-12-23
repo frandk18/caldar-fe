@@ -28,13 +28,17 @@ function Form(props) {
       $oid: props.editing ? technician[0]._id.$oid : null,
     },
     fullname: props.editing ? technician[0].fullname : "",
-    knowledge: [props.editing ? technician[0].knowledge[0] : ""],
+    knowledge: props.editing
+      ? JSON.parse(JSON.stringify(technician[0].knowledge))
+      : [],
     email: props.editing ? technician[0].email : "",
     phone: props.editing ? technician[0].phone : "",
     address: props.editing ? technician[0].address : "",
-    dateOfBirth: props.editing ? technician[0].dateOfBirth : Date(),
+    dateOfBirth: props.editing ? technician[0].dateOfBirth : "12/09/2018",
     obs: props.editing ? technician[0].obs : "",
   });
+  const forDate = newOne.dateOfBirth.split("/");
+  const birth = new Date(forDate[2], forDate[0] - 1, forDate[1]);
 
   const handleChange = (evt) => {
     const value = evt.target.value;
@@ -60,13 +64,12 @@ function Form(props) {
     },
   };
 
-  const names = ["A", "B", "C", "D"];
   const useStyles = makeStyles((theme) => ({
-    root: {
+    /*roota: {
       display: "flex",
       flexWrap: "wrap",
-      widht: "25%",
-    },
+      width: "25%",
+    },Remove, but check first, cause it have two root class*/
     textField: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
@@ -110,16 +113,21 @@ function Form(props) {
 
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = useState(
-    new Date(newOne.dateOfBirth)
-  );
-
+  const [selectedDate, setSelectedDate] = useState(birth);
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    setNewOne((newOne.dateOfBirth = selectedDate));
+    const dd = date.getDate();
+    const mm = date.getMonth() + 1;
+    const y = date.getFullYear();
+    newOne.dateOfBirth = mm + "/" + dd + "/" + y;
   };
 
-  const [personName, setPersonName] = React.useState([]);
+  const names = ["A", "B", "C", "D"];
+  const [personName, setPersonName] = useState(newOne.knowledge);
+  const handleSelectChange = (event) => {
+    setPersonName(event.target.value);
+    newOne.knowledge = event.target.value;
+  };
 
   return (
     <div>
@@ -178,19 +186,17 @@ function Form(props) {
                       <InputLabel>Knowledge</InputLabel>
                       <Select
                         labelId="demo-mutiple-checkbox-label"
-                        id="demo-mutiple-checkbox"
+                        id="knowledge"
                         multiple
                         value={personName}
-                        onChange={handleChange}
+                        onChange={handleSelectChange}
                         input={<Input />}
                         renderValue={(selected) => selected.join(", ")}
                         MenuProps={MenuProps}
                       >
-                        {newOne.knowledge.map((name) => (
+                        {names.map((name) => (
                           <MenuItem key={name} value={name}>
-                            <Checkbox
-                              checked={newOne.knowledge.indexOf(name) > -1}
-                            />
+                            <Checkbox checked={personName.indexOf(name) > -1} />
                             <ListItemText primary={name} />
                           </MenuItem>
                         ))}
@@ -200,10 +206,9 @@ function Form(props) {
                       <KeyboardDatePicker
                         style={{ margin: 8 }}
                         margin="normal"
-                        name="dateOfbirth"
                         label="Birthdate"
                         format="MM/dd/yyyy"
-                        defaultValue={selectedDate}
+                        value={selectedDate}
                         onChange={handleDateChange}
                         KeyboardButtonProps={{
                           "aria-label": "change date",

@@ -221,7 +221,7 @@ export default function EnhancedTable(props) {
             aria-label="Add"
             style={{ float: "right" }}
             onClick={(event) => {
-              props.toAdd();
+              props.toAdd(); //This is unnecessary
               props.toggleForm();
             }}
           >

@@ -41,8 +41,9 @@ function Technician() {
     "address",
     "dateOfBirth",
   ];
-  const name = "Technician";
-  const captureId = (id) => {
+  const name = "Technicians";
+
+  const toEdit = (id) => {
     setId(id);
     if (id !== null) {
       setEditing(true);
@@ -87,23 +88,10 @@ function Technician() {
     }
   };
 
-  const toEdit = (id) => {
-    console.log(id);
-    toggleForm();
-  };
-
-  const toAdd = () => {};
+  const toAdd = () => {}; //This is unnecessary
 
   return (
     <React.Fragment>
-      {/*{newItem && (
-        <DataForm
-          technicians={technicians}
-          id={id}
-          addEdit={addEdit}
-          toggleForm={toggleForm}
-        />
-      )}*/}
       {showForm && (
         <FormUI
           toggleForm={toggleForm}
@@ -114,22 +102,14 @@ function Technician() {
           addEdit={addEdit}
         />
       )}
-      {/*
-      <Table
-        technicians={technicians}
-        toggleForm={toggleForm}
-        newItem={newItem}
-        captureId={captureId}
-        delItem={delItem}
-      />*/}
       <TableUI
         headCells={headCells}
         data={technicians}
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
-        toEdit={captureId}
-        toAdd={toAdd}
+        toEdit={toEdit}
+        toAdd={toAdd} //This is unnecessary
         toggleForm={toggleForm}
       />
     </React.Fragment>
