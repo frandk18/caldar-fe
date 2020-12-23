@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import ListItemText from "@material-ui/core/ListItemText";
-import Select from "@material-ui/core/Select";
-import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -40,17 +33,6 @@ function Form(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.addEdit(newOne);
-  };
-
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -191,7 +173,7 @@ function Form(props) {
                     onChange={handleChange}
                     label="Address"
                     style={{ margin: 8 }}
-                    placeholder="Balcarce 54"
+                    placeholder="Avenida siempre viva 608"
                     fullWidth
                     margin="normal"
                     InputLabelProps={{
@@ -205,7 +187,7 @@ function Form(props) {
                     onChange={handleChange}
                     label="zipcode"
                     style={{ margin: 8 }}
-                    placeholder="Avenida siempre viva 608"
+                    placeholder="1234-55"
                     fullWidth
                     margin="normal"
                     InputLabelProps={{
