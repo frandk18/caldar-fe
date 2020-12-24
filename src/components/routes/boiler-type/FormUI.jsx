@@ -31,17 +31,6 @@ function Form(props) {
     props.addEdit(newOne);
   };
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
   const useStyles = makeStyles((theme) => ({
     textField: {
       marginLeft: theme.spacing(1),
@@ -85,13 +74,6 @@ function Form(props) {
   };
 
   const classes = useStyles();
-
-  const names = ["A", "B", "C", "D"];
-  const [personName, setPersonName] = useState(newOne.knowledge);
-  const handleSelectChange = (event) => {
-    setPersonName(event.target.value);
-    newOne.knowledge = event.target.value;
-  };
 
   return (
     <div>
