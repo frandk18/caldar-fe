@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import BoilerType from "../../../mocks/boiler-type.json";
-import Form from "./Form.jsx";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
+import FormUI from "./FormUI.jsx";
 
 function BoilerModel() {
   const [boilerType, setBoilerType] = useState(BoilerType);
@@ -80,15 +80,15 @@ function BoilerModel() {
 
   return (
     <React.Fragment>
-      <div style={containerStyle}>
-        <div style={titleStyle}>Boiler Model</div>
+      <div>
         {showForm && (
-          <Form
+          <FormUI
+            toggleForm={toggleForm}
+            showForm={showForm}
             boilerType={boilerType}
             id={id}
             editing={editing}
             addEdit={addEdit}
-            toggleForm={toggleForm}
           />
         )}
       </div>
