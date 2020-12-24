@@ -27,10 +27,10 @@
     "obs": "",
     "boilers": [
       {
-        "$oid": "5fd513aefc13ae284d000002"
+        "$oid": "5fe33c05fc13ae6a2100005a"
       },
       {
-        "$oid": "5fd513aefc13ae284d000003"
+        "$oid": "5fe33c05fc13ae6a2100005c"
       }
     ]
   },
@@ -48,10 +48,10 @@
     "obs": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.",
     "boilers": [
       {
-        "$oid": "5fd513aefc13ae284d000005"
+        "$oid": "5fe33c05fc13ae6a2100005e"
       },
       {
-        "$oid": "5fd513aefc13ae284d000006"
+        "$oid": "5fe33c05fc13ae6a21000060"
       }
     ]
   },

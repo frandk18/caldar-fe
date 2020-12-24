@@ -1,0 +1,482 @@
+[
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100005a"
+    },
+    "building": {
+      "$oid": "5fd513aefc13ae284d000001"
+    },
+    "type": "B",
+    "serialNumber": 7606,
+    "manufacturingDate": "06/11/2020",
+    "status": "working"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100005c"
+    },
+    "building": {
+      "$oid": "5fd513aefc13ae284d000001"
+    },
+    "type": "A",
+    "serialNumber": 7183,
+    "manufacturingDate": "02/13/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100005e"
+    },
+    "building": {
+      "$oid": "5fd513aefc13ae284d000004"
+    },
+    "type": "D",
+    "serialNumber": 3137,
+    "manufacturingDate": "09/26/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000060"
+    },
+    "building": {
+      "$oid": "5fd513aefc13ae284d000004"
+    },
+    "type": "A",
+    "serialNumber": 6105,
+    "manufacturingDate": "09/10/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000062"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000063"
+    },
+    "type": "C",
+    "serialNumber": 3825,
+    "manufacturingDate": "04/17/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000064"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000065"
+    },
+    "type": "B",
+    "serialNumber": 9551,
+    "manufacturingDate": "11/22/2020",
+    "status": "working"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000066"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000067"
+    },
+    "type": "A",
+    "serialNumber": 5392,
+    "manufacturingDate": "01/21/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000068"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000069"
+    },
+    "type": "C",
+    "serialNumber": 4272,
+    "manufacturingDate": "02/27/2020",
+    "status": "working"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100006a"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100006b"
+    },
+    "type": "A",
+    "serialNumber": 1227,
+    "manufacturingDate": "01/11/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100006c"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100006d"
+    },
+    "type": "A",
+    "serialNumber": 7526,
+    "manufacturingDate": "02/02/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100006e"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100006f"
+    },
+    "type": "B",
+    "serialNumber": 5783,
+    "manufacturingDate": "10/05/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000070"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000071"
+    },
+    "type": "A",
+    "serialNumber": 1957,
+    "manufacturingDate": "07/17/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000072"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000073"
+    },
+    "type": "B",
+    "serialNumber": 2294,
+    "manufacturingDate": "03/26/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000074"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000075"
+    },
+    "type": "B",
+    "serialNumber": 6918,
+    "manufacturingDate": "07/22/2020",
+    "status": "working"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000076"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000077"
+    },
+    "type": "A",
+    "serialNumber": 1563,
+    "manufacturingDate": "10/05/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000078"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000079"
+    },
+    "type": "B",
+    "serialNumber": 7633,
+    "manufacturingDate": "07/09/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100007a"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100007b"
+    },
+    "type": "D",
+    "serialNumber": 6079,
+    "manufacturingDate": "03/22/2020",
+    "status": "working"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100007c"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100007d"
+    },
+    "type": "C",
+    "serialNumber": 5183,
+    "manufacturingDate": "09/07/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100007e"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100007f"
+    },
+    "type": "D",
+    "serialNumber": 2371,
+    "manufacturingDate": "05/06/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000080"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000081"
+    },
+    "type": "C",
+    "serialNumber": 2106,
+    "manufacturingDate": "02/09/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000082"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000083"
+    },
+    "type": "B",
+    "serialNumber": 5254,
+    "manufacturingDate": "08/25/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000084"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000085"
+    },
+    "type": "A",
+    "serialNumber": 6670,
+    "manufacturingDate": "06/12/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000086"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000087"
+    },
+    "type": "A",
+    "serialNumber": 3363,
+    "manufacturingDate": "08/26/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000088"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000089"
+    },
+    "type": "A",
+    "serialNumber": 3675,
+    "manufacturingDate": "06/11/2020",
+    "status": "working"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100008a"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100008b"
+    },
+    "type": "A",
+    "serialNumber": 5375,
+    "manufacturingDate": "08/17/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100008c"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100008d"
+    },
+    "type": "A",
+    "serialNumber": 9619,
+    "manufacturingDate": "04/05/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100008e"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100008f"
+    },
+    "type": "B",
+    "serialNumber": 4231,
+    "manufacturingDate": "02/24/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000090"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000091"
+    },
+    "type": "C",
+    "serialNumber": 8742,
+    "manufacturingDate": "03/08/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000092"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000093"
+    },
+    "type": "D",
+    "serialNumber": 5165,
+    "manufacturingDate": "03/26/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000094"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000095"
+    },
+    "type": "C",
+    "serialNumber": 7206,
+    "manufacturingDate": "12/13/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000096"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000097"
+    },
+    "type": "D",
+    "serialNumber": 7278,
+    "manufacturingDate": "10/25/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a21000098"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a21000099"
+    },
+    "type": "D",
+    "serialNumber": 2248,
+    "manufacturingDate": "02/06/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100009a"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100009b"
+    },
+    "type": "D",
+    "serialNumber": 3716,
+    "manufacturingDate": "10/17/2020",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100009c"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100009d"
+    },
+    "type": "A",
+    "serialNumber": 4130,
+    "manufacturingDate": "05/09/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a2100009e"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a2100009f"
+    },
+    "type": "C",
+    "serialNumber": 8901,
+    "manufacturingDate": "11/06/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a210000a0"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a210000a1"
+    },
+    "type": "D",
+    "serialNumber": 6532,
+    "manufacturingDate": "12/25/2019",
+    "status": "reserved"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a210000a2"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a210000a3"
+    },
+    "type": "C",
+    "serialNumber": 3545,
+    "manufacturingDate": "09/20/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a210000a4"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a210000a5"
+    },
+    "type": "D",
+    "serialNumber": 8023,
+    "manufacturingDate": "02/26/2020",
+    "status": "available"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a210000a6"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a210000a7"
+    },
+    "type": "A",
+    "serialNumber": 7656,
+    "manufacturingDate": "08/10/2020",
+    "status": "working"
+  },
+  {
+    "_id": {
+      "$oid": "5fe33c05fc13ae6a210000a8"
+    },
+    "building": {
+      "$oid": "5fe33c05fc13ae6a210000a9"
+    },
+    "type": "B",
+    "serialNumber": 6085,
+    "manufacturingDate": "07/04/2020",
+    "status": "reserved"
+  }
+]
