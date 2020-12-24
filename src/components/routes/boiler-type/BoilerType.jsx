@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BoilerType from "../../mocks/boiler-type.json";
+import BoilerType from "../../../mocks/boiler-type.json";
 import Table from "./Table.jsx";
 import Form from "./Form.jsx";
 import { v4 as uuidv4 } from "uuid";
