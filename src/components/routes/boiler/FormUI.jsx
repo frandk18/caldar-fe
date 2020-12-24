@@ -26,12 +26,12 @@ function Form(props) {
       $oid: props.editing ? boiler[0]._id.$oid : null,
     },
     serialNumber: props.editing ? boiler[0].serialNumber : "",
-    type: props.editing ? boiler[0].type : [],
+    type: props.editing ? boiler[0].type : "",
     manufacturingDate: props.editing
-      ? boiler[0].manufaturingDate
+      ? boiler[0].manufacturingDate
       : "12/09/2018",
     status: props.editing ? boiler[0].status : "",
-    building: props.editing ? boiler[0].building : [],
+    building: props.editing ? boiler[0].building : "",
     obs: props.editing ? boiler[0].obs : "",
   });
 
@@ -126,7 +126,7 @@ function Form(props) {
     const dd = date.getDate();
     const mm = date.getMonth() + 1;
     const y = date.getFullYear();
-    newOne.dateOfBirth = mm + "/" + dd + "/" + y;
+    newOne.manufacturingDate = mm + "/" + dd + "/" + y;
   };
 
   const [buildingId, setBuildingId] = useState(newOne.building);
@@ -139,7 +139,7 @@ function Form(props) {
   const [boilerType, setBoilerType] = useState(newOne.type);
   const handleSelectTypeChange = (e) => {
     setBoilerType(e.target.value);
-    newOne.types = e.target.value;
+    newOne.type = e.target.value;
   };
 
   const status = ["available", "working", "reserved"];
