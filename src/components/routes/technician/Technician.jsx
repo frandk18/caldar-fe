@@ -88,8 +88,6 @@ function Technician() {
     }
   };
 
-  const toAdd = () => {}; //This is unnecessary
-
   return (
     <React.Fragment>
       {showForm && (
@@ -109,7 +107,6 @@ function Technician() {
         name={name}
         toDelete={toDelete}
         toEdit={toEdit}
-        toAdd={toAdd} //This is unnecessary
         toggleForm={toggleForm}
       />
     </React.Fragment>

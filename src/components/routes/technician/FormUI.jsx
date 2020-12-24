@@ -147,7 +147,9 @@ function Form(props) {
             <div style={Container}>
               <div className={classes.root}>
                 <div>
-                  <h1 style={{ margin: 8 }}>Add new Technician</h1>
+                  <h1 style={{ margin: 8 }}>
+                    {props.editing ? "Edit Technician" : "Add new Technician"}
+                  </h1>
                   <TextField
                     name="fullname"
                     defaultValue={newOne.fullname}
