@@ -120,7 +120,7 @@ function Technician() {
       />*/}
       <TableUI
         headCells={headCells}
-        technicians={technicians}
+        data={technicians}
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
