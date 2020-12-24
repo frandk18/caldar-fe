@@ -172,7 +172,6 @@ function Form(props) {
                   <h1 style={{ margin: 8 }}>
                     {props.editing ? "Edit Technician" : "New Technician"}
                   </h1>
-
                   <div
                     style={{ display: "flex", justifyContent: "space-around" }}
                   >
