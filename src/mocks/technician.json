@@ -19,7 +19,7 @@
     "phone": "8832133203",
     "address": "356 Dahle Pass",
     "dateOfBirth": "11/19/1983",
-    "knowledge": "C",
+    "knowledge": ["C", "D"],
     "obs": "ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra"
   },
   {
@@ -32,7 +32,7 @@
     "phone": "6833621943",
     "address": "76 Lukken Crossing",
     "dateOfBirth": "12/27/1989",
-    "knowledge": "A",
+    "knowledge": [],
     "obs": "odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus"
   },
   {
@@ -45,7 +45,7 @@
     "phone": "8868975933",
     "address": "69 Jay Street",
     "dateOfBirth": "8/29/1987",
-    "knowledge": "A",
+    "knowledge": ["A"],
     "obs": "tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec"
   },
   {
@@ -65,7 +65,7 @@
     "phone": "7555422128",
     "address": "58 Debra Crossing",
     "dateOfBirth": "5/7/1991",
-    "knowledge": "B",
+    "knowledge": ["A", "B"],
     "obs": "in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in"
   },
   {
@@ -88,7 +88,7 @@
     "phone": "1891792539",
     "address": "78374 Debra Circle",
     "dateOfBirth": "7/19/1998",
-    "knowledge": "B",
+    "knowledge": ["D"],
     "obs": "commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit"
   },
   {
@@ -101,7 +101,7 @@
     "phone": "5982412707",
     "address": "23394 Declaration Crossing",
     "dateOfBirth": "10/8/1974",
-    "knowledge": "A",
+    "knowledge": ["A"],
     "obs": "in porttitor pede justo eu massa"
   },
   {
@@ -127,7 +127,7 @@
     "phone": "5406008715",
     "address": "6186 Hoepker Plaza",
     "dateOfBirth": "1/4/1973",
-    "knowledge": "C",
+    "knowledge": ["B", "C"],
     "obs": "augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat"
   },
   {
@@ -140,7 +140,7 @@
     "phone": "9711239543",
     "address": "80 Paget Road",
     "dateOfBirth": "10/2/1997",
-    "knowledge": "D",
+    "knowledge": ["D"],
     "obs": "nibh in quis justo maecenas rhoncus aliquam lacus"
   },
   {
@@ -166,7 +166,7 @@
     "phone": "3561562133",
     "address": "1535 Rockefeller Center",
     "dateOfBirth": "9/21/1972",
-    "knowledge": "A",
+    "knowledge": ["A"],
     "obs": "lobortis est phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac"
   },
   {
@@ -186,7 +186,7 @@
     "phone": "8389716857",
     "address": "34820 East Court",
     "dateOfBirth": "7/23/2000",
-    "knowledge": "C",
+    "knowledge": ["C", "D"],
     "obs": "arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula"
   },
   {
@@ -209,7 +209,7 @@
     "phone": "7278099914",
     "address": "8 Sommers Junction",
     "dateOfBirth": "4/1/1975",
-    "knowledge": "A",
+    "knowledge": [],
     "obs": "id mauris vulputate elementum nullam varius"
   },
   {
@@ -222,7 +222,7 @@
     "phone": "9898366147",
     "address": "518 Bartelt Parkway",
     "dateOfBirth": "11/18/1989",
-    "knowledge": "D",
+    "knowledge": ["D"],
     "obs": "lacinia aenean sit amet justo morbi"
   },
   {
@@ -235,7 +235,7 @@
     "phone": "5316570669",
     "address": "5106 American Ash Center",
     "dateOfBirth": "1/14/2000",
-    "knowledge": "B",
+    "knowledge": ["A", "B"],
     "obs": "platea dictumst maecenas ut massa quis augue luctus tincidunt"
   },
   {
@@ -258,7 +258,7 @@
     "phone": "7346320176",
     "address": "0461 Calypso Road",
     "dateOfBirth": "7/25/1983",
-    "knowledge": "D",
+    "knowledge": ["A", "B", "C", "D"],
     "obs": "nisl nunc nisl duis bibendum felis sed interdum"
   },
   {
@@ -281,7 +281,7 @@
     "phone": "9439866417",
     "address": "7961 Mcguire Court",
     "dateOfBirth": "9/20/1990",
-    "knowledge": "D",
+    "knowledge": ["A", "D"],
     "obs": "eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus in"
   },
   {
@@ -298,7 +298,7 @@
     "phone": "6972677061",
     "address": "30010 Arrowood Court",
     "dateOfBirth": "9/18/1971",
-    "knowledge": "D",
+    "knowledge": [],
     "obs": "nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum"
   },
   {
@@ -321,7 +321,7 @@
     "phone": "4387871945",
     "address": "99 Transport Trail",
     "dateOfBirth": "11/28/1993",
-    "knowledge": "D",
+    "knowledge": ["B", "D"],
     "obs": "eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat"
   },
   {
@@ -334,7 +334,7 @@
     "phone": "2904570499",
     "address": "62 Sloan Trail",
     "dateOfBirth": "7/28/1974",
-    "knowledge": "D",
+    "knowledge": ["D"],
     "obs": "in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est"
   },
   {
@@ -357,7 +357,7 @@
     "phone": "4044099775",
     "address": "85105 Briar Crest Crossing",
     "dateOfBirth": "3/1/1982",
-    "knowledge": "C",
+    "knowledge": ["A", "C"],
     "obs": "amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis"
   },
   {
@@ -374,7 +374,7 @@
     "phone": "9326620827",
     "address": "47659 Dexter Crossing",
     "dateOfBirth": "2/9/1977",
-    "knowledge": "B",
+    "knowledge": ["B", "C"],
     "obs": "amet consectetuer adipiscing elit proin risus praesent lectus vestibulum quam sapien varius ut blandit"
   },
   {
@@ -400,7 +400,7 @@
     "phone": "3091980428",
     "address": "0 Westridge Lane",
     "dateOfBirth": "7/13/1979",
-    "knowledge": "A",
+    "knowledge": ["A", "D"],
     "obs": "iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo"
   },
   {
@@ -417,7 +417,7 @@
     "phone": "5709409822",
     "address": "2 Farwell Plaza",
     "dateOfBirth": "10/30/1973",
-    "knowledge": "D",
+    "knowledge": [],
     "obs": "faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat"
   },
   {
@@ -443,7 +443,7 @@
     "phone": "1802372548",
     "address": "4082 Mendota Lane",
     "dateOfBirth": "8/9/1988",
-    "knowledge": "D",
+    "knowledge": ["A", "C", "D"],
     "obs": "enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum mauris ullamcorper"
   },
   {
@@ -463,7 +463,7 @@
     "phone": "3339830275",
     "address": "62081 Cascade Plaza",
     "dateOfBirth": "11/12/1992",
-    "knowledge": "D",
+    "knowledge": ["A", "C", "D"],
     "obs": "neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo"
   },
   {
@@ -486,7 +486,7 @@
     "phone": "2856746573",
     "address": "32044 Tennyson Street",
     "dateOfBirth": "2/9/1984",
-    "knowledge": "D",
+    "knowledge": ["B", "C", "D"],
     "obs": "quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices"
   },
   {
@@ -503,7 +503,7 @@
     "phone": "6845882375",
     "address": "39 Prentice Crossing",
     "dateOfBirth": "10/27/2000",
-    "knowledge": "D",
+    "knowledge": ["A"],
     "obs": "turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam"
   },
   {
@@ -523,7 +523,7 @@
     "phone": "4395461122",
     "address": "974 Moose Way",
     "dateOfBirth": "6/20/2000",
-    "knowledge": "D",
+    "knowledge": ["B"],
     "obs": "mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus"
   },
   {
@@ -536,7 +536,7 @@
     "phone": "2566098941",
     "address": "085 Cambridge Junction",
     "dateOfBirth": "9/22/1984",
-    "knowledge": "A",
+    "knowledge": ["A", "C"],
     "obs": "risus dapibus augue vel accumsan tellus"
   },
   {
@@ -553,7 +553,7 @@
     "phone": "3391183860",
     "address": "7801 Tennessee Avenue",
     "dateOfBirth": "9/21/2000",
-    "knowledge": "C",
+    "knowledge": ["B", "C"],
     "obs": "proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis"
   },
   {
@@ -566,7 +566,7 @@
     "phone": "4006609206",
     "address": "588 Lake View Court",
     "dateOfBirth": "7/3/2000",
-    "knowledge": "D",
+    "knowledge": ["B", "C"],
     "obs": "suspendisse potenti nullam porttitor lacus at"
   },
   {
@@ -589,7 +589,7 @@
     "phone": "5488346973",
     "address": "92538 Bowman Alley",
     "dateOfBirth": "9/7/1975",
-    "knowledge": "D",
+    "knowledge": ["B", "D"],
     "obs": "odio odio elementum eu interdum eu tincidunt"
   },
   {
@@ -606,7 +606,7 @@
     "phone": "4772556559",
     "address": "56370 Montana Terrace",
     "dateOfBirth": "4/14/1982",
-    "knowledge": "D",
+    "knowledge": [],
     "obs": "natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam"
   },
   {
@@ -626,7 +626,7 @@
     "phone": "2956764724",
     "address": "5 Division Point",
     "dateOfBirth": "7/24/1985",
-    "knowledge": "C",
+    "knowledge": ["A", "C"],
     "obs": "mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum"
   },
   {
@@ -643,7 +643,7 @@
     "phone": "6347402700",
     "address": "59512 Bowman Crossing",
     "dateOfBirth": "4/4/1987",
-    "knowledge": "B",
+    "knowledge": ["B", "D"],
     "obs": "ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus"
   },
   {
@@ -656,7 +656,7 @@
     "phone": "8561340073",
     "address": "1 Ridgeview Terrace",
     "dateOfBirth": "12/6/1996",
-    "knowledge": "D",
+    "knowledge": ["B", "C"],
     "obs": "pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus"
   },
   {
@@ -682,7 +682,7 @@
     "phone": "6064331117",
     "address": "87 Roth Place",
     "dateOfBirth": "11/8/1977",
-    "knowledge": "D",
+    "knowledge": ["B"],
     "obs": "phasellus id sapien in sapien iaculis congue vivamus"
   },
   {
@@ -695,7 +695,7 @@
     "phone": "1136490680",
     "address": "7 Lunder Avenue",
     "dateOfBirth": "5/5/1979",
-    "knowledge": "D",
+    "knowledge": ["A"],
     "obs": "placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan"
   },
   {
@@ -708,7 +708,7 @@
     "phone": "2327995984",
     "address": "2 Marcy Alley",
     "dateOfBirth": "8/11/1987",
-    "knowledge": "A",
+    "knowledge": ["D"],
     "obs": "volutpat dui maecenas tristique est et tempus semper est"
   },
   {
@@ -734,7 +734,7 @@
     "phone": "5456063757",
     "address": "90702 Dovetail Drive",
     "dateOfBirth": "4/14/1997",
-    "knowledge": "C",
+    "knowledge": ["C"],
     "obs": "ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat"
   },
   {
@@ -754,7 +754,7 @@
     "phone": "3492860020",
     "address": "4105 Continental Park",
     "dateOfBirth": "12/15/1984",
-    "knowledge": "D",
+    "knowledge": ["C"],
     "obs": "platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum"
   },
   {
@@ -780,7 +780,7 @@
     "phone": "8467742816",
     "address": "00687 Clemons Lane",
     "dateOfBirth": "10/18/1981",
-    "knowledge": "D",
+    "knowledge": ["D"],
     "obs": "faucibus orci luctus et ultrices posuere cubilia curae mauris"
   },
   {
@@ -806,7 +806,7 @@
     "phone": "5635072479",
     "address": "46 Division Parkway",
     "dateOfBirth": "5/14/1973",
-    "knowledge": "A",
+    "knowledge": [],
     "obs": "tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat"
   },
   {
@@ -819,7 +819,7 @@
     "phone": "6805370838",
     "address": "23887 Weeping Birch Place",
     "dateOfBirth": "10/25/1976",
-    "knowledge": "D",
+    "knowledge": [],
     "obs": "dapibus dolor vel est donec odio justo sollicitudin ut suscipit a"
   },
   {
@@ -842,7 +842,7 @@
     "phone": "1343570133",
     "address": "60168 Bellgrove Alley",
     "dateOfBirth": "8/31/1975",
-    "knowledge": "D",
+    "knowledge": ["C", "D"],
     "obs": "pede libero quis orci nullam molestie nibh in lectus"
   },
   {
@@ -868,7 +868,7 @@
     "phone": "8887654390",
     "address": "913 Schiller Plaza",
     "dateOfBirth": "8/26/1984",
-    "knowledge": "C",
+    "knowledge": ["C", "D"],
     "obs": "nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et"
   },
   {
@@ -888,7 +888,7 @@
     "phone": "5616926807",
     "address": "9 Golf Crossing",
     "dateOfBirth": "11/30/1993",
-    "knowledge": "D",
+    "knowledge": ["A", "D"],
     "obs": "integer pede justo lacinia eget tincidunt eget tempus"
   },
   {
@@ -911,7 +911,7 @@
     "phone": "7971866634",
     "address": "92167 Dixon Street",
     "dateOfBirth": "6/20/1984",
-    "knowledge": "D",
+    "knowledge": ["B", "D"],
     "obs": "auctor sed tristique in tempus sit amet sem"
   },
   {
@@ -924,7 +924,7 @@
     "phone": "1862590918",
     "address": "60 Monterey Junction",
     "dateOfBirth": "6/18/1998",
-    "knowledge": "A",
+    "knowledge": ["A", "D"],
     "obs": "elit proin risus praesent lectus vestibulum quam sapien varius ut blandit non interdum in ante"
   },
   {
@@ -941,7 +941,7 @@
     "phone": "3044664361",
     "address": "9 Loeprich Plaza",
     "dateOfBirth": "5/28/1992",
-    "knowledge": "D",
+    "knowledge": ["B", "C"],
     "obs": "pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac nulla sed vel enim sit amet"
   },
   {
@@ -958,7 +958,7 @@
     "phone": "7464937627",
     "address": "95 Mifflin Park",
     "dateOfBirth": "11/11/1985",
-    "knowledge": "C",
+    "knowledge": ["B", "D"],
     "obs": "mauris viverra diam vitae quam suspendisse potenti nullam porttitor"
   }
 ]
