@@ -121,7 +121,7 @@ function Form(props) {
     newOne.company = e.target.value;
   };
 
-  const [boielrId, setBoilerId] = useState(newOne.boilers);
+  const [boilerId, setBoilerId] = useState(newOne.boilers);
   const handleSelectBoilersChange = (e) => {
     setBoilerId(e.target.value);
     newOne.boilers = e.target.value;
@@ -189,7 +189,7 @@ function Form(props) {
                         <Select
                           labelId="boilers"
                           id="boilers"
-                          value={boielrId}
+                          value={boilerId}
                           multiple
                           onChange={handleSelectBoilersChange}
                           input={<Input />}
@@ -203,7 +203,7 @@ function Form(props) {
                             >
                               <Checkbox
                                 checked={
-                                  boielrId.indexOf(boiler.serialNumber) > -1
+                                  boilerId.indexOf(boiler.serialNumber) > -1
                                 }
                               />
                               <ListItemText primary={boiler.serialNumber} />
