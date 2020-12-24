@@ -11,7 +11,7 @@ function Company() {
   const [id, setId] = useState(null);
   const [headCells] = useState([
     {
-      id: 
+      id: "CIN",
       align: "center",
       disablePadding: false,
       label: "CIN",
@@ -87,23 +87,9 @@ function Company() {
     }
   };
 
-  const toEdit = (id) => {
-    console.log(id);
-    toggleForm();
-  };
-
-  const toAdd = () => {};
-
   return (
     <React.Fragment>
-      {/*{newItem && (
-        <DataForm
-          companies={companies}
-          id={id}
-          addEdit={addEdit}
-          toggleForm={toggleForm}
-        />
-      )}*/}
+      {}
       {showForm && (
         <FormUI
           toggleForm={toggleForm}
@@ -114,14 +100,7 @@ function Company() {
           addEdit={addEdit}
         />
       )}
-      {/*
-      <Table
-        companies={companies}
-        toggleForm={toggleForm}
-        newItem={newItem}
-        captureId={captureId}
-        delItem={delItem}
-      />*/}
+      {}
       <TableUI
         headCells={headCells}
         data={companies}
@@ -129,7 +108,6 @@ function Company() {
         name={name}
         toDelete={toDelete}
         toEdit={captureId}
-        toAdd={toAdd}
         toggleForm={toggleForm}
       />
     </React.Fragment>

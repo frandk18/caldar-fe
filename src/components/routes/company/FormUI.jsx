@@ -15,7 +15,7 @@ function Form(props) {
       $oid: props.editing ? company[0]._id.$oid : null,
     },
     CIN: props.editing ? company[0].CIN : "",
-    name: props.editing ? company[0].name[0] : "",
+    name: props.editing ? company[0].name : "",
     email: props.editing ? company[0].email : "",
     phone: props.editing ? company[0].phone : "",
     address: props.editing ? company[0].address : "",
