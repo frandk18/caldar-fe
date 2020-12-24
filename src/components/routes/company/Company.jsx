@@ -11,7 +11,7 @@ function Company() {
   const [id, setId] = useState(null);
   const [headCells] = useState([
     {
-      id: "CIN",
+      id: 
       align: "center",
       disablePadding: false,
       label: "CIN",
