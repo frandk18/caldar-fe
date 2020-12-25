@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import Technicians from "../../../mocks/technician.json";
-import Table from "./Table.jsx";
-import DataForm from "./DataForm.jsx";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 
 function Technician() {
   const [technicians, setTechnicians] = useState(Technicians);
-  const [newItem, setNewItem] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
   const [headCells] = useState([
     {
@@ -42,21 +41,20 @@ function Technician() {
     "address",
     "dateOfBirth",
   ];
-  const name = "Technician";
-  const captureId = (id) => {
+  const name = "Technicians";
+
+  const toEdit = (id) => {
     setId(id);
+    if (id !== null) {
+      setEditing(true);
+    }
     toggleForm();
   };
 
   const toggleForm = () => {
-    setNewItem(!newItem);
-  };
-
-  const delItem = (id) => {
-    if (id !== null) {
-      setTechnicians([
-        ...technicians.filter((technician) => technician._id.$oid !== id),
-      ]);
+    setShowForm(!showForm);
+    if (editing) {
+      setEditing(false);
     }
   };
 
@@ -77,12 +75,12 @@ function Technician() {
         }),
       ];
       setTechnicians(updateTechnicians);
+      setEditing(false);
     }
     toggleForm();
   };
 
   const toDelete = (id) => {
-    console.log("deleteee", id);
     if (id !== null) {
       setTechnicians([
         ...technicians.filter((technician) => technician._id.$oid !== id),
@@ -90,34 +88,18 @@ function Technician() {
     }
   };
 
-  const toEdit = (id) => {
-    console.log(id);
-    toggleForm();
-  };
-
-  const toAdd = () => {
-    console.log("NEW");
-  };
-
   return (
     <React.Fragment>
-      {newItem && (
-        <DataForm
+      {showForm && (
+        <FormUI
+          toggleForm={toggleForm}
+          showForm={showForm}
           technicians={technicians}
           id={id}
+          editing={editing}
           addEdit={addEdit}
-          toggleForm={toggleForm}
         />
       )}
-      <div>{newItem && <FormUI />}</div>
-      {/*
-      <Table
-        technicians={technicians}
-        toggleForm={toggleForm}
-        newItem={newItem}
-        captureId={captureId}
-        delItem={delItem}
-      />*/}
       <TableUI
         headCells={headCells}
         data={technicians}
@@ -125,7 +107,6 @@ function Technician() {
         name={name}
         toDelete={toDelete}
         toEdit={toEdit}
-        toAdd={toAdd}
         toggleForm={toggleForm}
       />
     </React.Fragment>

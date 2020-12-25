@@ -1,35 +1,47 @@
 import React, { useState } from "react";
 import Buildings from "../../../mocks/building.json";
-import Table from "./Table.jsx";
-import Form from "./Form.jsx";
+import Boilers from "../../../mocks/boiler.json";
+import TableUI from "../../shared/TableUI.jsx";
+import FormUI from "./FormUI.jsx";
 import { v4 as uuidv4 } from "uuid";
 
 function Building() {
   const [buildings, setBuildings] = useState(Buildings);
+  const [boilers] = useState(Boilers);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
+  const [headCells] = useState([
+    { id: "company", align: "center", disablePadding: false, label: "Company" },
+    { id: "name", align: "center", disablePadding: false, label: "Name" },
+    { id: "address", align: "center", disablePadding: false, label: "Address" },
+    {
+      id: "zipcode",
+      align: "center",
+      disablePadding: false,
+      label: "Zip Code",
+    },
+    { id: "contact", align: "center", disablePadding: false, label: "Contact" },
+    { id: "phone", align: "center", disablePadding: false, label: "Phone" },
+    { id: "email", align: "center", disablePadding: false, label: "Email" },
+  ]);
 
-  const captureId = (id) => {
-    setId(id);
-    if (id !== null) {
-      setEditing(true);
-    }
-    toggleForm();
-  };
+  const fieldObj = [
+    "company",
+    "name",
+    "address",
+    "zipcode",
+    "contact",
+    "phone",
+    "email",
+  ];
+
+  const name = "Buildings";
 
   const toggleForm = () => {
     setShowForm(!showForm);
     if (editing) {
       setEditing(false);
-    }
-  };
-
-  const delItem = (id) => {
-    if (id !== null) {
-      setBuildings([
-        ...buildings.filter((building) => building._id.$oid !== id),
-      ]);
     }
   };
 
@@ -55,47 +67,46 @@ function Building() {
     toggleForm();
   };
 
+  const captureId = (id) => {
+    setId(id);
+    if (id !== null) {
+      setEditing(true);
+    }
+    toggleForm();
+  };
+
+  const toDelete = (id) => {
+    if (id !== null) {
+      setBuildings([
+        ...buildings.filter((building) => building._id.$oid !== id),
+      ]);
+    }
+  };
+
   return (
     <React.Fragment>
-      <div>
-        <div style={titleStyle}>Buildings</div>
-        {showForm && (
-          <Form
-            buildings={buildings}
-            id={id}
-            editing={editing}
-            addEdit={addEdit}
-            toggleForm={toggleForm}
-          />
-        )}
-        <Table
+      {showForm && (
+        <FormUI
           buildings={buildings}
+          boilers={boilers}
+          id={id}
+          editing={editing}
+          addEdit={addEdit}
+          showForm={showForm}
           toggleForm={toggleForm}
-          captureId={captureId}
-          delItem={delItem}
         />
-      </div>
+      )}
+      <TableUI
+        headCells={headCells}
+        data={buildings}
+        fieldObj={fieldObj}
+        name={name}
+        toDelete={toDelete}
+        toEdit={captureId}
+        toggleForm={toggleForm}
+      />
     </React.Fragment>
   );
 }
-
-const containerStyle = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  //border: "2px #707070 solid",
-  //borderRadius: "25px",
-  //padding: "30px 30px 30px 30px",
-};
-
-const titleStyle = {
-  fontSize: "22px",
-  fontWeight: "600",
-  color: "#094455",
-  textDecoration: "underline",
-  textAlign: "center",
-  marginBottom: "20px",
-};
 
 export default Building;
