@@ -24,9 +24,10 @@ function Form(props) {
 
   const handleChange = (evt) => {
     const value = evt.target.value;
+    const name = evt.target.name;
     setNewOne({
       ...newOne,
-      [evt.target.name]: value,
+      [name]: value,
     });
   };
 
@@ -36,11 +37,6 @@ function Form(props) {
   };
 
   const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-      flexWrap: "wrap",
-      widht: "25%",
-    },
     textField: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
@@ -74,7 +70,21 @@ function Form(props) {
     paper: {
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      padding: theme.spacing(2, 2, 2),
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    column: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      margin: theme.spacing(2),
+    },
+    input: {
+      boxSizing: "border-box",
+      margin: "8",
     },
   }));
 
@@ -102,99 +112,99 @@ function Form(props) {
           <div className={classes.paper}>
             <div style={Container}>
               <div className={classes.root}>
-                <div>
-                  <h1 style={{ margin: 8 }}>Add new Company</h1>
-                  <TextField
-                    name="CIN"
-                    defaultValue={newOne.CIN}
-                    onChange={handleChange}
-                    label="CIN"
-                    style={{ margin: 8 }}
-                    placeholder="1234"
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
-                  <TextField
-                    name="name"
-                    defaultValue={newOne.name}
-                    onChange={handleChange}
-                    label="Name"
-                    style={{ margin: 8 }}
-                    placeholder="Marcos"
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <h1 style={{ margin: 8 }}>
+                    {props.editing ? "Edit Company" : "New Company"}
+                  </h1>
+
                   <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    style={{ display: "flex", justifyContent: "space-around" }}
                   >
-                    <TextField
+                    <div className={classes.column}>
+                      <TextField
+                        name="CIN"
+                        defaultValue={newOne.CIN}
+                        onChange={handleChange}
+                        label="CIN"
+                        placeholder="123546"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+
+                      <TextField
+                        name="name"
+                        defaultValue={newOne.name}
+                        onChange={handleChange}
+                        label="name"
+                        placeholder="marcos"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+
+                      <TextField
                         name="email"
                         defaultValue={newOne.email}
                         onChange={handleChange}
                         label="Email"
-                        style={{ margin: 8 }}
                         placeholder="marcos@gmail.com"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
-                        shrink: true,
+                          shrink: true,
                         }}
                         variant="outlined"
-                  />
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  ></div>
+                        className={classes.input}
+                      />
+                    </div>
+
+                    <div className={classes.column}>
+                      <TextField
+                        name="address"
+                        defaultValue={newOne.address}
+                        onChange={handleChange}
+                        label="Address"
+                        placeholder="Avenida siempre viva 65"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+                      <TextField
+                        name="zipcode"
+                        defaultValue={newOne.zipcode}
+                        onChange={handleChange}
+                        label="Zipcode"
+                        placeholder="5555-32"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+                    </div>
                   </div>
-                  <TextField
-                    name="phone"
-                    defaultValue={newOne.phone}
-                    onChange={handleChange}
-                    label="Phone"
-                    style={{ margin: 8 }}
-                    placeholder="55555555"
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
-                  <TextField
-                    name="address"
-                    defaultValue={newOne.address}
-                    onChange={handleChange}
-                    label="Address"
-                    style={{ margin: 8 }}
-                    placeholder="Avenida siempre viva 608"
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
-                  <TextField
-                    name="zipcode"
-                    defaultValue={newOne.zipcode}
-                    onChange={handleChange}
-                    label="zipcode"
-                    style={{ margin: 8 }}
-                    placeholder="1234-55"
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                        shrink: true,
-                      }}
-                    variant="outlined"
-                  />
                 </div>
                 <div
                   style={{ display: "flex", justifyContent: "space-around" }}

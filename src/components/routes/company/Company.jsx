@@ -42,7 +42,8 @@ function Company() {
     "zipcode",
   ];
   const name = "Company";
-  const captureId = (id) => {
+
+  const toEdit = (id) => {
     setId(id);
     if (id !== null) {
       setEditing(true);
@@ -87,6 +88,8 @@ function Company() {
     }
   };
 
+  const toAdd = () => {};
+
   return (
     <React.Fragment>
       {}
@@ -107,8 +110,9 @@ function Company() {
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
-        toEdit={captureId}
+        toEdit={toEdit}
         toggleForm={toggleForm}
+        toAdd={toAdd}
       />
     </React.Fragment>
   );
