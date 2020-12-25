@@ -112,7 +112,6 @@ function Company() {
         toDelete={toDelete}
         toEdit={toEdit}
         toggleForm={toggleForm}
-        toAdd={toAdd}
       />
     </React.Fragment>
   );
