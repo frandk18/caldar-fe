@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout.jsx";
 import Technician from "./components/routes/technician/Technician.jsx";
 import Building from "./components/routes/building/Building.jsx";
-import Company from "./components/routes/company/Company";
+import Company from "./components/routes/company/Company.jsx";
 import BoilerType from "./components/routes/boiler-type/BoilerType.jsx";
+
 import "./App.css";
 
 function App() {
