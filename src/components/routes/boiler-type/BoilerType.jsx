@@ -33,7 +33,8 @@ function BoilerModel() {
 
   const fieldObj = ["model", "std_maintainance", "observation"];
 
-  const name = "Boiler Type";
+  const name = "Boiler Model";
+
   const captureId = (id) => {
     setId(id);
     if (id !== null) {
@@ -44,9 +45,12 @@ function BoilerModel() {
 
   const toggleForm = () => {
     setShowForm(!showForm);
+    if (editing) {
+      setEditing(false);
+    }
   };
 
-  const delItem = (id) => {
+  const toDelete = (id) => {
     if (id !== null) {
       setBoilerType([
         ...boilerType.filter((boilerType) => boilerType._id.$oid !== id),
@@ -76,52 +80,29 @@ function BoilerModel() {
     toggleForm();
   };
 
-  console.log(editing);
-
   return (
     <React.Fragment>
-      <div>
-        {showForm && (
-          <FormUI
-            toggleForm={toggleForm}
-            showForm={showForm}
-            boilerType={boilerType}
-            id={id}
-            editing={editing}
-            addEdit={addEdit}
-          />
-        )}
-      </div>
+      {showForm && (
+        <FormUI
+          toggleForm={toggleForm}
+          showForm={showForm}
+          boilerType={boilerType}
+          id={id}
+          editing={editing}
+          addEdit={addEdit}
+        />
+      )}
       <TableUI
         headCells={headCells}
         data={boilerType}
         fieldObj={fieldObj}
         name={name}
-        toDelete={delItem}
+        toDelete={toDelete}
         toEdit={captureId}
         toggleForm={toggleForm}
       />
     </React.Fragment>
   );
 }
-
-const containerStyle = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  border: "2px #707070 solid",
-  borderRadius: "25px",
-  padding: "30px 50px 50px 50px",
-};
-
-const titleStyle = {
-  fontSize: "22px",
-  fontWeight: "600",
-  color: "#094455",
-  textDecoration: "underline",
-  textAlign: "center",
-  marginBottom: "20px",
-};
 
 export default BoilerModel;
