@@ -211,6 +211,7 @@ function Form(props) {
                         defaultValue={newOne.phone}
                         onChange={handleChange}
                         label="Phone"
+                        type="number"
                         placeholder="55555555"
                         fullWidth
                         margin="normal"
