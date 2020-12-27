@@ -273,6 +273,7 @@ function Form(props) {
                         variant="outlined"
                         className={classes.input}
                       />
+
                       <TextField
                         name="phone"
                         defaultValue={newOne.phone}
@@ -287,6 +288,7 @@ function Form(props) {
                         variant="outlined"
                         className={classes.input}
                       />
+
                       <TextField
                         name="email"
                         defaultValue={newOne.email}
@@ -301,6 +303,7 @@ function Form(props) {
                         variant="outlined"
                         className={classes.input}
                       />
+
                       <TextField
                         name="observations"
                         defaultValue={newOne.obs}

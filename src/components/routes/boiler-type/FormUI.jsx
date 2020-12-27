@@ -109,15 +109,15 @@ function Form(props) {
             <div style={Container}>
               <div className={classes.root}>
                 <div>
-                  <h1 style={{ margin: 8 }}>
-                    {props.editing ? "Edit Boiler" : "New Boiler"}
+                  <h1 style={{ margin: 8, textAlign: "center" }}>
+                    {props.editing ? "Edit Boiler Type" : "New Boiler Type"}
                   </h1>
+
                   <TextField
                     name="model"
                     defaultValue={newOne.model}
                     onChange={handleChange}
                     label="Model"
-                    style={{ margin: 8 }}
                     placeholder="A"
                     fullWidth
                     margin="normal"
@@ -127,27 +127,36 @@ function Form(props) {
                     variant="outlined"
                     className={classes.input}
                   />
+
                   <TextField
-                    fullWidth
-                    onChange={handleChange}
-                    style={{ margin: 8 }}
                     name="std_maintainance"
-                    label="Standar Maintainance Required Time"
-                    multiline
-                    rows={4}
+                    type="number"
                     defaultValue={newOne.std_maintainance}
+                    onChange={handleChange}
+                    label="Standar Maintainance Required Time"
+                    placeholder="10"
+                    fullWidth
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                     variant="outlined"
                     className={classes.input}
                   />
+
                   <TextField
-                    fullWidth
-                    onChange={handleChange}
-                    style={{ margin: 8 }}
                     name="observation"
+                    defaultValue={newOne.observation}
+                    onChange={handleChange}
                     label="Observation"
+                    placeholder="Write some details"
+                    fullWidth
+                    margin="normal"
                     multiline
                     rows={4}
-                    defaultValue={newOne.observation}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                     variant="outlined"
                     className={classes.input}
                   />

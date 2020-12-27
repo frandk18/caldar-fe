@@ -33,28 +33,12 @@ function BoilerModel() {
 
   const fieldObj = ["model", "std_maintainance", "observation"];
 
-  const name = "Boiler Model";
-
-  const captureId = (id) => {
-    setId(id);
-    if (id !== null) {
-      setEditing(true);
-    }
-    toggleForm();
-  };
+  const name = "Boiler Types";
 
   const toggleForm = () => {
     setShowForm(!showForm);
     if (editing) {
       setEditing(false);
-    }
-  };
-
-  const toDelete = (id) => {
-    if (id !== null) {
-      setBoilerType([
-        ...boilerType.filter((boilerType) => boilerType._id.$oid !== id),
-      ]);
     }
   };
 
@@ -80,16 +64,32 @@ function BoilerModel() {
     toggleForm();
   };
 
+  const captureId = (id) => {
+    setId(id);
+    if (id !== null) {
+      setEditing(true);
+    }
+    toggleForm();
+  };
+
+  const toDelete = (id) => {
+    if (id !== null) {
+      setBoilerType([
+        ...boilerType.filter((boilerType) => boilerType._id.$oid !== id),
+      ]);
+    }
+  };
+
   return (
     <React.Fragment>
       {showForm && (
         <FormUI
-          toggleForm={toggleForm}
-          showForm={showForm}
           boilerType={boilerType}
           id={id}
           editing={editing}
           addEdit={addEdit}
+          showForm={showForm}
+          toggleForm={toggleForm}
         />
       )}
       <TableUI
