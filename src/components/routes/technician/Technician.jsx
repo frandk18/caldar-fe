@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Technicians from "../../../mocks/technician.json";
+import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
-import { v4 as uuidv4 } from "uuid";
 
 function Technician() {
   const [technicians, setTechnicians] = useState(Technicians);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
+
   const [headCells] = useState([
     {
       id: "fullname",

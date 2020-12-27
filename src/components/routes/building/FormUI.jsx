@@ -273,11 +273,13 @@ function Form(props) {
                         variant="outlined"
                         className={classes.input}
                       />
+
                       <TextField
                         name="phone"
                         defaultValue={newOne.phone}
                         onChange={handleChange}
                         label="Phone"
+                        type="number"
                         placeholder="55555555"
                         fullWidth
                         margin="normal"
@@ -287,6 +289,7 @@ function Form(props) {
                         variant="outlined"
                         className={classes.input}
                       />
+
                       <TextField
                         name="email"
                         defaultValue={newOne.email}
@@ -301,6 +304,7 @@ function Form(props) {
                         variant="outlined"
                         className={classes.input}
                       />
+
                       <TextField
                         name="observations"
                         defaultValue={newOne.obs}
