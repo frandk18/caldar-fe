@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Companies from "../../../mocks/companies.json";
+import Companies from "../../../mocks/company.json";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
@@ -9,6 +9,7 @@ function Company() {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
+
   const [headCells] = useState([
     {
       id: "CIN",
@@ -20,7 +21,7 @@ function Company() {
       id: "name",
       align: "center",
       disablePadding: false,
-      label: "name",
+      label: "Name",
     },
     { id: "email", align: "center", disablePadding: false, label: "E-mail" },
     { id: "phone", align: "center", disablePadding: false, label: "Phone" },
@@ -29,27 +30,13 @@ function Company() {
       id: "zipcode",
       align: "center",
       disablePadding: false,
-      label: "zipcode",
+      label: "Zip Code",
     },
   ]);
 
-  const fieldObj = [
-    "CIN",
-    "name",
-    "email",
-    "phone",
-    "address",
-    "zipcode",
-  ];
-  const name = "Company";
+  const fieldObj = ["CIN", "name", "email", "phone", "address", "zipcode"];
 
-  const toEdit = (id) => {
-    setId(id);
-    if (id !== null) {
-      setEditing(true);
-    }
-    toggleForm();
-  };
+  const name = "Companies";
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -80,27 +67,31 @@ function Company() {
     toggleForm();
   };
 
-  const toDelete = (id) => {
+  const captureId = (id) => {
+    setId(id);
     if (id !== null) {
-      setCompanies([
-        ...companies.filter((company) => company._id.$oid !== id),
-      ]);
+      setEditing(true);
     }
+    toggleForm();
   };
 
-  const toAdd = () => {};
+  const toDelete = (id) => {
+    if (id !== null) {
+      setCompanies([...companies.filter((company) => company._id.$oid !== id)]);
+    }
+  };
 
   return (
     <React.Fragment>
       {}
       {showForm && (
         <FormUI
-          toggleForm={toggleForm}
-          showForm={showForm}
           companies={companies}
           id={id}
           editing={editing}
           addEdit={addEdit}
+          showForm={showForm}
+          toggleForm={toggleForm}
         />
       )}
       {}
@@ -110,7 +101,7 @@ function Company() {
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
-        toEdit={toEdit}
+        toEdit={captureId}
         toggleForm={toggleForm}
       />
     </React.Fragment>

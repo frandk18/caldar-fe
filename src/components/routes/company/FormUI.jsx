@@ -20,6 +20,8 @@ function Form(props) {
     phone: props.editing ? company[0].phone : "",
     address: props.editing ? company[0].address : "",
     zipcode: props.editing ? company[0].zipcode : "",
+    contact: props.editing ? company[0].contact : "",
+    obs: props.editing ? company[0].obs : "",
   });
 
   const handleChange = (evt) => {
@@ -94,7 +96,6 @@ function Form(props) {
 
   const classes = useStyles();
 
-
   return (
     <div>
       <Modal
@@ -147,8 +148,8 @@ function Form(props) {
                         name="name"
                         defaultValue={newOne.name}
                         onChange={handleChange}
-                        label="name"
-                        placeholder="marcos"
+                        label="Name"
+                        placeholder="Google"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
@@ -172,9 +173,7 @@ function Form(props) {
                         variant="outlined"
                         className={classes.input}
                       />
-                    </div>
 
-                    <div className={classes.column}>
                       <TextField
                         name="address"
                         defaultValue={newOne.address}
@@ -189,14 +188,65 @@ function Form(props) {
                         variant="outlined"
                         className={classes.input}
                       />
+                    </div>
+
+                    <div className={classes.column}>
+                      <TextField
+                        name="phone"
+                        defaultValue={newOne.phone}
+                        onChange={handleChange}
+                        label="Phone"
+                        type="number"
+                        placeholder="55555555"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+
                       <TextField
                         name="zipcode"
                         defaultValue={newOne.zipcode}
                         onChange={handleChange}
-                        label="Zipcode"
+                        label="Zip Code"
                         placeholder="5555-32"
                         fullWidth
                         margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+
+                      <TextField
+                        name="contact"
+                        defaultValue={newOne.contact}
+                        onChange={handleChange}
+                        label="Contact"
+                        placeholder="John Doe"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+
+                      <TextField
+                        name="observations"
+                        defaultValue={newOne.obs}
+                        onChange={handleChange}
+                        label="Observations"
+                        placeholder="Write some details"
+                        fullWidth
+                        margin="normal"
+                        multiline
+                        rows={4}
                         InputLabelProps={{
                           shrink: true,
                         }}
