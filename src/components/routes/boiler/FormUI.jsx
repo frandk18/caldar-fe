@@ -1,37 +1,42 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
-import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
-  const building = props.buildings.filter(
-    (building) => building._id.$oid === props.id
-  );
+  const boiler = props.boilers.filter((boiler) => boiler._id.$oid === props.id);
 
   const [newOne, setNewOne] = useState({
     _id: {
-      $oid: props.editing ? building[0]._id.$oid : null,
+      $oid: props.editing ? boiler[0]._id.$oid : null,
     },
-    company: props.editing ? building[0].company : "",
-    boilers: props.editing ? building[0].boilers : [],
-    name: props.editing ? building[0].name : "",
-    address: props.editing ? building[0].address : "",
-    zipcode: props.editing ? building[0].zipcode : "",
-    contact: props.editing ? building[0].contact : "",
-    phone: props.editing ? building[0].phone : "",
-    email: props.editing ? building[0].email : "",
-    obs: props.editing ? building[0].obs : "",
+    serialNumber: props.editing ? boiler[0].serialNumber : "",
+    type: props.editing ? boiler[0].type : "",
+    manufacturingDate: props.editing
+      ? boiler[0].manufacturingDate
+      : "12/09/2018",
+    status: props.editing ? boiler[0].status : "",
+    building: props.editing ? boiler[0].building : "",
+    obs: props.editing ? boiler[0].obs : "",
   });
+
+  const forDate = newOne.manufacturingDate.split("/");
+  const birth = new Date(forDate[2], forDate[0] - 1, forDate[1]);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -115,16 +120,33 @@ function Form(props) {
 
   const classes = useStyles();
 
-  const [companyName, setCompanyName] = useState(newOne.company);
-  const handleSelectCompanyChange = (e) => {
-    setCompanyName(e.target.value);
-    newOne.company = e.target.value;
+  const [selectedDate, setSelectedDate] = useState(birth);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    const dd = date.getDate();
+    const mm = date.getMonth() + 1;
+    const y = date.getFullYear();
+    newOne.manufacturingDate = mm + "/" + dd + "/" + y;
   };
 
-  const [boilerId, setBoilerId] = useState(newOne.boilers);
-  const handleSelectBoilersChange = (e) => {
-    setBoilerId(e.target.value);
-    newOne.boilers = e.target.value;
+  const [buildingId, setBuildingId] = useState(newOne.building);
+  const handleSelectBuildingChange = (e) => {
+    setBuildingId(e.target.value);
+    newOne.building = e.target.value;
+  };
+
+  const types = ["A", "B", "C", "D"];
+  const [boilerType, setBoilerType] = useState(newOne.type);
+  const handleSelectTypeChange = (e) => {
+    setBoilerType(e.target.value);
+    newOne.type = e.target.value;
+  };
+
+  const status = ["available", "working", "reserved"];
+  const [boilerStatus, setBoilerStatus] = useState(newOne.status);
+  const handleSelectStatusChange = (e) => {
+    setBoilerStatus(e.target.value);
+    newOne.status = e.target.value;
   };
 
   return (
@@ -153,149 +175,98 @@ function Form(props) {
                   }}
                 >
                   <h1 style={{ margin: 8 }}>
-                    {props.editing ? "Edit Building" : "New Building"}
+                    {props.editing ? "Edit Boiler" : "New Boiler"}
                   </h1>
 
                   <div
                     style={{ display: "flex", justifyContent: "space-around" }}
                   >
                     <div className={classes.column}>
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                          style={{ margin: 8 }}
+                          margin="normal"
+                          label="Manufacturing Date"
+                          format="MM/dd/yyyy"
+                          value={selectedDate}
+                          onChange={handleDateChange}
+                          KeyboardButtonProps={{
+                            "aria-label": "change date",
+                          }}
+                        />
+                      </MuiPickersUtilsProvider>
+
                       <FormControl
                         className={classes.formControl}
                         style={{ margin: 8 }}
                       >
-                        <InputLabel>Company</InputLabel>
+                        <InputLabel>Type</InputLabel>
                         <Select
-                          labelId="company"
-                          id="company"
-                          value={companyName}
-                          onChange={handleSelectCompanyChange}
+                          labelId="demo-mutiple-checkbox-label"
+                          id="type"
+                          value={boilerType}
+                          onChange={handleSelectTypeChange}
+                          input={<Input />}
+                          MenuProps={MenuProps}
+                        >
+                          {types.map((type) => (
+                            <MenuItem key={type} value={type}>
+                              <ListItemText primary={type} />
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+
+                      <FormControl
+                        className={classes.formControl}
+                        style={{ margin: 8 }}
+                      >
+                        <InputLabel>Status</InputLabel>
+                        <Select
+                          labelId="demo-mutiple-checkbox-label"
+                          id="status"
+                          value={boilerStatus}
+                          onChange={handleSelectStatusChange}
+                          input={<Input />}
+                          MenuProps={MenuProps}
+                        >
+                          {status.map((status) => (
+                            <MenuItem key={status} value={status}>
+                              <ListItemText primary={status} />
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+
+                      <FormControl
+                        className={classes.formControl}
+                        style={{ margin: 8 }}
+                      >
+                        <InputLabel>Building</InputLabel>
+                        <Select
+                          labelId="building"
+                          id="building"
+                          value={buildingId}
+                          onChange={handleSelectBuildingChange}
                           input={<Input />}
                           MenuProps={MenuProps}
                         >
                           {props.buildings.map((building, index) => (
-                            <MenuItem key={index} value={building.company}>
-                              {building.company}
+                            <MenuItem key={index} value={building.name}>
+                              {building.name}
                             </MenuItem>
                           ))}
                         </Select>
                       </FormControl>
-
-                      <FormControl
-                        className={classes.formControl}
-                        style={{ margin: 8 }}
-                      >
-                        <InputLabel>Boilers</InputLabel>
-                        <Select
-                          labelId="boilers"
-                          id="boilers"
-                          value={boilerId}
-                          multiple
-                          onChange={handleSelectBoilersChange}
-                          input={<Input />}
-                          renderValue={(selected) => selected.join(", ")}
-                          MenuProps={MenuProps}
-                        >
-                          {props.boilers.map((boiler) => (
-                            <MenuItem
-                              key={boiler.serialNumber}
-                              value={boiler.serialNumber}
-                            >
-                              <Checkbox
-                                checked={
-                                  boilerId.indexOf(boiler.serialNumber) > -1
-                                }
-                              />
-                              <ListItemText primary={boiler.serialNumber} />
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-
-                      <TextField
-                        name="name"
-                        defaultValue={newOne.name}
-                        onChange={handleChange}
-                        label="Name"
-                        placeholder="John Doe"
-                        fullWidth
-                        margin="normal"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        variant="outlined"
-                        className={classes.input}
-                      />
-
-                      <TextField
-                        name="address"
-                        defaultValue={newOne.address}
-                        onChange={handleChange}
-                        label="Address"
-                        placeholder="Balcarce 54"
-                        fullWidth
-                        margin="normal"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        variant="outlined"
-                        className={classes.input}
-                      />
-
-                      <TextField
-                        name="zipcode"
-                        defaultValue={newOne.zipcode}
-                        onChange={handleChange}
-                        label="Zip Code"
-                        placeholder="4444"
-                        fullWidth
-                        margin="normal"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        variant="outlined"
-                        className={classes.input}
-                      />
                     </div>
 
                     <div className={classes.column}>
                       <TextField
-                        name="contact"
-                        defaultValue={newOne.contact}
+                        name="serialNumber"
+                        defaultValue={newOne.serialNumber}
                         onChange={handleChange}
-                        label="Contact"
-                        placeholder="John Doe"
-                        fullWidth
-                        margin="normal"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        variant="outlined"
-                        className={classes.input}
-                      />
-
-                      <TextField
-                        name="phone"
-                        defaultValue={newOne.phone}
-                        onChange={handleChange}
-                        label="Phone"
-                        type="number"
-                        placeholder="55555555"
-                        fullWidth
-                        margin="normal"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        variant="outlined"
-                        className={classes.input}
-                      />
-
-                      <TextField
-                        name="email"
-                        defaultValue={newOne.email}
-                        onChange={handleChange}
-                        label="Email"
-                        placeholder="example@something.com"
+                        label="Serial Number"
+                        placeholder="44444"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{

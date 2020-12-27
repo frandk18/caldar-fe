@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Buildings from "../../../mocks/building.json";
 import Boilers from "../../../mocks/boiler.json";
+import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
-import { v4 as uuidv4 } from "uuid";
 
 function Building() {
   const [buildings, setBuildings] = useState(Buildings);
@@ -11,6 +11,7 @@ function Building() {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
+
   const [headCells] = useState([
     { id: "company", align: "center", disablePadding: false, label: "Company" },
     { id: "name", align: "center", disablePadding: false, label: "Name" },

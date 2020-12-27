@@ -37,6 +37,7 @@ function Form(props) {
     dateOfBirth: props.editing ? technician[0].dateOfBirth : "12/09/2018",
     obs: props.editing ? technician[0].obs : "",
   });
+
   const forDate = newOne.dateOfBirth.split("/");
   const birth = new Date(forDate[2], forDate[0] - 1, forDate[1]);
 
@@ -104,6 +105,20 @@ function Form(props) {
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    column: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      margin: theme.spacing(2),
+    },
+    input: {
+      boxSizing: "border-box",
+      margin: "8",
     },
   }));
 
@@ -146,117 +161,137 @@ function Form(props) {
           <div className={classes.paper}>
             <div style={Container}>
               <div className={classes.root}>
-                <div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <h1 style={{ margin: 8 }}>
-                    {props.editing ? "Edit Technician" : "Add new Technician"}
+                    {props.editing ? "Edit Technician" : "New Technician"}
                   </h1>
-                  <TextField
-                    name="fullname"
-                    defaultValue={newOne.fullname}
-                    onChange={handleChange}
-                    label="Full name"
-                    style={{ margin: 8 }}
-                    placeholder="John Doe"
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
-                  <TextField
-                    name="email"
-                    defaultValue={newOne.email}
-                    onChange={handleChange}
-                    label="Email"
-                    style={{ margin: 8 }}
-                    placeholder="example@something.com"
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
                   <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    style={{ display: "flex", justifyContent: "space-around" }}
                   >
-                    <FormControl
-                      className={classes.formControl}
-                      style={{ margin: 8 }}
-                    >
-                      <InputLabel>Knowledge</InputLabel>
-                      <Select
-                        labelId="demo-mutiple-checkbox-label"
-                        id="knowledge"
-                        multiple
-                        value={personName}
-                        onChange={handleSelectChange}
-                        input={<Input />}
-                        renderValue={(selected) => selected.join(", ")}
-                        MenuProps={MenuProps}
-                      >
-                        {names.map((name) => (
-                          <MenuItem key={name} value={name}>
-                            <Checkbox checked={personName.indexOf(name) > -1} />
-                            <ListItemText primary={name} />
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <KeyboardDatePicker
-                        style={{ margin: 8 }}
+                    <div className={classes.column}>
+                      <TextField
+                        name="fullname"
+                        defaultValue={newOne.fullname}
+                        onChange={handleChange}
+                        label="Full name"
+                        placeholder="John Doe"
+                        fullWidth
                         margin="normal"
-                        label="Birthdate"
-                        format="MM/dd/yyyy"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                          "aria-label": "change date",
+                        InputLabelProps={{
+                          shrink: true,
                         }}
+                        variant="outlined"
+                        className={classes.input}
                       />
-                    </MuiPickersUtilsProvider>
+
+                      <TextField
+                        name="email"
+                        defaultValue={newOne.email}
+                        onChange={handleChange}
+                        label="Email"
+                        placeholder="example@something.com"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+
+                      <TextField
+                        name="phone"
+                        defaultValue={newOne.phone}
+                        onChange={handleChange}
+                        label="Phone"
+                        type="number"
+                        placeholder="55555555"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+
+                      <TextField
+                        name="address"
+                        defaultValue={newOne.address}
+                        onChange={handleChange}
+                        label="Address"
+                        placeholder="Balcarce 54"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+                    </div>
+
+                    <div className={classes.column}>
+                      <FormControl
+                        className={classes.formControl}
+                        style={{ margin: 8 }}
+                      >
+                        <InputLabel>Knowledge</InputLabel>
+                        <Select
+                          labelId="demo-mutiple-checkbox-label"
+                          id="knowledge"
+                          multiple
+                          value={personName}
+                          onChange={handleSelectChange}
+                          input={<Input />}
+                          renderValue={(selected) => selected.join(", ")}
+                          MenuProps={MenuProps}
+                        >
+                          {names.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              <Checkbox
+                                checked={personName.indexOf(name) > -1}
+                              />
+                              <ListItemText primary={name} />
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                          style={{ margin: 8 }}
+                          margin="normal"
+                          label="Birthdate"
+                          format="MM/dd/yyyy"
+                          value={selectedDate}
+                          onChange={handleDateChange}
+                          KeyboardButtonProps={{
+                            "aria-label": "change date",
+                          }}
+                        />
+                      </MuiPickersUtilsProvider>
+
+                      <TextField
+                        fullWidth
+                        onChange={handleChange}
+                        name="obs"
+                        label="Obs"
+                        multiline
+                        rows={4}
+                        defaultValue={newOne.obs}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+                    </div>
                   </div>
-                  <TextField
-                    name="phone"
-                    defaultValue={newOne.phone}
-                    onChange={handleChange}
-                    label="Phone"
-                    style={{ margin: 8 }}
-                    placeholder="55555555"
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
-                  <TextField
-                    name="address"
-                    defaultValue={newOne.address}
-                    onChange={handleChange}
-                    label="Address"
-                    style={{ margin: 8 }}
-                    placeholder="Balcarce 54"
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
-                  <TextField
-                    fullWidth
-                    onChange={handleChange}
-                    style={{ margin: 8 }}
-                    name="obs"
-                    label="Obs"
-                    multiline
-                    rows={4}
-                    defaultValue={newOne.obs}
-                    variant="outlined"
-                  />
                 </div>
                 <div
                   style={{ display: "flex", justifyContent: "space-around" }}
