@@ -1,16 +1,49 @@
 import React, { useState } from "react";
-import Companies from "../../../mocks/companies.json"
-import Table from "./Table.jsx";
-import Form from "./Form.jsx";
+import Companies from "../../../mocks/companies.json";
 import { v4 as uuidv4 } from "uuid";
+import TableUI from "../../shared/TableUI.jsx";
+import FormUI from "./FormUI.jsx";
 
 function Company() {
   const [companies, setCompanies] = useState(Companies);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
+  const [headCells] = useState([
+    {
+      id: "CIN",
+      align: "center",
+      disablePadding: false,
+      label: "CIN",
+    },
+    {
+      id: "name",
+      align: "center",
+      disablePadding: false,
+      label: "name",
+    },
+    { id: "email", align: "center", disablePadding: false, label: "E-mail" },
+    { id: "phone", align: "center", disablePadding: false, label: "Phone" },
+    { id: "address", align: "center", disablePadding: false, label: "Address" },
+    {
+      id: "zipcode",
+      align: "center",
+      disablePadding: false,
+      label: "zipcode",
+    },
+  ]);
 
-  const captureId = (id) => {
+  const fieldObj = [
+    "CIN",
+    "name",
+    "email",
+    "phone",
+    "address",
+    "zipcode",
+  ];
+  const name = "Company";
+
+  const toEdit = (id) => {
     setId(id);
     if (id !== null) {
       setEditing(true);
@@ -20,13 +53,8 @@ function Company() {
 
   const toggleForm = () => {
     setShowForm(!showForm);
-  };
-
-  const delItem = (id) => {
-    if (id !== null) {
-      setCompanies([
-        ...companies.filter((company) => company._id.$oid !== id),
-      ]);
+    if (editing) {
+      setEditing(false);
     }
   };
 
@@ -52,49 +80,40 @@ function Company() {
     toggleForm();
   };
 
-  console.log(editing);
+  const toDelete = (id) => {
+    if (id !== null) {
+      setCompanies([
+        ...companies.filter((company) => company._id.$oid !== id),
+      ]);
+    }
+  };
+
+  const toAdd = () => {};
 
   return (
     <React.Fragment>
-      <div style={containerStyle}>
-        <div style={titleStyle}>Companies</div>
-        {showForm && (
-          <Form
-            companies={companies}
-            id={id}
-            editing={editing}
-            addEdit={addEdit}
-            toggleForm={toggleForm}
-          />
-        )}
-        <Table
-          companies={companies}
+      {}
+      {showForm && (
+        <FormUI
           toggleForm={toggleForm}
-          captureId={captureId}
-          delItem={delItem}
+          showForm={showForm}
+          companies={companies}
+          id={id}
+          editing={editing}
+          addEdit={addEdit}
         />
-      </div>
+      )}
+      {}
+      <TableUI
+        headCells={headCells}
+        data={companies}
+        fieldObj={fieldObj}
+        name={name}
+        toDelete={toDelete}
+        toEdit={toEdit}
+        toggleForm={toggleForm}
+      />
     </React.Fragment>
   );
 }
-
-const containerStyle = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  border: "2px #707070 solid",
-  borderRadius: "25px",
-  padding: "30px 50px 50px 50px",
-};
-
-const titleStyle = {
-  fontSize: "22px",
-  fontWeight: "600",
-  color: "#094455",
-  textDecoration: "underline",
-  textAlign: "center",
-  marginBottom: "20px",
-};
-
 export default Company;
