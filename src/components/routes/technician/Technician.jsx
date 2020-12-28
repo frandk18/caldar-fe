@@ -4,6 +4,7 @@ import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 import DATA from "./DATA.jsx";
 import { connect } from "react-redux";
+import { deleteTechnician as deleteTechnicianAction } from "../../../redux/actions/techniciansActions";
 
 function Technician(data) {
   const technicians = data;
@@ -136,6 +137,10 @@ const mapStateToProps = (state) => ({
   data: state.technicians.data,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toDelete: (id) => dispatch(deleteTechnicianAction(id)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Technician);
