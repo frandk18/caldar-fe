@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import Technicians from "../../../mocks/technician.json";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
+import DATA from "./DATA.jsx";
+import { connect } from "react-redux";
 
-function Technician() {
-  const [technicians, setTechnicians] = useState(Technicians);
-  const [showForm, setShowForm] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [id, setId] = useState(null);
+function Technician(data) {
+  const technicians = data;
+  console.log(data);
+  console.log(technicians);
+  console.log(technicians.data);
+  //const [technicians, setTechnicians] = useState(Technicians);
+  //const [showForm, setShowForm] = useState(false);
+  //const [editing, setEditing] = useState(false);
+  //const [id, setId] = useState(null);
 
   const [headCells] = useState([
     {
@@ -43,14 +48,14 @@ function Technician() {
     "dateOfBirth",
   ];
   const name = "Technicians";
-
+  /*
   const toggleForm = () => {
     setShowForm(!showForm);
     if (editing) {
       setEditing(false);
     }
-  };
-
+  };*/
+  /*
   const addEdit = (newOne) => {
     let updateTechnicians = null;
     if (newOne._id.$oid === null) {
@@ -87,9 +92,21 @@ function Technician() {
         ...technicians.filter((technician) => technician._id.$oid !== id),
       ]);
     }
+  };*/
+
+  const toDelete = (id) => {
+    console.log("deletee", id);
   };
 
+  const captureId = (id) => {
+    console.log("capture", id);
+  };
+
+  const toggleForm = () => {
+    console.log("toggle");
+  };
   return (
+    /*
     <React.Fragment>
       {showForm && (
         <FormUI
@@ -100,17 +117,25 @@ function Technician() {
           showForm={showForm}
           toggleForm={toggleForm}
         />
-      )}
-      <TableUI
-        headCells={headCells}
-        data={technicians}
-        fieldObj={fieldObj}
-        name={name}
-        toDelete={toDelete}
-        toEdit={captureId}
-        toggleForm={toggleForm}
-      />
-    </React.Fragment>
+      )}*/
+    <TableUI
+      headCells={headCells}
+      data={technicians.data}
+      fieldObj={fieldObj}
+      name={name}
+      toDelete={toDelete}
+      toEdit={captureId}
+      toggleForm={toggleForm}
+    />
+    //</React.Fragment>
+
+    //<DATA name={name}/>
   );
 }
-export default Technician;
+const mapStateToProps = (state) => ({
+  data: state.technicians.data,
+});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Technician);
