@@ -2,15 +2,22 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
-import DATA from "./DATA.jsx";
 import { connect } from "react-redux";
-import { deleteTechnician as deleteTechnicianAction } from "../../../redux/actions/techniciansActions";
+import {
+  deleteTechnician as deleteTechnicianAction,
+  addTechnician as addTechnicianAction,
+  editTechnician as editTechnicianAction,
+} from "../../../redux/actions/techniciansActions";
 
-const Technician = ({ data, deleteTechnician }) => {
-  //const [technicians, setTechnicians] = useState(Technicians);
-  //const [showForm, setShowForm] = useState(false);
-  //const [editing, setEditing] = useState(false);
-  //const [id, setId] = useState(null);
+const Technician = ({
+  data,
+  deleteTechnician,
+  addTechnician,
+  editTechnician,
+}) => {
+  const [showForm, setShowForm] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [id, setId] = useState(null);
   const technicians = data;
   const [headCells] = useState([
     {
@@ -45,34 +52,27 @@ const Technician = ({ data, deleteTechnician }) => {
     "dateOfBirth",
   ];
   const name = "Technicians";
-  /*
+
   const toggleForm = () => {
     setShowForm(!showForm);
     if (editing) {
       setEditing(false);
     }
-  };*/
-  /*
+  };
+
   const addEdit = (newOne) => {
-    let updateTechnicians = null;
     if (newOne._id.$oid === null) {
       newOne._id.$oid = uuidv4();
-      updateTechnicians = [...technicians, newOne];
-      setTechnicians(updateTechnicians);
+      addTechnician(newOne);
       toggleForm();
     } else {
-      updateTechnicians = [
-        ...technicians.map((technician) => {
-          if (technician._id.$oid === newOne._id.$oid) {
-            technician = newOne;
-          }
-          return technician;
-        }),
-      ];
-      setTechnicians(updateTechnicians);
-      setEditing(false);
+      editTechnician(newOne);
+      toggleForm();
     }
-    toggleForm();
+  };
+
+  const toDelete = (id) => {
+    deleteTechnician(id);
   };
 
   const captureId = (id) => {
@@ -83,24 +83,7 @@ const Technician = ({ data, deleteTechnician }) => {
     toggleForm();
   };
 
-  const toDelete = (id) => {
-    if (id !== null) {
-      setTechnicians([
-        ...technicians.filter((technician) => technician._id.$oid !== id),
-      ]);
-    }
-  };*/
-
-  const captureId = (id) => {
-    console.log("capture", id);
-  };
-
-  const toggleForm = () => {
-    console.log("toggle");
-  };
-
   return (
-    /*
     <React.Fragment>
       {showForm && (
         <FormUI
@@ -111,21 +94,20 @@ const Technician = ({ data, deleteTechnician }) => {
           showForm={showForm}
           toggleForm={toggleForm}
         />
-      )}*/
-    <TableUI
-      headCells={headCells}
-      data={technicians}
-      fieldObj={fieldObj}
-      name={name}
-      toDelete={deleteTechnician}
-      toEdit={captureId}
-      toggleForm={toggleForm}
-    />
-    //</React.Fragment>
-
-    //<DATA name={name}/>
+      )}
+      <TableUI
+        headCells={headCells}
+        data={technicians}
+        fieldObj={fieldObj}
+        name={name}
+        toDelete={toDelete}
+        toEdit={captureId}
+        toggleForm={toggleForm}
+      />
+    </React.Fragment>
   );
 };
+
 const mapStateToProps = (state) => ({
   data: state.technicians.data,
 });
@@ -133,6 +115,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteTechnician: (id) => dispatch(deleteTechnicianAction(id)),
+    addTechnician: (newOne) => dispatch(addTechnicianAction(newOne)),
+    editTechnician: (newOne) => dispatch(editTechnicianAction(newOne)),
   };
 };
 
