@@ -9,16 +9,10 @@ const techniciansReducer = (state = initialState, action) => {
   switch (action.type) {
     case DELETE_TECHNICIAN:
       return {
-        /*...state,
-        //data: state.data.filter((technician) => technician._id.$oid !== action.id)
-        data: state.data.map((technician) => {
-          return technician._id.$oid !== action.id
-            ? {
-                technician,
-              }
-            : null;
-        }),*/
-        state,
+        ...state,
+        data: state.data.filter(
+          (technician) => technician._id.$oid !== action.id
+        ),
       };
     default:
       return state;

@@ -91,11 +91,6 @@ const Technician = ({ data, deleteTechnician }) => {
     }
   };*/
 
-  const toDelete = (id) => {
-    deleteTechnician(id);
-    console.log("deletee", id);
-  };
-
   const captureId = (id) => {
     console.log("capture", id);
   };
@@ -103,6 +98,7 @@ const Technician = ({ data, deleteTechnician }) => {
   const toggleForm = () => {
     console.log("toggle");
   };
+
   return (
     /*
     <React.Fragment>
@@ -121,7 +117,7 @@ const Technician = ({ data, deleteTechnician }) => {
       data={technicians}
       fieldObj={fieldObj}
       name={name}
-      toDelete={toDelete}
+      toDelete={deleteTechnician}
       toEdit={captureId}
       toggleForm={toggleForm}
     />
