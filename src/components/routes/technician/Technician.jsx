@@ -1,15 +1,24 @@
 import React, { useState } from "react";
-import Technicians from "../../../mocks/technician.json";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
+import { connect } from "react-redux";
+import {
+  deleteTechnician as deleteTechnicianAction,
+  addTechnician as addTechnicianAction,
+  editTechnician as editTechnicianAction,
+} from "../../../redux/actions/techniciansActions";
 
-function Technician() {
-  const [technicians, setTechnicians] = useState(Technicians);
+const Technician = ({
+  data,
+  deleteTechnician,
+  addTechnician,
+  editTechnician,
+}) => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-
+  const technicians = data;
   const [headCells] = useState([
     {
       id: "fullname",
@@ -52,25 +61,18 @@ function Technician() {
   };
 
   const addEdit = (newOne) => {
-    let updateTechnicians = null;
     if (newOne._id.$oid === null) {
       newOne._id.$oid = uuidv4();
-      updateTechnicians = [...technicians, newOne];
-      setTechnicians(updateTechnicians);
+      addTechnician(newOne);
       toggleForm();
     } else {
-      updateTechnicians = [
-        ...technicians.map((technician) => {
-          if (technician._id.$oid === newOne._id.$oid) {
-            technician = newOne;
-          }
-          return technician;
-        }),
-      ];
-      setTechnicians(updateTechnicians);
-      setEditing(false);
+      editTechnician(newOne);
+      toggleForm();
     }
-    toggleForm();
+  };
+
+  const toDelete = (id) => {
+    deleteTechnician(id);
   };
 
   const captureId = (id) => {
@@ -79,14 +81,6 @@ function Technician() {
       setEditing(true);
     }
     toggleForm();
-  };
-
-  const toDelete = (id) => {
-    if (id !== null) {
-      setTechnicians([
-        ...technicians.filter((technician) => technician._id.$oid !== id),
-      ]);
-    }
   };
 
   return (
@@ -112,5 +106,18 @@ function Technician() {
       />
     </React.Fragment>
   );
-}
-export default Technician;
+};
+
+const mapStateToProps = (state) => ({
+  data: state.technicians.data,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteTechnician: (id) => dispatch(deleteTechnicianAction(id)),
+    addTechnician: (newOne) => dispatch(addTechnicianAction(newOne)),
+    editTechnician: (newOne) => dispatch(editTechnicianAction(newOne)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Technician);
