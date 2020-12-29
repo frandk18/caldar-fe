@@ -10,7 +10,6 @@ const initialState = {
 };
 
 const techniciansReducer = (state = initialState, action) => {
-  console.log(action.newOne);
   switch (action.type) {
     case DELETE_TECHNICIAN:
       return {

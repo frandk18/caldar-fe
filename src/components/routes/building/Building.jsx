@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import Buildings from "../../../mocks/building.json";
 import Boilers from "../../../mocks/boiler.json";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
+import { connect } from "react-redux";
+import {
+  deleteBuilding as deleteBuildingAction,
+  addBuilding as addBuildingAction,
+  editBuilding as editBuildingAction,
+} from "../../../redux/actions/buildingsActions";
 
-function Building() {
-  const [buildings, setBuildings] = useState(Buildings);
+const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
   const [boilers] = useState(Boilers);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
+  const buildings = data;
 
   const [headCells] = useState([
     { id: "company", align: "center", disablePadding: false, label: "Company" },
@@ -47,25 +52,18 @@ function Building() {
   };
 
   const addEdit = (newOne) => {
-    let updateBuildings = null;
     if (newOne._id.$oid === null) {
       newOne._id.$oid = uuidv4();
-      updateBuildings = [...buildings, newOne];
-      setBuildings(updateBuildings);
+      addBuilding(newOne);
       toggleForm();
     } else {
-      updateBuildings = [
-        ...buildings.map((building) => {
-          if (building._id.$oid === newOne._id.$oid) {
-            building = newOne;
-          }
-          return building;
-        }),
-      ];
-      setBuildings(updateBuildings);
-      setEditing(false);
+      editBuilding(newOne);
+      toggleForm();
     }
-    toggleForm();
+  };
+
+  const toDelete = (id) => {
+    deleteBuilding(id);
   };
 
   const captureId = (id) => {
@@ -74,14 +72,6 @@ function Building() {
       setEditing(true);
     }
     toggleForm();
-  };
-
-  const toDelete = (id) => {
-    if (id !== null) {
-      setBuildings([
-        ...buildings.filter((building) => building._id.$oid !== id),
-      ]);
-    }
   };
 
   return (
@@ -108,6 +98,18 @@ function Building() {
       />
     </React.Fragment>
   );
-}
+};
 
-export default Building;
+const mapStateToProps = (state) => ({
+  data: state.buildings.data,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteBuilding: (id) => dispatch(deleteBuildingAction(id)),
+    addBuilding: (newOne) => dispatch(addBuildingAction(newOne)),
+    editBuilding: (newOne) => dispatch(editBuildingAction(newOne)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Building);
