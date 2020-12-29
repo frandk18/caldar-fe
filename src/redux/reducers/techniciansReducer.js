@@ -1,4 +1,4 @@
-import { DELETE_TECHNICIAN } from "../actions/techniciansActions.js";
+import { DELETE_TECHNICIAN } from "../types/actionTypes";
 import technicians from "../../mocks/technician.json";
 
 const initialState = {
@@ -9,7 +9,7 @@ const techniciansReducer = (state = initialState, action) => {
   switch (action.type) {
     case DELETE_TECHNICIAN:
       return {
-        ...state,
+        /*...state,
         //data: state.data.filter((technician) => technician._id.$oid !== action.id)
         data: state.data.map((technician) => {
           return technician._id.$oid !== action.id
@@ -17,7 +17,8 @@ const techniciansReducer = (state = initialState, action) => {
                 technician,
               }
             : null;
-        }),
+        }),*/
+        state,
       };
     default:
       return state;

@@ -6,16 +6,12 @@ import DATA from "./DATA.jsx";
 import { connect } from "react-redux";
 import { deleteTechnician as deleteTechnicianAction } from "../../../redux/actions/techniciansActions";
 
-function Technician(data) {
-  const technicians = data;
-  console.log(data);
-  console.log(technicians);
-  console.log(technicians.data);
+const Technician = ({ data, deleteTechnician }) => {
   //const [technicians, setTechnicians] = useState(Technicians);
   //const [showForm, setShowForm] = useState(false);
   //const [editing, setEditing] = useState(false);
   //const [id, setId] = useState(null);
-
+  const technicians = data;
   const [headCells] = useState([
     {
       id: "fullname",
@@ -96,6 +92,7 @@ function Technician(data) {
   };*/
 
   const toDelete = (id) => {
+    deleteTechnician(id);
     console.log("deletee", id);
   };
 
@@ -121,7 +118,7 @@ function Technician(data) {
       )}*/
     <TableUI
       headCells={headCells}
-      data={technicians.data}
+      data={technicians}
       fieldObj={fieldObj}
       name={name}
       toDelete={toDelete}
@@ -132,14 +129,14 @@ function Technician(data) {
 
     //<DATA name={name}/>
   );
-}
+};
 const mapStateToProps = (state) => ({
   data: state.technicians.data,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toDelete: (id) => dispatch(deleteTechnicianAction(id)),
+    deleteTechnician: (id) => dispatch(deleteTechnicianAction(id)),
   };
 };
 
