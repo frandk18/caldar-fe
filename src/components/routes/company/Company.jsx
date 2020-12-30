@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import Companies from "../../../mocks/company.json";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
+import { connect } from "react-redux";
+import {
+  deleteCompany as deleteCompanyAction,
+  addCompany as addCompanyAction,
+  editCompany as editCompanyAction,
+} from "../../../redux/actions/companyActions";
 
-function Company() {
-  const [companies, setCompanies] = useState(Companies);
+const Company = ({ data, deleteCompany, addCompany, editCompany }) => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-
+  const companies = data;
   const [headCells] = useState([
     {
       id: "CIN",
@@ -44,27 +48,15 @@ function Company() {
       setEditing(false);
     }
   };
-
   const addEdit = (newOne) => {
-    let updateCompanies = null;
     if (newOne._id.$oid === null) {
       newOne._id.$oid = uuidv4();
-      updateCompanies = [...companies, newOne];
-      setCompanies(updateCompanies);
+      addCompany(newOne);
       toggleForm();
     } else {
-      updateCompanies = [
-        ...companies.map((company) => {
-          if (company._id.$oid === newOne._id.$oid) {
-            company = newOne;
-          }
-          return company;
-        }),
-      ];
-      setCompanies(updateCompanies);
-      setEditing(false);
+      editCompany(newOne);
+      toggleForm();
     }
-    toggleForm();
   };
 
   const captureId = (id) => {
@@ -76,14 +68,11 @@ function Company() {
   };
 
   const toDelete = (id) => {
-    if (id !== null) {
-      setCompanies([...companies.filter((company) => company._id.$oid !== id)]);
-    }
+    deleteCompany(id);
   };
 
   return (
     <React.Fragment>
-      {}
       {showForm && (
         <FormUI
           companies={companies}
@@ -94,7 +83,6 @@ function Company() {
           toggleForm={toggleForm}
         />
       )}
-      {}
       <TableUI
         headCells={headCells}
         data={companies}
@@ -106,5 +94,18 @@ function Company() {
       />
     </React.Fragment>
   );
-}
-export default Company;
+};
+
+const mapStateToProps = (state) => ({
+  data: state.company.data,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteCompany: (id) => dispatch(deleteCompanyAction(id)),
+    addCompany: (newOne) => dispatch(addCompanyAction(newOne)),
+    editCompany: (newOne) => dispatch(editCompanyAction(newOne)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Company);
