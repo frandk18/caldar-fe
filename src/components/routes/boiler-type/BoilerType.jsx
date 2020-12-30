@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import BoilerType from "../../../mocks/boiler-type.json";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
+import { connect } from "react-redux";
+import {
+  deleteBoilerType as deleteBoilerTypeAction,
+  addBoilerType as addBoilerTypeAction,
+  editBoilerType as editBoilerTypeAction,
+} from "../../../redux/actions/boilerTypeActions";
 
-function BoilerModel() {
-  const [boilerType, setBoilerType] = useState(BoilerType);
+function BoilerType({ data, deleteBoilerType, addBoilerType, editBoilerType }) {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
+  const boilerType = data;
 
   const [headCells] = useState([
     {
@@ -43,25 +48,18 @@ function BoilerModel() {
   };
 
   const addEdit = (newOne) => {
-    let updateBoilerType = null;
     if (newOne._id.$oid === null) {
       newOne._id.$oid = uuidv4();
-      updateBoilerType = [...boilerType, newOne];
-      setBoilerType(updateBoilerType);
+      addBoilerType(newOne);
       toggleForm();
     } else {
-      updateBoilerType = [
-        ...boilerType.map((boilerType) => {
-          if (boilerType._id.$oid === newOne._id.$oid) {
-            boilerType = newOne;
-          }
-          return boilerType;
-        }),
-      ];
-      setBoilerType(updateBoilerType);
-      setEditing(false);
+      editBoilerType(newOne);
+      toggleForm();
     }
-    toggleForm();
+  };
+
+  const toDelete = (id) => {
+    deleteBoilerType(id);
   };
 
   const captureId = (id) => {
@@ -70,14 +68,6 @@ function BoilerModel() {
       setEditing(true);
     }
     toggleForm();
-  };
-
-  const toDelete = (id) => {
-    if (id !== null) {
-      setBoilerType([
-        ...boilerType.filter((boilerType) => boilerType._id.$oid !== id),
-      ]);
-    }
   };
 
   return (
@@ -105,4 +95,16 @@ function BoilerModel() {
   );
 }
 
-export default BoilerModel;
+const mapStateToProps = (state) => ({
+  data: state.boilerType.data,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteBoilerType: (id) => dispatch(deleteBoilerTypeAction(id)),
+    addBoilerType: (newOne) => dispatch(addBoilerTypeAction(newOne)),
+    editBoilerType: (newOne) => dispatch(editBoilerTypeAction(newOne)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BoilerType);
