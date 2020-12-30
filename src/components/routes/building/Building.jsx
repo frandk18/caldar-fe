@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Boilers from "../../../mocks/boiler.json";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import {
   deleteBuilding as deleteBuildingAction,
   addBuilding as addBuildingAction,
   editBuilding as editBuildingAction,
+  getBuildings as getBuildingsAction,
 } from "../../../redux/actions/buildingsActions";
 
-const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
+const Building = ({
+  data,
+  isLoading,
+  error,
+  deleteBuilding,
+  addBuilding,
+  editBuilding,
+  getBuildings,
+}) => {
   const [boilers] = useState(Boilers);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-  const buildings = data;
+  //const buildings = data;
 
   const [headCells] = useState([
     { id: "company", align: "center", disablePadding: false, label: "Company" },
@@ -44,6 +54,18 @@ const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
 
   const name = "Buildings";
 
+  useEffect(() => {
+    getBuildings();
+  }, [getBuildings]);
+
+  if (isLoading) {
+    return <div>... LOADING</div>;
+  }
+  console.log(data);
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
+
   const toggleForm = () => {
     setShowForm(!showForm);
     if (editing) {
@@ -52,12 +74,12 @@ const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
   };
 
   const addEdit = (newOne) => {
-    if (newOne._id.$oid === null) {
-      newOne._id.$oid = uuidv4();
-      addBuilding(newOne);
+    if (newOne._id === null) {
+      newOne._id = uuidv4();
+      //addBuilding(newOne);
       toggleForm();
     } else {
-      editBuilding(newOne);
+      //editBuilding(newOne);
       toggleForm();
     }
   };
@@ -78,7 +100,7 @@ const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
     <React.Fragment>
       {showForm && (
         <FormUI
-          buildings={buildings}
+          buildings={data}
           boilers={boilers}
           id={id}
           editing={editing}
@@ -89,7 +111,7 @@ const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
       )}
       <TableUI
         headCells={headCells}
-        data={buildings}
+        data={data}
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
@@ -102,14 +124,23 @@ const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
 
 const mapStateToProps = (state) => ({
   data: state.buildings.data,
+  isLoading: state.buildings.isLoading,
+  error: state.buildings.error,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {
+  return bindActionCreators(
+    {
+      getBuildings: getBuildingsAction,
+      deleteBuilding: deleteBuildingAction,
+    },
+    dispatch
+  );
+  /*return {
     deleteBuilding: (id) => dispatch(deleteBuildingAction(id)),
     addBuilding: (newOne) => dispatch(addBuildingAction(newOne)),
     editBuilding: (newOne) => dispatch(editBuildingAction(newOne)),
-  };
+  };*/
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Building);

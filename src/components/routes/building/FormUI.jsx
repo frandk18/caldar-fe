@@ -15,13 +15,14 @@ import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
   const building = props.buildings.filter(
-    (building) => building._id.$oid === props.id
+    (building) => building._id === props.id
   );
 
   const [newOne, setNewOne] = useState({
-    _id: {
-      $oid: props.editing ? building[0]._id.$oid : null,
-    },
+    /*_id: {
+      $oid: props.editing ? building[0]._id : null,
+    },*/
+    _id: props.editing ? building[0]._id : null,
     company: props.editing ? building[0].company : "",
     boilers: props.editing ? building[0].boilers : [],
     name: props.editing ? building[0].name : "",
