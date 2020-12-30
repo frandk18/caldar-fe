@@ -21,12 +21,10 @@ import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
   const technician = props.technicians.filter(
-    (technician) => technician._id.$oid === props.id
+    (technician) => technician._id === props.id
   );
   const [newOne, setNewOne] = useState({
-    _id: {
-      $oid: props.editing ? technician[0]._id.$oid : null,
-    },
+    _id: props.editing ? technician[0]._id : null,
     fullname: props.editing ? technician[0].fullname : "",
     knowledge: props.editing
       ? JSON.parse(JSON.stringify(technician[0].knowledge))
