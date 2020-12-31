@@ -1,24 +1,22 @@
-import { DELETE_TECHNICIAN } from "../types/actionTypes";
-import { ADD_TECHNICIAN } from "../types/actionTypes";
-import { EDIT_TECHNICIAN } from "../types/actionTypes";
+import { ACTIONS_TYPES } from "../types/actionTypes";
 
 export const deleteTechnician = (id) => {
   return {
-    type: DELETE_TECHNICIAN,
+    type: ACTIONS_TYPES.DELETE_TECHNICIAN,
     id,
   };
 };
 
 export const addTechnician = (newOne) => {
   return {
-    type: ADD_TECHNICIAN,
+    type: ACTIONS_TYPES.ADD_TECHNICIAN,
     newOne,
   };
 };
 
 export const editTechnician = (newOne) => {
   return {
-    type: EDIT_TECHNICIAN,
+    type: ACTIONS_TYPES.EDIT_TECHNICIAN,
     newOne,
   };
 };
