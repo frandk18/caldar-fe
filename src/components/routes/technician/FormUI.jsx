@@ -21,23 +21,21 @@ import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
   const technician = props.technicians.filter(
-    (technician) => technician._id.$oid === props.id
+    (technician) => technician._id === props.id
   );
   const [newOne, setNewOne] = useState({
-    _id: {
-      $oid: props.editing ? technician[0]._id.$oid : null,
-    },
     fullname: props.editing ? technician[0].fullname : "",
-    knowledge: props.editing
-      ? JSON.parse(JSON.stringify(technician[0].knowledge))
-      : [],
     email: props.editing ? technician[0].email : "",
     phone: props.editing ? technician[0].phone : "",
     address: props.editing ? technician[0].address : "",
     dateOfBirth: props.editing ? technician[0].dateOfBirth : "12/09/2018",
     obs: props.editing ? technician[0].obs : "",
+    knowledge: props.editing
+      ? JSON.parse(JSON.stringify(technician[0].knowledge))
+      : [],
+    services: [],
   });
-
+  const _id = props.editing ? technician[0]._id : null;
   const forDate = newOne.dateOfBirth.split("/");
   const birth = new Date(forDate[2], forDate[0] - 1, forDate[1]);
 
@@ -51,7 +49,7 @@ function Form(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addEdit(newOne);
+    props.addEdit(newOne, _id);
   };
 
   const ITEM_HEIGHT = 48;
