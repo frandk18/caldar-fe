@@ -18,6 +18,7 @@ const initialState = {
   data: [],
   isLoading: true,
   error: false,
+  refresh: true,
 };
 
 const techniciansReducer = (state = initialState, action) => {
@@ -43,11 +44,13 @@ const techniciansReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+        refresh: false,
       };
     case ADD_TECHNICIAN_FULFILLED:
       console.log(action.payload);
       return {
         ...state,
+        refresh: true,
         data: [...state.data, action.payload],
         isLoading: false,
       };
@@ -61,11 +64,13 @@ const techniciansReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+        refresh: false,
       };
     case EDIT_TECHNICIAN_FULFILLED:
       return {
         ...state,
         isLoading: false,
+        refresh: true,
         data: state.data.map((technician) => {
           if (technician._id === action.payload) {
             technician = action.newOne;
