@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
@@ -7,18 +7,23 @@ import {
   deleteTechnician as deleteTechnicianAction,
   addTechnician as addTechnicianAction,
   editTechnician as editTechnicianAction,
+  getTechnicians as getTechniciansAction,
 } from "../../../redux/actions/techniciansActions";
+import { bindActionCreators } from "redux";
 
 const Technician = ({
   data,
+  isLoading,
+  error,
+  refresh,
   deleteTechnician,
   addTechnician,
   editTechnician,
+  getTechnicians,
 }) => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-  const technicians = data;
   const [headCells] = useState([
     {
       id: "fullname",
@@ -43,6 +48,20 @@ const Technician = ({
     },
   ]);
 
+  useEffect(() => {
+    if (refresh === true) {
+      getTechnicians();
+    }
+  }, [refresh]);
+
+  if (isLoading) {
+    return <div>... LOADING</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
+
   const fieldObj = [
     "fullname",
     "knowledge",
@@ -60,13 +79,12 @@ const Technician = ({
     }
   };
 
-  const addEdit = (newOne) => {
-    if (newOne._id.$oid === null) {
-      newOne._id.$oid = uuidv4();
+  const addEdit = (newOne, _id) => {
+    if (_id === null) {
       addTechnician(newOne);
       toggleForm();
     } else {
-      editTechnician(newOne);
+      editTechnician(newOne, id);
       toggleForm();
     }
   };
@@ -87,7 +105,7 @@ const Technician = ({
     <React.Fragment>
       {showForm && (
         <FormUI
-          technicians={technicians}
+          technicians={data}
           id={id}
           editing={editing}
           addEdit={addEdit}
@@ -97,7 +115,7 @@ const Technician = ({
       )}
       <TableUI
         headCells={headCells}
-        data={technicians}
+        data={data}
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
@@ -110,14 +128,20 @@ const Technician = ({
 
 const mapStateToProps = (state) => ({
   data: state.technicians.data,
+  isLoading: state.technicians.isLoading,
+  error: state.technicians.error,
+  refresh: state.technicians.refresh,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteTechnician: (id) => dispatch(deleteTechnicianAction(id)),
-    addTechnician: (newOne) => dispatch(addTechnicianAction(newOne)),
-    editTechnician: (newOne) => dispatch(editTechnicianAction(newOne)),
-  };
+  return bindActionCreators(
+    {
+      getTechnicians: getTechniciansAction,
+      deleteTechnician: deleteTechnicianAction,
+      addTechnician: addTechnicianAction,
+      editTechnician: editTechnicianAction,
+    },
+    dispatch
+  );
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(Technician);

@@ -7,12 +7,11 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import rootReducer from "./redux/reducers/rootReducer";
 
-const configureStore = () => {
-  //const enhancer = composeWithDevTools();
-  return createStore(rootReducer, applyMiddleware(thunk));
-};
-
-const store = configureStore();
+const middleware = [thunk];
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
 
 ReactDOM.render(
   <React.StrictMode>
