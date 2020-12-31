@@ -1,9 +1,5 @@
 import { ACTIONS_TYPES } from "../types/actionTypes";
 
-/*import { DELETE_BUILDING } from "../types/actionTypes";
-import { ADD_BUILDING } from "../types/actionTypes";
-import { EDIT_BUILDING } from "../types/actionTypes";*/
-
 const URL = "http://localhost:4000/api/building";
 
 // GET
@@ -33,6 +29,75 @@ export const getBuildings = () => (dispatch) => {
     });
 };
 
+// ADD
+
+export const addBuildingFetching = () => ({
+  type: ACTIONS_TYPES.ADD_BUILDING_FETCHING,
+});
+
+export const addBuildingFulfilled = (payload) => ({
+  type: ACTIONS_TYPES.ADD_BUILDING_FULFILLED,
+  payload,
+});
+
+export const addBuildingRejected = () => ({
+  type: ACTIONS_TYPES.ADD_BUILDING_REJECTED,
+});
+
+export const addBuilding = (newOne) => (dispatch) => {
+  dispatch(addBuildingFetching());
+  fetch(URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newOne),
+  })
+    .then((data) => {
+      data.json();
+      if (!data.ok) throw Error;
+      return dispatch(addBuildingFulfilled(newOne));
+    })
+    .catch(() => {
+      return dispatch(addBuildingRejected());
+    });
+};
+
+// EDIT
+
+export const editBuildingFetching = () => ({
+  type: ACTIONS_TYPES.EDIT_BUILDING_FETCHING,
+});
+
+export const editBuildingFulfilled = (payload, newOne) => ({
+  type: ACTIONS_TYPES.EDIT_BUILDING_FULFILLED,
+  payload,
+  newOne,
+});
+
+export const editBuildingRejected = () => ({
+  type: ACTIONS_TYPES.EDIT_BUILDING_REJECTED,
+});
+
+export const editBuilding = (newOne, id) => (dispatch) => {
+  dispatch(editBuildingFetching());
+  fetch(`${URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newOne),
+  })
+    .then((data) => {
+      data.json();
+      if (!data.ok) throw Error;
+      return dispatch(editBuildingFulfilled(newOne));
+    })
+    .catch(() => {
+      return dispatch(editBuildingRejected());
+    });
+};
+
 // DELETE
 
 export const deleteBuildingFetching = () => ({
@@ -59,24 +124,3 @@ export const deleteBuilding = (id) => (dispatch) => {
       dispatch(deleteBuildingRejected());
     });
 };
-
-/*export const deleteBuilding = (id) => {
-  return {
-    type: DELETE_BUILDING,
-    id,
-  };
-};
-
-export const addBuilding = (newOne) => {
-  return {
-    type: ADD_BUILDING,
-    newOne,
-  };
-};
-
-export const editBuilding = (newOne) => {
-  return {
-    type: EDIT_BUILDING,
-    newOne,
-  };
-};*/

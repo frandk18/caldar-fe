@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Boilers from "../../../mocks/boiler.json";
-import { v4 as uuidv4 } from "uuid";
+//import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import {
   deleteBuilding as deleteBuildingAction,
   addBuilding as addBuildingAction,
   editBuilding as editBuildingAction,
   getBuildings as getBuildingsAction,
 } from "../../../redux/actions/buildingsActions";
+import { bindActionCreators } from "redux";
 
 const Building = ({
   data,
   isLoading,
   error,
+  refresh,
   deleteBuilding,
   addBuilding,
   editBuilding,
@@ -25,7 +26,6 @@ const Building = ({
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-  //const buildings = data;
 
   const [headCells] = useState([
     { id: "company", align: "center", disablePadding: false, label: "Company" },
@@ -55,13 +55,15 @@ const Building = ({
   const name = "Buildings";
 
   useEffect(() => {
-    getBuildings();
-  }, [getBuildings]);
+    if (refresh === true) {
+      getBuildings();
+    }
+  }, [refresh]);
 
   if (isLoading) {
     return <div>... LOADING</div>;
   }
-  console.log(data);
+
   if (error) {
     return <div>ERROR!!!</div>;
   }
@@ -73,13 +75,12 @@ const Building = ({
     }
   };
 
-  const addEdit = (newOne) => {
-    if (newOne._id === null) {
-      newOne._id = uuidv4();
-      //addBuilding(newOne);
+  const addEdit = (newOne, _id) => {
+    if (_id === null) {
+      addBuilding(newOne);
       toggleForm();
     } else {
-      //editBuilding(newOne);
+      editBuilding(newOne, id);
       toggleForm();
     }
   };
@@ -126,6 +127,7 @@ const mapStateToProps = (state) => ({
   data: state.buildings.data,
   isLoading: state.buildings.isLoading,
   error: state.buildings.error,
+  refresh: state.buildings.refresh,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -133,14 +135,11 @@ const mapDispatchToProps = (dispatch) => {
     {
       getBuildings: getBuildingsAction,
       deleteBuilding: deleteBuildingAction,
+      addBuilding: addBuildingAction,
+      editBuilding: editBuildingAction,
     },
     dispatch
   );
-  /*return {
-    deleteBuilding: (id) => dispatch(deleteBuildingAction(id)),
-    addBuilding: (newOne) => dispatch(addBuildingAction(newOne)),
-    editBuilding: (newOne) => dispatch(editBuildingAction(newOne)),
-  };*/
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Building);

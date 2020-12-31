@@ -1,4 +1,4 @@
-import {
+/*import {
   GET_TECHNICIANS_FETCHING,
   GET_TECHNICIANS_FULFILLED,
   GET_TECHNICIANS_REJECTED,
@@ -11,21 +11,25 @@ import {
   DELETE_TECHNICIAN_FETCHING,
   DELETE_TECHNICIAN_FULFILLED,
   DELETE_TECHNICIAN_REJECTED,
-} from "../types/actionTypes";
+} from "../types/actionTypes";*/
+
+import { ACTIONS_TYPES } from "../types/actionTypes";
 
 const URL = "http://localhost:4000/api/technician";
 
+// GET
+
 export const getTechniciansFetching = () => ({
-  type: GET_TECHNICIANS_FETCHING,
+  type: ACTIONS_TYPES.GET_TECHNICIANS_FETCHING,
 });
 
 export const getTechniciansFulfilled = (payload) => ({
-  type: GET_TECHNICIANS_FULFILLED,
+  type: ACTIONS_TYPES.GET_TECHNICIANS_FULFILLED,
   payload,
 });
 
 export const getTechniciansRejected = () => ({
-  type: GET_TECHNICIANS_REJECTED,
+  type: ACTIONS_TYPES.GET_TECHNICIANS_REJECTED,
 });
 
 export const getTechnicians = () => (dispatch) => {
@@ -40,17 +44,19 @@ export const getTechnicians = () => (dispatch) => {
     });
 };
 
+// ADD
+
 export const addTechnicianFetching = () => ({
-  type: ADD_TECHNICIAN_FETCHING,
+  type: ACTIONS_TYPES.ADD_TECHNICIAN_FETCHING,
 });
 
 export const addTechnicianFulfilled = (payload) => ({
-  type: ADD_TECHNICIAN_FULFILLED,
+  type: ACTIONS_TYPES.ADD_TECHNICIAN_FULFILLED,
   payload,
 });
 
 export const addTechnicianRejected = () => ({
-  type: ADD_TECHNICIAN_REJECTED,
+  type: ACTIONS_TYPES.ADD_TECHNICIAN_REJECTED,
 });
 
 export const addTechnician = (newOne) => (dispatch) => {
@@ -72,18 +78,20 @@ export const addTechnician = (newOne) => (dispatch) => {
     });
 };
 
+// EDIT
+
 export const editTechnicianFetching = () => ({
-  type: EDIT_TECHNICIAN_FETCHING,
+  type: ACTIONS_TYPES.EDIT_TECHNICIAN_FETCHING,
 });
 
 export const editTechnicianFulfilled = (payload, newOne) => ({
-  type: EDIT_TECHNICIAN_FULFILLED,
+  type: ACTIONS_TYPES.EDIT_TECHNICIAN_FULFILLED,
   payload,
   newOne,
 });
 
 export const editTechnicianRejected = () => ({
-  type: EDIT_TECHNICIAN_REJECTED,
+  type: ACTIONS_TYPES.EDIT_TECHNICIAN_REJECTED,
 });
 
 export const editTechnician = (newOne, id) => (dispatch) => {
@@ -105,17 +113,19 @@ export const editTechnician = (newOne, id) => (dispatch) => {
     });
 };
 
+// DELETE
+
 export const deleteTechnicianFetching = () => ({
-  type: DELETE_TECHNICIAN_FETCHING,
+  type: ACTIONS_TYPES.DELETE_TECHNICIAN_FETCHING,
 });
 
 export const deleteTechnicianFulfilled = (payload) => ({
-  type: DELETE_TECHNICIAN_FULFILLED,
+  type: ACTIONS_TYPES.DELETE_TECHNICIAN_FULFILLED,
   payload,
 });
 
 export const deleteTechnicianRejected = () => ({
-  type: DELETE_TECHNICIAN_REJECTED,
+  type: ACTIONS_TYPES.DELETE_TECHNICIAN_REJECTED,
 });
 
 export const deleteTechnician = (id) => (dispatch) => {

@@ -19,10 +19,6 @@ function Form(props) {
   );
 
   const [newOne, setNewOne] = useState({
-    /*_id: {
-      $oid: props.editing ? building[0]._id : null,
-    },*/
-    _id: props.editing ? building[0]._id : null,
     company: props.editing ? building[0].company : "",
     boilers: props.editing ? building[0].boilers : [],
     name: props.editing ? building[0].name : "",
@@ -33,17 +29,21 @@ function Form(props) {
     email: props.editing ? building[0].email : "",
     obs: props.editing ? building[0].obs : "",
   });
+  const _id = props.editing ? building[0]._id : null;
 
   const handleChange = (e) => {
     e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
-    setNewOne({ ...newOne, [name]: value });
+    setNewOne({
+      ...newOne,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addEdit(newOne);
+    props.addEdit(newOne, _id);
   };
 
   const ITEM_HEIGHT = 48;

@@ -1,11 +1,10 @@
 import { ACTIONS_TYPES } from "../types/actionTypes";
-//import buildings from "../../mocks/building.json";
 
 const initialState = {
-  //data: buildings,
   data: [],
   isLoading: true,
   error: false,
+  refresh: true,
 };
 
 const buildingsReducer = (state = initialState, action) => {
@@ -27,6 +26,52 @@ const buildingsReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
       };
+
+    case ACTIONS_TYPES.ADD_BUILDING_FETCHING:
+      return {
+        ...state,
+        isLoading: true,
+        refresh: false,
+      };
+    case ACTIONS_TYPES.ADD_BUILDING_FULFILLED:
+      return {
+        ...state,
+        refresh: true,
+        data: [...state.data, action.payload],
+        isLoading: false,
+      };
+    case ACTIONS_TYPES.ADD_BUILDING_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+      };
+
+    case ACTIONS_TYPES.EDIT_BUILDING_FETCHING:
+      return {
+        ...state,
+        isLoading: true,
+        refresh: false,
+      };
+    case ACTIONS_TYPES.EDIT_BUILDING_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        refresh: true,
+        data: state.data.map((building) => {
+          if (building._id === action.payload) {
+            building = action.newOne;
+          }
+          return building;
+        }),
+      };
+    case ACTIONS_TYPES.EDIT_BUILDING_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+      };
+
     case ACTIONS_TYPES.DELETE_BUILDING_FETCHING:
       return {
         ...state,
@@ -44,21 +89,7 @@ const buildingsReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
       };
-    /*case ADD_BUILDING:
-      return {
-        ...state,
-        data: [...state.data, action.newOne],
-      };
-    case EDIT_BUILDING:
-      return {
-        ...state,
-        data: state.data.map((building) => {
-          if (building._id.$oid === action.newOne._id.$oid) {
-            building = action.newOne;
-          }
-          return building;
-        }),
-      };*/
+
     default:
       return state;
   }
