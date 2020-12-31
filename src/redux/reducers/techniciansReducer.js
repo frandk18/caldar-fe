@@ -1,9 +1,14 @@
 import {
-  ADD_TECHNICIAN,
+  ADD_TECHNICIAN_FETCHING,
+  ADD_TECHNICIAN_FULFILLED,
+  ADD_TECHNICIAN_REJECTED,
   DELETE_TECHNICIAN_FETCHING,
   DELETE_TECHNICIAN_FULFILLED,
   DELETE_TECHNICIAN_REJECTED,
   EDIT_TECHNICIAN,
+  EDIT_TECHNICIAN_FETCHING,
+  EDIT_TECHNICIAN_FULFILLED,
+  EDIT_TECHNICIAN_REJECTED,
   GET_TECHNICIANS_FETCHING,
   GET_TECHNICIANS_FULFILLED,
   GET_TECHNICIANS_REJECTED,
@@ -34,6 +39,46 @@ const techniciansReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
       };
+    case ADD_TECHNICIAN_FETCHING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ADD_TECHNICIAN_FULFILLED:
+      console.log(action.payload);
+      return {
+        ...state,
+        data: [...state.data, action.payload],
+        isLoading: false,
+      };
+    case ADD_TECHNICIAN_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+      };
+    case EDIT_TECHNICIAN_FETCHING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case EDIT_TECHNICIAN_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        data: state.data.map((technician) => {
+          if (technician._id === action.payload) {
+            technician = action.newOne;
+          }
+          return technician;
+        }),
+      };
+    case EDIT_TECHNICIAN_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+      };
     case DELETE_TECHNICIAN_FETCHING:
       return {
         ...state,
@@ -53,24 +98,9 @@ const techniciansReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
       };
-    case EDIT_TECHNICIAN:
-      return {
-        ...state,
-        data: state.data.map((technician) => {
-          if (technician._id.$oid === action.newOne._id.$oid) {
-            technician = action.newOne;
-          }
-          return technician;
-        }),
-      };
     default:
       return state;
   }
 };
 
 export default techniciansReducer;
-/*
-return {
-  ...state,
-  data: [...state.data, action.newOne],
-};*/

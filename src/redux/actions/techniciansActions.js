@@ -2,13 +2,16 @@ import {
   GET_TECHNICIANS_FETCHING,
   GET_TECHNICIANS_FULFILLED,
   GET_TECHNICIANS_REJECTED,
-} from "../types/actionTypes";
-import {
+  ADD_TECHNICIAN_FETCHING,
+  ADD_TECHNICIAN_FULFILLED,
+  ADD_TECHNICIAN_REJECTED,
+  EDIT_TECHNICIAN_FETCHING,
+  EDIT_TECHNICIAN_FULFILLED,
+  EDIT_TECHNICIAN_REJECTED,
   DELETE_TECHNICIAN_FETCHING,
   DELETE_TECHNICIAN_FULFILLED,
   DELETE_TECHNICIAN_REJECTED,
 } from "../types/actionTypes";
-import { EDIT_TECHNICIAN } from "../types/actionTypes";
 
 const URL = "http://localhost:4000/api/technician";
 
@@ -37,6 +40,71 @@ export const getTechnicians = () => (dispatch) => {
     });
 };
 
+export const addTechnicianFetching = () => ({
+  type: ADD_TECHNICIAN_FETCHING,
+});
+
+export const addTechnicianFulfilled = (payload) => ({
+  type: ADD_TECHNICIAN_FULFILLED,
+  payload,
+});
+
+export const addTechnicianRejected = () => ({
+  type: ADD_TECHNICIAN_REJECTED,
+});
+
+export const addTechnician = (newOne) => (dispatch) => {
+  dispatch(addTechnicianFetching());
+  fetch(URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newOne),
+  })
+    .then((data) => {
+      data.json();
+      if (!data.ok) throw Error;
+      return dispatch(addTechnicianFulfilled(newOne));
+    })
+    .catch((err) => {
+      return dispatch(addTechnicianRejected());
+    });
+};
+
+export const editTechnicianFetching = () => ({
+  type: EDIT_TECHNICIAN_FETCHING,
+});
+
+export const editTechnicianFulfilled = (payload, newOne) => ({
+  type: EDIT_TECHNICIAN_FULFILLED,
+  payload,
+  newOne,
+});
+
+export const editTechnicianRejected = () => ({
+  type: EDIT_TECHNICIAN_REJECTED,
+});
+
+export const editTechnician = (newOne, id) => (dispatch) => {
+  dispatch(editTechnicianFetching());
+  fetch(`${URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newOne),
+  })
+    .then((data) => {
+      data.json();
+      if (!data.ok) throw Error;
+      return dispatch(editTechnicianFulfilled(newOne));
+    })
+    .catch((err) => {
+      return dispatch(editTechnicianRejected());
+    });
+};
+
 export const deleteTechnicianFetching = () => ({
   type: DELETE_TECHNICIAN_FETCHING,
 });
@@ -52,28 +120,15 @@ export const deleteTechnicianRejected = () => ({
 
 export const deleteTechnician = (id) => (dispatch) => {
   dispatch(deleteTechnicianFetching());
-  return fetch(`${URL}/${id}`, { method: "DELETE" })
-    .then((data) => data.json())
-    .then(() => {
-      dispatch(deleteTechnicianFulfilled(id));
+  fetch(`${URL}/${id}`, {
+    method: "DELETE",
+  })
+    .then((res) => {
+      if (!res.ok) throw Error;
+      return dispatch(deleteTechnicianFulfilled(id));
     })
-    .catch(() => {
-      dispatch(deleteTechnicianRejected());
+    .catch((error) => {
+      console.log(error);
+      return dispatch(deleteTechnicianRejected());
     });
 };
-/*
-
-export const addTechnician = (newOne) => {
-  return {
-    type: ADD_TECHNICIAN,
-    newOne,
-  };
-};
-
-export const editTechnician = (newOne) => {
-  return {
-    type: EDIT_TECHNICIAN,
-    newOne,
-  };
-};
-*/

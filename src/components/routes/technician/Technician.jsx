@@ -4,9 +4,9 @@ import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 import { connect } from "react-redux";
 import {
-  deleteTechnician as deleteTechnicianAction /*
+  deleteTechnician as deleteTechnicianAction,
   addTechnician as addTechnicianAction,
-  editTechnician as editTechnicianAction,*/,
+  editTechnician as editTechnicianAction,
   getTechnicians as getTechniciansAction,
 } from "../../../redux/actions/techniciansActions";
 import { bindActionCreators } from "redux";
@@ -16,8 +16,8 @@ const Technician = ({
   isLoading,
   error,
   deleteTechnician,
-  //addTechnician,
-  //editTechnician,
+  addTechnician,
+  editTechnician,
   getTechnicians,
 }) => {
   const [showForm, setShowForm] = useState(false);
@@ -76,13 +76,12 @@ const Technician = ({
     }
   };
 
-  const addEdit = (newOne) => {
-    if (newOne._id === null) {
-      newOne._id = uuidv4();
-      //addTechnician(newOne);
+  const addEdit = (newOne, _id) => {
+    if (_id === null) {
+      addTechnician(newOne);
       toggleForm();
     } else {
-      //editTechnician(newOne);
+      editTechnician(newOne, id);
       toggleForm();
     }
   };
@@ -135,15 +134,10 @@ const mapDispatchToProps = (dispatch) => {
     {
       getTechnicians: getTechniciansAction,
       deleteTechnician: deleteTechnicianAction,
+      addTechnician: addTechnicianAction,
+      editTechnician: editTechnicianAction,
     },
     dispatch
   );
 };
-/*
-    deleteTechnician: (id) => dispatch(deleteTechnicianAction(id)),
-    addTechnician: (newOne) => dispatch(addTechnicianAction(newOne)),
-    editTechnician: (newOne) => dispatch(editTechnicianAction(newOne)),
-  },dispatch);
-};*/
-
 export default connect(mapStateToProps, mapDispatchToProps)(Technician);
