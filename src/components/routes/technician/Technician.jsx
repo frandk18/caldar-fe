@@ -15,6 +15,7 @@ const Technician = ({
   data,
   isLoading,
   error,
+  refresh,
   deleteTechnician,
   addTechnician,
   editTechnician,
@@ -48,13 +49,15 @@ const Technician = ({
   ]);
 
   useEffect(() => {
-    getTechnicians();
-  }, [getTechnicians]);
+    if (refresh === true) {
+      getTechnicians();
+    }
+  }, [refresh]);
 
   if (isLoading) {
     return <div>... LOADING</div>;
   }
-  console.log(data);
+
   if (error) {
     return <div>ERROR!!!</div>;
   }
@@ -127,6 +130,7 @@ const mapStateToProps = (state) => ({
   data: state.technicians.data,
   isLoading: state.technicians.isLoading,
   error: state.technicians.error,
+  refresh: state.technicians.refresh,
 });
 
 const mapDispatchToProps = (dispatch) => {
