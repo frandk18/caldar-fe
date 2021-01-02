@@ -3,13 +3,13 @@ import {
     DELETE_COMPANY,
     EDIT_COMPANY,
   } from "../types/actionTypes";
-  import company from "../../mocks/company.json";
+  import companies from "../../mocks/company.json";
 
   const initialState = {
-    data: company,
+    data: companies,
   };
 
-  const companyReducer = (state = initialState, action) => {
+  const companiesReducer = (state = initialState, action) => {
     switch (action.type) {
       case DELETE_COMPANY:
         return {
@@ -38,4 +38,4 @@ import {
     }
   };
 
-  export default companyReducer;
+  export default companiesReducer;

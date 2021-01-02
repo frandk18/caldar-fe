@@ -7,7 +7,7 @@ import {
   deleteCompany as deleteCompanyAction,
   addCompany as addCompanyAction,
   editCompany as editCompanyAction,
-} from "../../../redux/actions/companyActions";
+} from "../../../redux/actions/companiesActions";
 
 const Company = ({ data, deleteCompany, addCompany, editCompany }) => {
   const [showForm, setShowForm] = useState(false);
@@ -97,7 +97,7 @@ const Company = ({ data, deleteCompany, addCompany, editCompany }) => {
 };
 
 const mapStateToProps = (state) => ({
-  data: state.company.data,
+  data: state.companies.data,
 });
 
 const mapDispatchToProps = (dispatch) => {
