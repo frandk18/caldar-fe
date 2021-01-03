@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useEffect, useState } from "react";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 import { connect } from "react-redux";
@@ -7,36 +6,59 @@ import {
   deleteBoilerType as deleteBoilerTypeAction,
   addBoilerType as addBoilerTypeAction,
   editBoilerType as editBoilerTypeAction,
+  getBoilerTypes as getBoilerTypesAction,
 } from "../../../redux/actions/boilerTypeActions";
+import { bindActionCreators } from "redux";
 
-function BoilerType({ data, deleteBoilerType, addBoilerType, editBoilerType }) {
+const BoilerType = ({
+  data,
+  isLoading,
+  error,
+  refresh,
+  deleteBoilerType,
+  addBoilerType,
+  editBoilerType,
+  getBoilerTypes,
+}) => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-  const boilerType = data;
-
   const [headCells] = useState([
     {
-      id: "model",
+      id: "boilerType",
       align: "center",
       disablePadding: false,
       label: "Boiler Model",
     },
     {
-      id: "std_maintainance",
+      id: "stdMaintainance",
       align: "center",
       disablePadding: false,
       label: "Standard maintainance time",
     },
     {
-      id: "observation",
+      id: "obs",
       align: "center",
       disablePadding: false,
       label: "Observation",
     },
   ]);
 
-  const fieldObj = ["model", "std_maintainance", "observation"];
+  useEffect(() => {
+    if (refresh === true) {
+      getBoilerTypes();
+    }
+  }, [refresh]);
+
+  if (isLoading) {
+    return <div>... LOADING</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
+
+  const fieldObj = ["boilerType", "stdMaintainance", "obs"];
 
   const name = "Boiler Types";
 
@@ -47,13 +69,12 @@ function BoilerType({ data, deleteBoilerType, addBoilerType, editBoilerType }) {
     }
   };
 
-  const addEdit = (newOne) => {
-    if (newOne._id.$oid === null) {
-      newOne._id.$oid = uuidv4();
+  const addEdit = (newOne, _id) => {
+    if (_id === null) {
       addBoilerType(newOne);
       toggleForm();
     } else {
-      editBoilerType(newOne);
+      editBoilerType(newOne, _id);
       toggleForm();
     }
   };
@@ -74,7 +95,7 @@ function BoilerType({ data, deleteBoilerType, addBoilerType, editBoilerType }) {
     <React.Fragment>
       {showForm && (
         <FormUI
-          boilerType={boilerType}
+          boilerTypes={data}
           id={id}
           editing={editing}
           addEdit={addEdit}
@@ -84,7 +105,7 @@ function BoilerType({ data, deleteBoilerType, addBoilerType, editBoilerType }) {
       )}
       <TableUI
         headCells={headCells}
-        data={boilerType}
+        data={data}
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
@@ -97,14 +118,20 @@ function BoilerType({ data, deleteBoilerType, addBoilerType, editBoilerType }) {
 
 const mapStateToProps = (state) => ({
   data: state.boilerType.data,
+  isLoading: state.boilerType.isLoading,
+  error: state.boilerType.error,
+  refresh: state.boilerType.refresh,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteBoilerType: (id) => dispatch(deleteBoilerTypeAction(id)),
-    addBoilerType: (newOne) => dispatch(addBoilerTypeAction(newOne)),
-    editBoilerType: (newOne) => dispatch(editBoilerTypeAction(newOne)),
-  };
+  return bindActionCreators(
+    {
+      getBoilerTypes: getBoilerTypesAction,
+      deleteBoilerType: deleteBoilerTypeAction,
+      addBoilerType: addBoilerTypeAction,
+      editBoilerType: editBoilerTypeAction,
+    },
+    dispatch
+  );
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(BoilerType);

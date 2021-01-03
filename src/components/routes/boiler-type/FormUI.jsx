@@ -7,18 +7,16 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
-  const boilerType = props.boilerType.filter(
-    (boilerT) => boilerT._id.$oid === props.id
+  const boilerType = props.boilerTypes.filter(
+    (boilerType) => boilerType._id === props.id
   );
 
   const [newOne, setNewOne] = useState({
-    _id: {
-      $oid: props.editing ? boilerType[0]._id.$oid : null,
-    },
-    model: props.editing ? boilerType[0].model : "",
-    std_maintainance: props.editing ? boilerType[0].std_maintainance : "",
-    observation: props.editing ? boilerType[0].observation : "",
+    boilerType: props.editing ? boilerType[0].boilerType : "",
+    stdMaintainance: props.editing ? boilerType[0].stdMaintainance : "",
+    obs: props.editing ? boilerType[0].obs : "",
   });
+  const _id = props.editing ? boilerType[0]._id : null;
 
   const handleChange = (evt) => {
     const value = evt.target.value;
@@ -30,7 +28,7 @@ function Form(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addEdit(newOne);
+    props.addEdit(newOne, _id);
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -114,8 +112,8 @@ function Form(props) {
                   </h1>
 
                   <TextField
-                    name="model"
-                    defaultValue={newOne.model}
+                    name="boilerType"
+                    defaultValue={newOne.boilerType}
                     onChange={handleChange}
                     label="Model"
                     placeholder="A"
@@ -129,11 +127,11 @@ function Form(props) {
                   />
 
                   <TextField
-                    name="std_maintainance"
+                    name="stdMaintainance"
                     type="number"
-                    defaultValue={newOne.std_maintainance}
+                    defaultValue={newOne.stdMaintainance}
                     onChange={handleChange}
-                    label="Standar Maintainance Required Time"
+                    label="Standard Maintainance Required Time"
                     placeholder="10"
                     fullWidth
                     margin="normal"
@@ -145,8 +143,8 @@ function Form(props) {
                   />
 
                   <TextField
-                    name="observation"
-                    defaultValue={newOne.observation}
+                    name="obs"
+                    defaultValue={newOne.obs}
                     onChange={handleChange}
                     label="Observation"
                     placeholder="Write some details"

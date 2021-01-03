@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import techniciansReducer from "./techniciansReducer";
 import buildingsReducer from "./buildingsReducer";
-import boilerTypeReducer from "./boilerTypeReducer";
+import boilerTypesReducer from "./boilerTypesReducer";
 
 const rootReducer = combineReducers({
   technicians: techniciansReducer,
   buildings: buildingsReducer,
-  boilerType: boilerTypeReducer,
+  boilerType: boilerTypesReducer,
 });
 
 export default rootReducer;
