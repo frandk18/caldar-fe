@@ -259,7 +259,7 @@ export default function EnhancedTable(props) {
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
-                    <TableRow key={row._id.$oid}>
+                    <TableRow key={row._id}>
                       <TableCell padding="checkbox"></TableCell>
                       <TableCell
                         component="th"
@@ -298,7 +298,7 @@ export default function EnhancedTable(props) {
                           <IconButton
                             aria-label="edit"
                             onClick={() => {
-                              props.toEdit(row._id.$oid);
+                              props.toEdit(row._id);
                               props.toggleForm();
                             }}
                           >
@@ -311,7 +311,7 @@ export default function EnhancedTable(props) {
                           <IconButton
                             aria-label="delete"
                             onClick={() => {
-                              props.toDelete(row._id.$oid);
+                              props.toDelete(row._id);
                             }}
                           >
                             <DeleteIcon />
