@@ -1,37 +1,64 @@
-import React, { useState } from "react";
-import BoilerType from "../../../mocks/boiler-type.json";
-import { v4 as uuidv4 } from "uuid";
+import React, { useEffect, useState } from "react";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
+import { connect } from "react-redux";
+import {
+  deleteBoilerType as deleteBoilerTypeAction,
+  addBoilerType as addBoilerTypeAction,
+  editBoilerType as editBoilerTypeAction,
+  getBoilerTypes as getBoilerTypesAction,
+} from "../../../redux/actions/boilerTypeActions";
+import { bindActionCreators } from "redux";
 
-function BoilerModel() {
-  const [boilerType, setBoilerType] = useState(BoilerType);
+const BoilerType = ({
+  data,
+  isLoading,
+  error,
+  refresh,
+  deleteBoilerType,
+  addBoilerType,
+  editBoilerType,
+  getBoilerTypes,
+}) => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-
   const [headCells] = useState([
     {
-      id: "model",
+      id: "boilerType",
       align: "center",
       disablePadding: false,
       label: "Boiler Model",
     },
     {
-      id: "std_maintainance",
+      id: "stdMaintainance",
       align: "center",
       disablePadding: false,
       label: "Standard maintainance time",
     },
     {
-      id: "observation",
+      id: "obs",
       align: "center",
       disablePadding: false,
       label: "Observation",
     },
   ]);
 
-  const fieldObj = ["model", "std_maintainance", "observation"];
+  useEffect(() => {
+    if (refresh === true) {
+      getBoilerTypes();
+    }
+  }, [refresh]);
+
+  if (isLoading) {
+    return <div>... LOADING</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
+
+  const fieldObj = ["boilerType", "stdMaintainance", "obs"];
 
   const name = "Boiler Types";
 
@@ -42,26 +69,18 @@ function BoilerModel() {
     }
   };
 
-  const addEdit = (newOne) => {
-    let updateBoilerType = null;
-    if (newOne._id.$oid === null) {
-      newOne._id.$oid = uuidv4();
-      updateBoilerType = [...boilerType, newOne];
-      setBoilerType(updateBoilerType);
+  const addEdit = (newOne, _id) => {
+    if (_id === null) {
+      addBoilerType(newOne);
       toggleForm();
     } else {
-      updateBoilerType = [
-        ...boilerType.map((boilerType) => {
-          if (boilerType._id.$oid === newOne._id.$oid) {
-            boilerType = newOne;
-          }
-          return boilerType;
-        }),
-      ];
-      setBoilerType(updateBoilerType);
-      setEditing(false);
+      editBoilerType(newOne, _id);
+      toggleForm();
     }
-    toggleForm();
+  };
+
+  const toDelete = (id) => {
+    deleteBoilerType(id);
   };
 
   const captureId = (id) => {
@@ -72,19 +91,11 @@ function BoilerModel() {
     toggleForm();
   };
 
-  const toDelete = (id) => {
-    if (id !== null) {
-      setBoilerType([
-        ...boilerType.filter((boilerType) => boilerType._id.$oid !== id),
-      ]);
-    }
-  };
-
   return (
     <React.Fragment>
       {showForm && (
         <FormUI
-          boilerType={boilerType}
+          boilerTypes={data}
           id={id}
           editing={editing}
           addEdit={addEdit}
@@ -94,7 +105,7 @@ function BoilerModel() {
       )}
       <TableUI
         headCells={headCells}
-        data={boilerType}
+        data={data}
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
@@ -105,4 +116,22 @@ function BoilerModel() {
   );
 }
 
-export default BoilerModel;
+const mapStateToProps = (state) => ({
+  data: state.boilerType.data,
+  isLoading: state.boilerType.isLoading,
+  error: state.boilerType.error,
+  refresh: state.boilerType.refresh,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getBoilerTypes: getBoilerTypesAction,
+      deleteBoilerType: deleteBoilerTypeAction,
+      addBoilerType: addBoilerTypeAction,
+      editBoilerType: editBoilerTypeAction,
+    },
+    dispatch
+  );
+};
+export default connect(mapStateToProps, mapDispatchToProps)(BoilerType);
