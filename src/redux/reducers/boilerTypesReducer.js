@@ -1,4 +1,17 @@
-import { ACTIONS_TYPES } from "../types/actionTypes";
+import {
+  ADD_BOILERTYPE_FETCHING,
+  ADD_BOILERTYPE_FULFILLED,
+  ADD_BOILERTYPE_REJECTED,
+  DELETE_BOILERTYPE_FETCHING,
+  DELETE_BOILERTYPE_FULFILLED,
+  DELETE_BOILERTYPE_REJECTED,
+  EDIT_BOILERTYPE_FETCHING,
+  EDIT_BOILERTYPE_FULFILLED,
+  EDIT_BOILERTYPE_REJECTED,
+  GET_BOILERTYPES_FETCHING,
+  GET_BOILERTYPES_FULFILLED,
+  GET_BOILERTYPES_REJECTED,
+} from "../types/actionTypes";
 
 const initialState = {
   data: [],
@@ -7,92 +20,89 @@ const initialState = {
   refresh: true,
 };
 
-const companiesReducer = (state = initialState, action) => {
+const boilerTypesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIONS_TYPES.GET_COMPANIES_FETCHING:
+    case GET_BOILERTYPES_FETCHING:
       return {
         ...state,
         isLoading: true,
       };
-    case ACTIONS_TYPES.GET_COMPANIES_FULFILLED:
+    case GET_BOILERTYPES_FULFILLED:
       return {
         ...state,
         isLoading: false,
         data: action.payload,
       };
-    case ACTIONS_TYPES.GET_COMPANIES_REJECTED:
+    case GET_BOILERTYPES_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
-
-    case ACTIONS_TYPES.ADD_COMPANY_FETCHING:
+    case ADD_BOILERTYPE_FETCHING:
       return {
         ...state,
         isLoading: true,
         refresh: false,
       };
-    case ACTIONS_TYPES.ADD_COMPANY_FULFILLED:
+    case ADD_BOILERTYPE_FULFILLED:
       return {
         ...state,
         refresh: true,
         data: [...state.data, action.payload],
         isLoading: false,
       };
-    case ACTIONS_TYPES.ADD_COMPANY_REJECTED:
+    case ADD_BOILERTYPE_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
-
-    case ACTIONS_TYPES.EDIT_COMPANY_FETCHING:
+    case EDIT_BOILERTYPE_FETCHING:
       return {
         ...state,
         isLoading: true,
         refresh: false,
       };
-    case ACTIONS_TYPES.EDIT_COMPANY_FULFILLED:
+    case EDIT_BOILERTYPE_FULFILLED:
       return {
         ...state,
         isLoading: false,
         refresh: true,
-        data: state.data.map((company) => {
-          if (company._id === action.payload) {
-            company = action.newOne;
+        data: state.data.map((boilerT) => {
+          if (boilerT._id === action.payload) {
+            boilerT = action.newOne;
           }
-          return company;
+          return boilerT;
         }),
       };
-    case ACTIONS_TYPES.EDIT_COMPANY_REJECTED:
+    case EDIT_BOILERTYPE_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
-
-    case ACTIONS_TYPES.DELETE_COMPANY_FETCHING:
+    case DELETE_BOILERTYPE_FETCHING:
       return {
         ...state,
         isLoading: true,
       };
-    case ACTIONS_TYPES.DELETE_COMPANY_FULFILLED:
+    case DELETE_BOILERTYPE_FULFILLED:
       return {
         ...state,
         isLoading: false,
-        data: state.data.filter((company) => company._id !== action.payload),
+        data: state.data.filter(
+          (boilerT) => boilerT._id !== action.payload
+        ),
       };
-    case ACTIONS_TYPES.DELETE_COMPANY_REJECTED:
+    case DELETE_BOILERTYPE_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
-
     default:
       return state;
   }
 };
-
-export default companiesReducer;
+export default boilerTypesReducer;
