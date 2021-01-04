@@ -45,7 +45,7 @@ export const addCompanyRejected = () => ({
 });
 
 export const addCompany = (newOne) => (dispatch) => {
-  console.log(newOne)
+  console.log(newOne);
   dispatch(addCompanyFetching());
   fetch(URL, {
     method: "POST",

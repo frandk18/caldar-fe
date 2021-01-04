@@ -20,11 +20,9 @@ const Company = ({
   editCompany,
   getCompanies,
 }) => {
-
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-  const companies = data;
   const [headCells] = useState([
     {
       id: "CIN",
@@ -49,14 +47,7 @@ const Company = ({
     },
   ]);
 
-  const fieldObj = [
-    "CIN",
-    "name",
-    "email",
-    "phone",
-    "address",
-    "zipcode"
-  ];
+  const fieldObj = ["CIN", "name", "email", "phone", "address", "zipcode"];
 
   const name = "Companies";
 
@@ -126,7 +117,7 @@ const Company = ({
       />
     </React.Fragment>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   buildings: state.buildings.data,

@@ -5,7 +5,6 @@ import companiesReducer from "./companiesReducer";
 import boilersReducer from "./boilersReducer";
 import boilerTypesReducer from "./boilerTypesReducer";
 
-
 const rootReducer = combineReducers({
   technicians: techniciansReducer,
   buildings: buildingsReducer,

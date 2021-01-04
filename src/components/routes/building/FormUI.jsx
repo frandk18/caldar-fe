@@ -116,8 +116,12 @@ function Form(props) {
 
   const classes = useStyles();
 
-  const company = props.companies.filter((company) => company._id === newOne.company)
-  const [companyName, setCompanyName] = useState(props.editing ? company[0].name : "");
+  const company = props.companies.filter(
+    (company) => company._id === newOne.company
+  );
+  const [companyName, setCompanyName] = useState(
+    props.editing ? company[0].name : ""
+  );
 
   const handleSelectCompanyChange = (e) => {
     const company = props.companies.filter(
@@ -131,16 +135,20 @@ function Form(props) {
   const boilerSN = [];
 
   newOne.boilers.forEach((value) => {
-    const boiler = props.boilers.filter((boiler) => boiler._id === value)
-    boilerSN.push(boiler[0].serialNumber)
-  })
-  const [boilerSerialNumber, setBoilerSerialNumber] = useState(props.editing ? boilerSN : []);
-  
+    const boiler = props.boilers.filter((boiler) => boiler._id === value);
+    boilerSN.push(boiler[0].serialNumber);
+  });
+  const [boilerSerialNumber, setBoilerSerialNumber] = useState(
+    props.editing ? boilerSN : []
+  );
+
   const handleSelectBoilersChange = (e) => {
     setBoilerSerialNumber(e.target.value);
     e.target.value.forEach((value) => {
-      const boiler = props.boilers.filter(boiler => boiler.serialNumber === value)
-      boilerId.push(boiler[0]._id)
+      const boiler = props.boilers.filter(
+        (boiler) => boiler.serialNumber === value
+      );
+      boilerId.push(boiler[0]._id);
     });
     newOne.boilers = boilerId;
   };
@@ -215,10 +223,15 @@ function Form(props) {
                           MenuProps={MenuProps}
                         >
                           {props.boilers.map((boiler) => (
-                            <MenuItem key={boiler._id} value={boiler.serialNumber}>
+                            <MenuItem
+                              key={boiler._id}
+                              value={boiler.serialNumber}
+                            >
                               <Checkbox
                                 checked={
-                                  boilerSerialNumber.indexOf(boiler.serialNumber) > -1
+                                  boilerSerialNumber.indexOf(
+                                    boiler.serialNumber
+                                  ) > -1
                                 }
                               />
                               <ListItemText primary={boiler.serialNumber} />

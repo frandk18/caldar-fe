@@ -19,9 +19,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
-  const boiler = props.boilers.filter(
-    (boiler) => boiler._id === props.id
-  );
+  const boiler = props.boilers.filter((boiler) => boiler._id === props.id);
 
   const [newOne, setNewOne] = useState({
     serialNumber: props.editing ? boiler[0].serialNumber : "",
@@ -130,8 +128,12 @@ function Form(props) {
     newOne.manufacturingDate = mm + "/" + dd + "/" + y;
   };
 
-  const building = props.buildings.filter((building) => building._id === newOne.building)
-  const [buildingName, setBuildingName] = useState(props.editing ? building[0].name : "");
+  const building = props.buildings.filter(
+    (building) => building._id === newOne.building
+  );
+  const [buildingName, setBuildingName] = useState(
+    props.editing ? building[0].name : ""
+  );
 
   const handleSelectBuildingChange = (e) => {
     const building = props.buildings.filter(

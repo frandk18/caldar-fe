@@ -125,7 +125,7 @@ const Boiler = ({
       />
     </React.Fragment>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   buildings: state.buildings.data,

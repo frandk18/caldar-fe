@@ -7,9 +7,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
-  const company = props.companies.filter(
-    (company) => company._id === props.id
-  );
+  const company = props.companies.filter((company) => company._id === props.id);
   const [newOne, setNewOne] = useState({
     CIN: props.editing ? company[0].CIN : "",
     name: props.editing ? company[0].name : "",
