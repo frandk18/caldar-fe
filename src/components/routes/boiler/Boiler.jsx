@@ -1,13 +1,26 @@
-import React, { useState } from "react";
-import Buildings from "../../../mocks/building.json";
-import Boilers from "../../../mocks/boiler.json";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, useEffect } from "react";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
+import { connect } from "react-redux";
+import {
+  deleteBoiler as deleteBoilerAction,
+  addBoiler as addBoilerAction,
+  editBoiler as editBoilerAction,
+  getBoilers as getBoilersAction,
+} from "../../../redux/actions/boilersActions";
+import { bindActionCreators } from "redux";
 
-function Boiler() {
-  const [boilers, setBoilers] = useState(Boilers);
-  const [buildings] = useState(Buildings);
+const Boiler = ({
+  buildings,
+  boilers,
+  isLoading,
+  error,
+  refresh,
+  deleteBoiler,
+  addBoiler,
+  editBoiler,
+  getBoilers,
+}) => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
@@ -38,12 +51,26 @@ function Boiler() {
   const fieldObj = [
     "serialNumber",
     "type",
-    //"building",
     "manufacturingDate",
     "status",
+    "building",
   ];
 
   const name = "Boilers";
+
+  useEffect(() => {
+    if (refresh === true) {
+      getBoilers();
+    }
+  }, [refresh]);
+
+  if (isLoading) {
+    return <div>... LOADING</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -52,26 +79,18 @@ function Boiler() {
     }
   };
 
-  const addEdit = (newOne) => {
-    let updateBoilers = null;
-    if (newOne._id.$oid === null) {
-      newOne._id.$oid = uuidv4();
-      updateBoilers = [...boilers, newOne];
-      setBoilers(updateBoilers);
+  const addEdit = (newOne, _id) => {
+    if (_id === null) {
+      addBoiler(newOne);
       toggleForm();
     } else {
-      updateBoilers = [
-        ...boilers.map((boiler) => {
-          if (boiler._id.$oid === newOne._id.$oid) {
-            boiler = newOne;
-          }
-          return boiler;
-        }),
-      ];
-      setBoilers(updateBoilers);
-      setEditing(false);
+      editBoiler(newOne, id);
+      toggleForm();
     }
-    toggleForm();
+  };
+
+  const toDelete = (id) => {
+    deleteBoiler(id);
   };
 
   const captureId = (id) => {
@@ -80,12 +99,6 @@ function Boiler() {
       setEditing(true);
     }
     toggleForm();
-  };
-
-  const toDelete = (id) => {
-    if (id !== null) {
-      setBoilers([...boilers.filter((boiler) => boiler._id.$oid !== id)]);
-    }
   };
 
   return (
@@ -112,6 +125,26 @@ function Boiler() {
       />
     </React.Fragment>
   );
-}
+};
 
-export default Boiler;
+const mapStateToProps = (state) => ({
+  buildings: state.buildings.data,
+  boilers: state.boilers.data,
+  isLoading: state.boilers.isLoading,
+  error: state.boilers.error,
+  refresh: state.boilers.refresh,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getBoilers: getBoilersAction,
+      deleteBoiler: deleteBoilerAction,
+      addBoiler: addBoilerAction,
+      editBoiler: editBoilerAction,
+    },
+    dispatch
+  );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Boiler);

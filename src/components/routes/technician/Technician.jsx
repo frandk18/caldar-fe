@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, useEffect } from "react";
+//import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 import Form from "./Form.jsx";
@@ -25,6 +25,7 @@ const Technician = ({
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
+
   const [headCells] = useState([
     {
       id: "fullname",
@@ -49,6 +50,16 @@ const Technician = ({
     },
   ]);
 
+  const fieldObj = [
+    "fullname",
+    "knowledge",
+    "email",
+    "phone",
+    "address",
+    "dateOfBirth",
+  ];
+
+  const name = "Technicians";
   useEffect(() => {
     if (refresh === true) {
       getTechnicians();
@@ -62,16 +73,6 @@ const Technician = ({
   if (error) {
     return <div>ERROR!!!</div>;
   }
-
-  const fieldObj = [
-    "fullname",
-    "knowledge",
-    "email",
-    "phone",
-    "address",
-    "dateOfBirth",
-  ];
-  const name = "Technicians";
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -146,4 +147,5 @@ const mapDispatchToProps = (dispatch) => {
     dispatch
   );
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(Technician);

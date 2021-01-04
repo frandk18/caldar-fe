@@ -1,4 +1,4 @@
-import {
+/*import {
   ADD_TECHNICIAN_FETCHING,
   ADD_TECHNICIAN_FULFILLED,
   ADD_TECHNICIAN_REJECTED,
@@ -12,7 +12,9 @@ import {
   GET_TECHNICIANS_FETCHING,
   GET_TECHNICIANS_FULFILLED,
   GET_TECHNICIANS_REJECTED,
-} from "../types/actionTypes";
+} from "../types/actionTypes";*/
+
+import { ACTIONS_TYPES } from "../types/actionTypes";
 
 const initialState = {
   data: [],
@@ -23,50 +25,51 @@ const initialState = {
 
 const techniciansReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_TECHNICIANS_FETCHING:
+    case ACTIONS_TYPES.GET_TECHNICIANS_FETCHING:
       return {
         ...state,
         isLoading: true,
       };
-    case GET_TECHNICIANS_FULFILLED:
+    case ACTIONS_TYPES.GET_TECHNICIANS_FULFILLED:
       return {
         ...state,
         isLoading: false,
         data: action.payload,
       };
-    case GET_TECHNICIANS_REJECTED:
+    case ACTIONS_TYPES.GET_TECHNICIANS_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
-    case ADD_TECHNICIAN_FETCHING:
+
+    case ACTIONS_TYPES.ADD_TECHNICIAN_FETCHING:
       return {
         ...state,
         isLoading: true,
         refresh: false,
       };
-    case ADD_TECHNICIAN_FULFILLED:
-      console.log(action.payload);
+    case ACTIONS_TYPES.ADD_TECHNICIAN_FULFILLED:
       return {
         ...state,
         refresh: true,
         data: [...state.data, action.payload],
         isLoading: false,
       };
-    case ADD_TECHNICIAN_REJECTED:
+    case ACTIONS_TYPES.ADD_TECHNICIAN_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
-    case EDIT_TECHNICIAN_FETCHING:
+
+    case ACTIONS_TYPES.EDIT_TECHNICIAN_FETCHING:
       return {
         ...state,
         isLoading: true,
         refresh: false,
       };
-    case EDIT_TECHNICIAN_FULFILLED:
+    case ACTIONS_TYPES.EDIT_TECHNICIAN_FULFILLED:
       return {
         ...state,
         isLoading: false,
@@ -78,18 +81,19 @@ const techniciansReducer = (state = initialState, action) => {
           return technician;
         }),
       };
-    case EDIT_TECHNICIAN_REJECTED:
+    case ACTIONS_TYPES.EDIT_TECHNICIAN_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
-    case DELETE_TECHNICIAN_FETCHING:
+
+    case ACTIONS_TYPES.DELETE_TECHNICIAN_FETCHING:
       return {
         ...state,
         isLoading: true,
       };
-    case DELETE_TECHNICIAN_FULFILLED:
+    case ACTIONS_TYPES.DELETE_TECHNICIAN_FULFILLED:
       return {
         ...state,
         isLoading: false,
@@ -97,12 +101,13 @@ const techniciansReducer = (state = initialState, action) => {
           (technician) => technician._id !== action.payload
         ),
       };
-    case DELETE_TECHNICIAN_REJECTED:
+    case ACTIONS_TYPES.DELETE_TECHNICIAN_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
+
     default:
       return state;
   }

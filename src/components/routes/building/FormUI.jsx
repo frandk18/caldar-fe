@@ -15,13 +15,10 @@ import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
   const building = props.buildings.filter(
-    (building) => building._id.$oid === props.id
+    (building) => building._id === props.id
   );
 
   const [newOne, setNewOne] = useState({
-    _id: {
-      $oid: props.editing ? building[0]._id.$oid : null,
-    },
     company: props.editing ? building[0].company : "",
     boilers: props.editing ? building[0].boilers : [],
     name: props.editing ? building[0].name : "",
@@ -32,17 +29,21 @@ function Form(props) {
     email: props.editing ? building[0].email : "",
     obs: props.editing ? building[0].obs : "",
   });
+  const _id = props.editing ? building[0]._id : null;
 
   const handleChange = (e) => {
     e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
-    setNewOne({ ...newOne, [name]: value });
+    setNewOne({
+      ...newOne,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addEdit(newOne);
+    props.addEdit(newOne, _id);
   };
 
   const ITEM_HEIGHT = 48;
@@ -115,16 +116,41 @@ function Form(props) {
 
   const classes = useStyles();
 
-  const [companyName, setCompanyName] = useState(newOne.company);
+  const company = props.companies.filter(
+    (company) => company._id === newOne.company
+  );
+  const [companyName, setCompanyName] = useState(
+    props.editing ? company[0].name : ""
+  );
+
   const handleSelectCompanyChange = (e) => {
+    const company = props.companies.filter(
+      (company) => company.name === e.target.value
+    );
     setCompanyName(e.target.value);
-    newOne.company = e.target.value;
+    newOne.company = company[0]._id;
   };
 
-  const [boilerId, setBoilerId] = useState(newOne.boilers);
+  const boilerId = [];
+  const boilerSN = [];
+
+  newOne.boilers.forEach((value) => {
+    const boiler = props.boilers.filter((boiler) => boiler._id === value);
+    boilerSN.push(boiler[0].serialNumber);
+  });
+  const [boilerSerialNumber, setBoilerSerialNumber] = useState(
+    props.editing ? boilerSN : []
+  );
+
   const handleSelectBoilersChange = (e) => {
-    setBoilerId(e.target.value);
-    newOne.boilers = e.target.value;
+    setBoilerSerialNumber(e.target.value);
+    e.target.value.forEach((value) => {
+      const boiler = props.boilers.filter(
+        (boiler) => boiler.serialNumber === value
+      );
+      boilerId.push(boiler[0]._id);
+    });
+    newOne.boilers = boilerId;
   };
 
   return (
@@ -173,9 +199,9 @@ function Form(props) {
                           input={<Input />}
                           MenuProps={MenuProps}
                         >
-                          {props.buildings.map((building, index) => (
-                            <MenuItem key={index} value={building.company}>
-                              {building.company}
+                          {props.companies.map((company) => (
+                            <MenuItem key={company._id} value={company.name}>
+                              {company.name}
                             </MenuItem>
                           ))}
                         </Select>
@@ -189,7 +215,7 @@ function Form(props) {
                         <Select
                           labelId="boilers"
                           id="boilers"
-                          value={boilerId}
+                          value={boilerSerialNumber}
                           multiple
                           onChange={handleSelectBoilersChange}
                           input={<Input />}
@@ -198,12 +224,14 @@ function Form(props) {
                         >
                           {props.boilers.map((boiler) => (
                             <MenuItem
-                              key={boiler.serialNumber}
+                              key={boiler._id}
                               value={boiler.serialNumber}
                             >
                               <Checkbox
                                 checked={
-                                  boilerId.indexOf(boiler.serialNumber) > -1
+                                  boilerSerialNumber.indexOf(
+                                    boiler.serialNumber
+                                  ) > -1
                                 }
                               />
                               <ListItemText primary={boiler.serialNumber} />
@@ -306,7 +334,7 @@ function Form(props) {
                       />
 
                       <TextField
-                        name="observations"
+                        name="obs"
                         defaultValue={newOne.obs}
                         onChange={handleChange}
                         label="Observations"

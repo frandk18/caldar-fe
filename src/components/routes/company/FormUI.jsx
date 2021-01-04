@@ -7,13 +7,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
-  const company = props.companies.filter(
-    (company) => company._id.$oid === props.id
-  );
+  const company = props.companies.filter((company) => company._id === props.id);
   const [newOne, setNewOne] = useState({
-    _id: {
-      $oid: props.editing ? company[0]._id.$oid : null,
-    },
     CIN: props.editing ? company[0].CIN : "",
     name: props.editing ? company[0].name : "",
     email: props.editing ? company[0].email : "",
@@ -23,6 +18,7 @@ function Form(props) {
     contact: props.editing ? company[0].contact : "",
     obs: props.editing ? company[0].obs : "",
   });
+  const _id = props.editing ? company[0]._id : null;
 
   const handleChange = (evt) => {
     const value = evt.target.value;
@@ -35,7 +31,7 @@ function Form(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addEdit(newOne);
+    props.addEdit(newOne, _id);
   };
 
   const useStyles = makeStyles((theme) => ({

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, useEffect } from "react";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 import { connect } from "react-redux";
@@ -7,9 +6,20 @@ import {
   deleteCompany as deleteCompanyAction,
   addCompany as addCompanyAction,
   editCompany as editCompanyAction,
+  getCompanies as getCompaniesAction,
 } from "../../../redux/actions/companiesActions";
+import { bindActionCreators } from "redux";
 
-const Company = ({ data, deleteCompany, addCompany, editCompany }) => {
+const Company = ({
+  companies,
+  isLoading,
+  error,
+  refresh,
+  deleteCompany,
+  addCompany,
+  editCompany,
+  getCompanies,
+}) => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
@@ -42,21 +52,39 @@ const Company = ({ data, deleteCompany, addCompany, editCompany }) => {
 
   const name = "Companies";
 
+  useEffect(() => {
+    if (refresh === true) {
+      getCompanies();
+    }
+  }, [refresh]);
+
+  if (isLoading) {
+    return <div>... LOADING</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
+
   const toggleForm = () => {
     setShowForm(!showForm);
     if (editing) {
       setEditing(false);
     }
   };
-  const addEdit = (newOne) => {
-    if (newOne._id.$oid === null) {
-      newOne._id.$oid = uuidv4();
+
+  const addEdit = (newOne, _id) => {
+    if (_id === null) {
       addCompany(newOne);
       toggleForm();
     } else {
-      editCompany(newOne);
+      editCompany(newOne, id);
       toggleForm();
     }
+  };
+
+  const toDelete = (id) => {
+    deleteCompany(id);
   };
 
   const captureId = (id) => {
@@ -65,10 +93,6 @@ const Company = ({ data, deleteCompany, addCompany, editCompany }) => {
       setEditing(true);
     }
     toggleForm();
-  };
-
-  const toDelete = (id) => {
-    deleteCompany(id);
   };
 
   return (
@@ -97,15 +121,23 @@ const Company = ({ data, deleteCompany, addCompany, editCompany }) => {
 };
 
 const mapStateToProps = (state) => ({
-  data: state.companies.data,
+  buildings: state.buildings.data,
+  companies: state.companies.data,
+  isLoading: state.companies.isLoading,
+  error: state.companies.error,
+  refresh: state.companies.refresh,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteCompany: (id) => dispatch(deleteCompanyAction(id)),
-    addCompany: (newOne) => dispatch(addCompanyAction(newOne)),
-    editCompany: (newOne) => dispatch(editCompanyAction(newOne)),
-  };
+  return bindActionCreators(
+    {
+      getCompanies: getCompaniesAction,
+      deleteCompany: deleteCompanyAction,
+      addCompany: addCompanyAction,
+      editCompany: editCompanyAction,
+    },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Company);

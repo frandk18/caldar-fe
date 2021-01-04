@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import Boilers from "../../../mocks/boiler.json";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, useEffect } from "react";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 import { connect } from "react-redux";
@@ -8,14 +6,25 @@ import {
   deleteBuilding as deleteBuildingAction,
   addBuilding as addBuildingAction,
   editBuilding as editBuildingAction,
+  getBuildings as getBuildingsAction,
 } from "../../../redux/actions/buildingsActions";
+import { bindActionCreators } from "redux";
 
-const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
-  const [boilers] = useState(Boilers);
+const Building = ({
+  buildings,
+  companies,
+  boilers,
+  isLoading,
+  error,
+  refresh,
+  deleteBuilding,
+  addBuilding,
+  editBuilding,
+  getBuildings,
+}) => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-  const buildings = data;
 
   const [headCells] = useState([
     { id: "company", align: "center", disablePadding: false, label: "Company" },
@@ -44,6 +53,20 @@ const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
 
   const name = "Buildings";
 
+  useEffect(() => {
+    if (refresh === true) {
+      getBuildings();
+    }
+  }, [refresh]);
+
+  if (isLoading) {
+    return <div>... LOADING</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
+
   const toggleForm = () => {
     setShowForm(!showForm);
     if (editing) {
@@ -51,13 +74,12 @@ const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
     }
   };
 
-  const addEdit = (newOne) => {
-    if (newOne._id.$oid === null) {
-      newOne._id.$oid = uuidv4();
+  const addEdit = (newOne, _id) => {
+    if (_id === null) {
       addBuilding(newOne);
       toggleForm();
     } else {
-      editBuilding(newOne);
+      editBuilding(newOne, id);
       toggleForm();
     }
   };
@@ -79,6 +101,7 @@ const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
       {showForm && (
         <FormUI
           buildings={buildings}
+          companies={companies}
           boilers={boilers}
           id={id}
           editing={editing}
@@ -101,15 +124,24 @@ const Building = ({ data, deleteBuilding, addBuilding, editBuilding }) => {
 };
 
 const mapStateToProps = (state) => ({
-  data: state.buildings.data,
+  buildings: state.buildings.data,
+  companies: state.companies.data,
+  boilers: state.boilers.data,
+  isLoading: state.buildings.isLoading,
+  error: state.buildings.error,
+  refresh: state.buildings.refresh,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteBuilding: (id) => dispatch(deleteBuildingAction(id)),
-    addBuilding: (newOne) => dispatch(addBuildingAction(newOne)),
-    editBuilding: (newOne) => dispatch(editBuildingAction(newOne)),
-  };
+  return bindActionCreators(
+    {
+      getBuildings: getBuildingsAction,
+      deleteBuilding: deleteBuildingAction,
+      addBuilding: addBuildingAction,
+      editBuilding: editBuildingAction,
+    },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Building);
