@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Boilers from "../../../mocks/boiler.json";
-//import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
 import { connect } from "react-redux";
@@ -13,7 +11,9 @@ import {
 import { bindActionCreators } from "redux";
 
 const Building = ({
-  data,
+  buildings,
+  companies,
+  boilers,
   isLoading,
   error,
   refresh,
@@ -22,7 +22,6 @@ const Building = ({
   editBuilding,
   getBuildings,
 }) => {
-  const [boilers] = useState(Boilers);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
@@ -101,7 +100,8 @@ const Building = ({
     <React.Fragment>
       {showForm && (
         <FormUI
-          buildings={data}
+          buildings={buildings}
+          companies={companies}
           boilers={boilers}
           id={id}
           editing={editing}
@@ -112,7 +112,7 @@ const Building = ({
       )}
       <TableUI
         headCells={headCells}
-        data={data}
+        data={buildings}
         fieldObj={fieldObj}
         name={name}
         toDelete={toDelete}
@@ -124,7 +124,9 @@ const Building = ({
 };
 
 const mapStateToProps = (state) => ({
-  data: state.buildings.data,
+  buildings: state.buildings.data,
+  companies: state.companies.data,
+  boilers: state.boilers.data,
   isLoading: state.buildings.isLoading,
   error: state.buildings.error,
   refresh: state.buildings.refresh,

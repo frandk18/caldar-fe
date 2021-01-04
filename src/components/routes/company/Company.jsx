@@ -1,11 +1,25 @@
-import React, { useState } from "react";
-import Companies from "../../../mocks/company.json";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, useEffect } from "react";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
+import { connect } from "react-redux";
+import {
+  deleteCompany as deleteCompanyAction,
+  addCompany as addCompanyAction,
+  editCompany as editCompanyAction,
+  getCompanies as getCompaniesAction,
+} from "../../../redux/actions/companiesActions";
+import { bindActionCreators } from "redux";
 
-function Company() {
-  const [companies, setCompanies] = useState(Companies);
+const Company = ({
+  companies,
+  isLoading,
+  error,
+  refresh,
+  deleteCompany,
+  addCompany,
+  editCompany,
+  getCompanies,
+}) => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
@@ -34,9 +48,30 @@ function Company() {
     },
   ]);
 
-  const fieldObj = ["CIN", "name", "email", "phone", "address", "zipcode"];
+  const fieldObj = [
+    "CIN",
+    "name",
+    "email",
+    "phone",
+    "address",
+    "zipcode"
+  ];
 
   const name = "Companies";
+
+  useEffect(() => {
+    if (refresh === true) {
+      getCompanies();
+    }
+  }, [refresh]);
+
+  if (isLoading) {
+    return <div>... LOADING</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -45,26 +80,18 @@ function Company() {
     }
   };
 
-  const addEdit = (newOne) => {
-    let updateCompanies = null;
-    if (newOne._id.$oid === null) {
-      newOne._id.$oid = uuidv4();
-      updateCompanies = [...companies, newOne];
-      setCompanies(updateCompanies);
+  const addEdit = (newOne, _id) => {
+    if (_id === null) {
+      addCompany(newOne);
       toggleForm();
     } else {
-      updateCompanies = [
-        ...companies.map((company) => {
-          if (company._id.$oid === newOne._id.$oid) {
-            company = newOne;
-          }
-          return company;
-        }),
-      ];
-      setCompanies(updateCompanies);
-      setEditing(false);
+      editCompany(newOne, id);
+      toggleForm();
     }
-    toggleForm();
+  };
+
+  const toDelete = (id) => {
+    deleteCompany(id);
   };
 
   const captureId = (id) => {
@@ -75,15 +102,8 @@ function Company() {
     toggleForm();
   };
 
-  const toDelete = (id) => {
-    if (id !== null) {
-      setCompanies([...companies.filter((company) => company._id.$oid !== id)]);
-    }
-  };
-
   return (
     <React.Fragment>
-      {}
       {showForm && (
         <FormUI
           companies={companies}
@@ -94,7 +114,6 @@ function Company() {
           toggleForm={toggleForm}
         />
       )}
-      {}
       <TableUI
         headCells={headCells}
         data={companies}
@@ -107,4 +126,25 @@ function Company() {
     </React.Fragment>
   );
 }
-export default Company;
+
+const mapStateToProps = (state) => ({
+  buildings: state.buildings.data,
+  companies: state.companies.data,
+  isLoading: state.companies.isLoading,
+  error: state.companies.error,
+  refresh: state.companies.refresh,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getCompanies: getCompaniesAction,
+      deleteCompany: deleteCompanyAction,
+      addCompany: addCompanyAction,
+      editCompany: editCompanyAction,
+    },
+    dispatch
+  );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Company);
