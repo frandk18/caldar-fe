@@ -19,7 +19,11 @@ function Form(props) {
   );
 
   const [newOne, setNewOne] = useState({
-    company: props.editing ? building[0].company : "",
+    company: props.editing
+      ? building[0].company === undefined
+        ? ""
+        : building[0].company
+      : "",
     boilers: props.editing ? building[0].boilers : [],
     name: props.editing ? building[0].name : "",
     address: props.editing ? building[0].address : "",
@@ -119,8 +123,9 @@ function Form(props) {
   const company = props.companies.filter(
     (company) => company._id === newOne.company
   );
+
   const [companyName, setCompanyName] = useState(
-    props.editing ? company[0].name : ""
+    props.editing ? (company[0] === undefined ? "" : company[0].name) : ""
   );
 
   const handleSelectCompanyChange = (e) => {

@@ -45,7 +45,6 @@ export const addBuildingRejected = () => ({
 });
 
 export const addBuilding = (newOne) => (dispatch) => {
-  console.log(newOne);
   dispatch(addBuildingFetching());
   fetch(URL, {
     method: "POST",
@@ -81,7 +80,6 @@ export const editBuildingRejected = () => ({
 });
 
 export const editBuilding = (newOne, id) => (dispatch) => {
-  console.log(newOne);
   dispatch(editBuildingFetching());
   fetch(`${URL}/${id}`, {
     method: "PUT",

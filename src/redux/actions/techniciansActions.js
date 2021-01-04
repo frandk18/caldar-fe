@@ -137,8 +137,7 @@ export const deleteTechnician = (id) => (dispatch) => {
       if (!res.ok) throw Error;
       return dispatch(deleteTechnicianFulfilled(id));
     })
-    .catch((error) => {
-      console.log(error);
+    .catch(() => {
       return dispatch(deleteTechnicianRejected());
     });
 };

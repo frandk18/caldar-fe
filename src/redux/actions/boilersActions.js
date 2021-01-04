@@ -32,16 +32,16 @@ export const getBoilers = () => (dispatch) => {
 // ADD
 
 export const addBoilerFetching = () => ({
-  type: ACTIONS_TYPES.ADD_Boiler_FETCHING,
+  type: ACTIONS_TYPES.ADD_BOILER_FETCHING,
 });
 
 export const addBoilerFulfilled = (payload) => ({
-  type: ACTIONS_TYPES.ADD_Boiler_FULFILLED,
+  type: ACTIONS_TYPES.ADD_BOILER_FULFILLED,
   payload,
 });
 
 export const addBoilerRejected = () => ({
-  type: ACTIONS_TYPES.ADD_Boiler_REJECTED,
+  type: ACTIONS_TYPES.ADD_BOILER_REJECTED,
 });
 
 export const addBoiler = (newOne) => (dispatch) => {
@@ -66,17 +66,17 @@ export const addBoiler = (newOne) => (dispatch) => {
 // EDIT
 
 export const editBoilerFetching = () => ({
-  type: ACTIONS_TYPES.EDIT_Boiler_FETCHING,
+  type: ACTIONS_TYPES.EDIT_BOILER_FETCHING,
 });
 
 export const editBoilerFulfilled = (payload, newOne) => ({
-  type: ACTIONS_TYPES.EDIT_Boiler_FULFILLED,
+  type: ACTIONS_TYPES.EDIT_BOILER_FULFILLED,
   payload,
   newOne,
 });
 
 export const editBoilerRejected = () => ({
-  type: ACTIONS_TYPES.EDIT_Boiler_REJECTED,
+  type: ACTIONS_TYPES.EDIT_BOILER_REJECTED,
 });
 
 export const editBoiler = (newOne, id) => (dispatch) => {
@@ -101,16 +101,16 @@ export const editBoiler = (newOne, id) => (dispatch) => {
 // DELETE
 
 export const deleteBoilerFetching = () => ({
-  type: ACTIONS_TYPES.DELETE_Boiler_FETCHING,
+  type: ACTIONS_TYPES.DELETE_BOILER_FETCHING,
 });
 
 export const deleteBoilerFulfilled = (payload) => ({
-  type: ACTIONS_TYPES.DELETE_Boiler_FULFILLED,
+  type: ACTIONS_TYPES.DELETE_BOILER_FULFILLED,
   payload,
 });
 
 export const deleteBoilerRejected = () => ({
-  type: ACTIONS_TYPES.DELETE_Boiler_REJECTED,
+  type: ACTIONS_TYPES.DELETE_BOILER_REJECTED,
 });
 
 export const deleteBoiler = (id) => (dispatch) => {
@@ -122,8 +122,7 @@ export const deleteBoiler = (id) => (dispatch) => {
       if (!res.ok) throw Error;
       return dispatch(deleteBoilerFulfilled(id));
     })
-    .catch((error) => {
-      console.log(error);
+    .catch(() => {
       return dispatch(deleteBoilerRejected());
     });
 };

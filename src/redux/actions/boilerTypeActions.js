@@ -129,7 +129,7 @@ export const deleteBoilerType = (id) => (dispatch) => {
       if (!res.ok) throw Error;
       return dispatch(deleteBoilerTypeFulfilled(id));
     })
-    .catch((error) => {
+    .catch(() => {
       return dispatch(deleteBoilerTypeRejected());
     });
 };
