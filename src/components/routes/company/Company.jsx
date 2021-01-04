@@ -23,7 +23,6 @@ const Company = ({
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState(null);
-  const companies = data;
   const [headCells] = useState([
     {
       id: "CIN",

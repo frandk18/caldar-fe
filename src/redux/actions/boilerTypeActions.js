@@ -1,31 +1,33 @@
-import {
-  ADD_BOILERTYPE_FETCHING,
-  ADD_BOILERTYPE_FULFILLED,
-  ADD_BOILERTYPE_REJECTED,
-  DELETE_BOILERTYPE_FETCHING,
-  DELETE_BOILERTYPE_FULFILLED,
-  DELETE_BOILERTYPE_REJECTED,
-  EDIT_BOILERTYPE_FETCHING,
-  EDIT_BOILERTYPE_FULFILLED,
-  EDIT_BOILERTYPE_REJECTED,
-  GET_BOILERTYPES_FETCHING,
-  GET_BOILERTYPES_FULFILLED,
-  GET_BOILERTYPES_REJECTED,
-} from "../types/actionTypes";
+/*import {
+  ACTIONS_TYPES.ADD_BOILERTYPE_FETCHING,
+  ACTIONS_TYPES.ADD_BOILERTYPE_FULFILLED,
+  ACTIONS_TYPES.ADD_BOILERTYPE_REJECTED,
+  ACTIONS_TYPES.DELETE_BOILERTYPE_FETCHING,
+  ACTIONS_TYPES.DELETE_BOILERTYPE_FULFILLED,
+  ACTIONS_TYPES.DELETE_BOILERTYPE_REJECTED,
+  ACTIONS_TYPES.EDIT_BOILERTYPE_FETCHING,
+  ACTIONS_TYPES.EDIT_BOILERTYPE_FULFILLED,
+  ACTIONS_TYPES.EDIT_BOILERTYPE_REJECTED,
+  ACTIONS_TYPES.GET_BOILERTYPES_FETCHING,
+  ACTIONS_TYPES.GET_BOILERTYPES_FULFILLED,
+  ACTIONS_TYPES.GET_BOILERTYPES_REJECTED,
+} from "../types/actionTypes";*/
+
+import { ACTIONS_TYPES } from "../types/actionTypes";
 
 const URL = "http://localhost:4000/api/boiler-type";
 
 export const getBoilerTypesFetching = () => ({
-  type: GET_BOILERTYPES_FETCHING,
+  type: ACTIONS_TYPES.GET_BOILERTYPES_FETCHING,
 });
 
 export const getBoilerTypesFulfilled = (payload) => ({
-  type: GET_BOILERTYPES_FULFILLED,
+  type: ACTIONS_TYPES.GET_BOILERTYPES_FULFILLED,
   payload,
 });
 
 export const getBoilerTypesRejected = () => ({
-  type: GET_BOILERTYPES_REJECTED,
+  type: ACTIONS_TYPES.GET_BOILERTYPES_REJECTED,
 });
 
 export const getBoilerTypes = () => (dispatch) => {
@@ -41,16 +43,16 @@ export const getBoilerTypes = () => (dispatch) => {
 };
 
 export const addBoilerTypeFetching = () => ({
-  type: ADD_BOILERTYPE_FETCHING,
+  type: ACTIONS_TYPES.ADD_BOILERTYPE_FETCHING,
 });
 
 export const addBoilerTypeFulfilled = (payload) => ({
-  type: ADD_BOILERTYPE_FULFILLED,
+  type: ACTIONS_TYPES.ADD_BOILERTYPE_FULFILLED,
   payload,
 });
 
 export const addBoilerTypeRejected = () => ({
-  type: ADD_BOILERTYPE_REJECTED,
+  type: ACTIONS_TYPES.ADD_BOILERTYPE_REJECTED,
 });
 
 export const addBoilerType = (newOne) => (dispatch) => {
@@ -73,17 +75,17 @@ export const addBoilerType = (newOne) => (dispatch) => {
 };
 
 export const editBoilerTypeFetching = () => ({
-  type: EDIT_BOILERTYPE_FETCHING,
+  type: ACTIONS_TYPES.EDIT_BOILERTYPE_FETCHING,
 });
 
 export const editBoilerTypeFulfilled = (payload, newOne) => ({
-  type: EDIT_BOILERTYPE_FULFILLED,
+  type: ACTIONS_TYPES.EDIT_BOILERTYPE_FULFILLED,
   payload,
   newOne,
 });
 
 export const editBoilerTypeRejected = () => ({
-  type: EDIT_BOILERTYPE_REJECTED,
+  type: ACTIONS_TYPES.EDIT_BOILERTYPE_REJECTED,
 });
 
 export const editBoilerType = (newOne, id) => (dispatch) => {
@@ -106,22 +108,22 @@ export const editBoilerType = (newOne, id) => (dispatch) => {
 };
 
 export const deleteBoilerTypeFetching = () => ({
-  type: DELETE_BOILERTYPE_FETCHING,
+  type: ACTIONS_TYPES.DELETE_BOILERTYPE_FETCHING,
 });
 
 export const deleteBoilerTypeFulfilled = (payload) => ({
-  type: DELETE_BOILERTYPE_FULFILLED,
+  type: ACTIONS_TYPES.DELETE_BOILERTYPE_FULFILLED,
   payload,
 });
 
 export const deleteBoilerTypeRejected = () => ({
-  type: DELETE_BOILERTYPE_REJECTED,
+  type: ACTIONS_TYPES.DELETE_BOILERTYPE_REJECTED,
 });
 
 export const deleteBoilerType = (id) => (dispatch) => {
   dispatch(deleteBoilerTypeFetching());
   fetch(`${URL}/${id}`, {
-    method: "DELETE",
+    method: "ACTIONS_TYPES.DELETE",
   })
     .then((res) => {
       if (!res.ok) throw Error;
