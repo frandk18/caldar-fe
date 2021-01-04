@@ -19,21 +19,22 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
-  const boiler = props.boilers.filter((boiler) => boiler._id.$oid === props.id);
+  const boiler = props.boilers.filter(
+    (boiler) => boiler._id === props.id
+  );
 
   const [newOne, setNewOne] = useState({
-    _id: {
-      $oid: props.editing ? boiler[0]._id.$oid : null,
-    },
     serialNumber: props.editing ? boiler[0].serialNumber : "",
     type: props.editing ? boiler[0].type : "",
     manufacturingDate: props.editing
       ? boiler[0].manufacturingDate
       : "12/09/2018",
+    installationDate: "",
     status: props.editing ? boiler[0].status : "",
     building: props.editing ? boiler[0].building : "",
     obs: props.editing ? boiler[0].obs : "",
   });
+  const _id = props.editing ? boiler[0]._id : null;
 
   const forDate = newOne.manufacturingDate.split("/");
   const birth = new Date(forDate[2], forDate[0] - 1, forDate[1]);
@@ -47,7 +48,7 @@ function Form(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addEdit(newOne);
+    props.addEdit(newOne, _id);
   };
 
   const ITEM_HEIGHT = 48;
@@ -129,10 +130,15 @@ function Form(props) {
     newOne.manufacturingDate = mm + "/" + dd + "/" + y;
   };
 
-  const [buildingId, setBuildingId] = useState(newOne.building);
+  const building = props.buildings.filter((building) => building._id === newOne.building)
+  const [buildingName, setBuildingName] = useState(props.editing ? building[0].name : "");
+
   const handleSelectBuildingChange = (e) => {
-    setBuildingId(e.target.value);
-    newOne.building = e.target.value;
+    const building = props.buildings.filter(
+      (building) => building.name === e.target.value
+    );
+    setBuildingName(e.target.value);
+    newOne.building = building[0]._id;
   };
 
   const types = ["A", "B", "C", "D"];
@@ -142,7 +148,7 @@ function Form(props) {
     newOne.type = e.target.value;
   };
 
-  const status = ["available", "working", "reserved"];
+  const status = ["available", "working", "reserved", "need repair"];
   const [boilerStatus, setBoilerStatus] = useState(newOne.status);
   const handleSelectStatusChange = (e) => {
     setBoilerStatus(e.target.value);
@@ -246,7 +252,7 @@ function Form(props) {
                         <Select
                           labelId="building"
                           id="building"
-                          value={buildingId}
+                          value={buildingName}
                           onChange={handleSelectBuildingChange}
                           input={<Input />}
                           MenuProps={MenuProps}
@@ -266,6 +272,7 @@ function Form(props) {
                         defaultValue={newOne.serialNumber}
                         onChange={handleChange}
                         label="Serial Number"
+                        type="number"
                         placeholder="44444"
                         fullWidth
                         margin="normal"
@@ -277,7 +284,7 @@ function Form(props) {
                       />
 
                       <TextField
-                        name="observations"
+                        name="obs"
                         defaultValue={newOne.obs}
                         onChange={handleChange}
                         label="Observations"

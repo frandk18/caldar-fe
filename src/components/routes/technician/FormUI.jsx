@@ -39,11 +39,13 @@ function Form(props) {
   const forDate = newOne.dateOfBirth.split("/");
   const birth = new Date(forDate[2], forDate[0] - 1, forDate[1]);
 
-  const handleChange = (evt) => {
-    const value = evt.target.value;
+  const handleChange = (e) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
     setNewOne({
       ...newOne,
-      [evt.target.name]: value,
+      [name]: value,
     });
   };
 
@@ -59,16 +61,12 @@ function Form(props) {
       style: {
         maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
         width: 250,
+        overflow: "hide",
       },
     },
   };
 
   const useStyles = makeStyles((theme) => ({
-    /*roota: {
-      display: "flex",
-      flexWrap: "wrap",
-      width: "25%",
-    },Remove, but check first, cause it have two root class*/
     textField: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
@@ -102,7 +100,7 @@ function Form(props) {
     paper: {
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      padding: theme.spacing(2, 2, 2),
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -170,6 +168,7 @@ function Form(props) {
                   <h1 style={{ margin: 8 }}>
                     {props.editing ? "Edit Technician" : "New Technician"}
                   </h1>
+
                   <div
                     style={{ display: "flex", justifyContent: "space-around" }}
                   >
@@ -281,7 +280,7 @@ function Form(props) {
                         fullWidth
                         onChange={handleChange}
                         name="obs"
-                        label="Obs"
+                        label="Observations"
                         multiline
                         rows={4}
                         defaultValue={newOne.obs}

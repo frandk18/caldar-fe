@@ -7,83 +7,83 @@ const initialState = {
   refresh: true,
 };
 
-const companiesReducer = (state = initialState, action) => {
+const boilersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIONS_TYPES.GET_COMPANIES_FETCHING:
+    case ACTIONS_TYPES.GET_BOILERS_FETCHING:
       return {
         ...state,
         isLoading: true,
       };
-    case ACTIONS_TYPES.GET_COMPANIES_FULFILLED:
+    case ACTIONS_TYPES.GET_BOILERS_FULFILLED:
       return {
         ...state,
         isLoading: false,
         data: action.payload,
       };
-    case ACTIONS_TYPES.GET_COMPANIES_REJECTED:
+    case ACTIONS_TYPES.GET_BOILERS_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
 
-    case ACTIONS_TYPES.ADD_COMPANY_FETCHING:
+    case ACTIONS_TYPES.ADD_BOILER_FETCHING:
       return {
         ...state,
         isLoading: true,
         refresh: false,
       };
-    case ACTIONS_TYPES.ADD_COMPANY_FULFILLED:
+    case ACTIONS_TYPES.ADD_BOILER_FULFILLED:
       return {
         ...state,
         refresh: true,
         data: [...state.data, action.payload],
         isLoading: false,
       };
-    case ACTIONS_TYPES.ADD_COMPANY_REJECTED:
+    case ACTIONS_TYPES.ADD_BOILER_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
 
-    case ACTIONS_TYPES.EDIT_COMPANY_FETCHING:
+    case ACTIONS_TYPES.EDIT_BOILER_FETCHING:
       return {
         ...state,
         isLoading: true,
         refresh: false,
       };
-    case ACTIONS_TYPES.EDIT_COMPANY_FULFILLED:
+    case ACTIONS_TYPES.EDIT_BOILER_FULFILLED:
       return {
         ...state,
         isLoading: false,
         refresh: true,
-        data: state.data.map((company) => {
-          if (company._id === action.payload) {
-            company = action.newOne;
+        data: state.data.map((boiler) => {
+          if (boiler._id === action.payload) {
+            boiler = action.newOne;
           }
-          return company;
+          return boiler;
         }),
       };
-    case ACTIONS_TYPES.EDIT_COMPANY_REJECTED:
+    case ACTIONS_TYPES.EDIT_BOILER_REJECTED:
       return {
         ...state,
         isLoading: false,
         error: true,
       };
 
-    case ACTIONS_TYPES.DELETE_COMPANY_FETCHING:
+    case ACTIONS_TYPES.DELETE_BOILER_FETCHING:
       return {
         ...state,
         isLoading: true,
       };
-    case ACTIONS_TYPES.DELETE_COMPANY_FULFILLED:
+    case ACTIONS_TYPES.DELETE_BOILER_FULFILLED:
       return {
         ...state,
         isLoading: false,
-        data: state.data.filter((company) => company._id !== action.payload),
+        data: state.data.filter((boiler) => boiler._id !== action.payload),
       };
-    case ACTIONS_TYPES.DELETE_COMPANY_REJECTED:
+    case ACTIONS_TYPES.DELETE_BOILER_REJECTED:
       return {
         ...state,
         isLoading: false,
@@ -95,4 +95,4 @@ const companiesReducer = (state = initialState, action) => {
   }
 };
 
-export default companiesReducer;
+export default boilersReducer;
