@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 //import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
-import FormUI from "./FormUI.jsx";
+//import FormUI from "./FormUI.jsx";
 import Form from "./Form.jsx";
 import { connect } from "react-redux";
 import {
@@ -64,7 +64,7 @@ const Technician = ({
     if (refresh === true) {
       getTechnicians();
     }
-  }, [refresh]);
+  }, [refresh]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <div>... LOADING</div>;

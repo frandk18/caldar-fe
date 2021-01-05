@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TableUI from "../../shared/TableUI.jsx";
-import FormUI from "./FormUI.jsx";
+//import FormUI from "./FormUI.jsx";
+import Form from "./Form.jsx";
 import { connect } from "react-redux";
 import {
   deleteBuilding as deleteBuildingAction,
@@ -99,7 +100,7 @@ const Building = ({
   return (
     <React.Fragment>
       {showForm && (
-        <FormUI
+        <Form
           buildings={buildings}
           companies={companies}
           boilers={boilers}
@@ -110,6 +111,18 @@ const Building = ({
           toggleForm={toggleForm}
         />
       )}
+      {/*{showForm && (
+        <FormUI
+          buildings={buildings}
+          companies={companies}
+          boilers={boilers}
+          id={id}
+          editing={editing}
+          addEdit={addEdit}
+          showForm={showForm}
+          toggleForm={toggleForm}
+        />
+      )}*/}
       <TableUI
         headCells={headCells}
         data={buildings}

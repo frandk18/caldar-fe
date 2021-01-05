@@ -1,144 +1,190 @@
 import { Form, Field } from "react-final-form";
 import { React, useState } from "react";
+import Select from "../../shared/Select.jsx";
 
 const BuildingForm = (props) => {
   const building = props.buildings.filter(
     (building) => building._id === props.id
   );
+
   const [newOne, setNewOne] = useState({
-    fullname: props.editing ? building[0].fullname : "",
-    email: props.editing ? building[0].email : "",
-    phone: props.editing ? building[0].phone : "",
+    company: props.editing
+      ? building[0].company === undefined
+        ? ""
+        : building[0].company
+      : "",
+    boilers: props.editing ? building[0].boilers : [],
+    name: props.editing ? building[0].name : "",
     address: props.editing ? building[0].address : "",
-    dateOfBirth: props.editing ? building[0].dateOfBirth : "09/12/2018",
+    zipcode: props.editing ? building[0].zipcode : "",
+    contact: props.editing ? building[0].contact : "",
+    phone: props.editing ? building[0].phone : "",
+    email: props.editing ? building[0].email : "",
     obs: props.editing ? building[0].obs : "",
-    knowledge: props.editing
-      ? JSON.parse(JSON.stringify(building[0].knowledge))
-      : [],
-    services: [],
   });
+  const _id = props.editing ? building[0]._id : null;
 
-  //I hate date formats
-  //This is cause my db have this format: 8/22/1991 and need 08/22/1991
-  function normalizeDate(input) {
-    let parts = input.split("/");
-    return (
-      (parts[2] < 10 ? "0" : "") +
-      parseInt(parts[2]) +
-      "-" +
-      (parts[0] < 10 ? "0" : "") +
-      parseInt(parts[0]) +
-      "-" +
-      parseInt(parts[1])
-    );
-  }
-
-  const newDate = normalizeDate(newOne.dateOfBirth);
-
-  const onSubmitTechnician = () => {
+  const handleSubmit = () => {
     console.log("submit");
   };
 
   return (
     <Form
-      onSubmit={onSubmitTechnician}
+      onSubmit={handleSubmit}
       initialValues={{
-        fullname: newOne.fullname,
-        email: newOne.email,
-        phone: newOne.phone,
-        knowledge: newOne.knowledge,
+        company: newOne.company,
+        boilers: newOne.boilers,
+        name: newOne.name,
         address: newOne.address,
+        zipcode: newOne.zipcode,
+        contact: newOne.contact,
+        phone: newOne.phone,
+        email: newOne.email,
         obs: newOne.obs,
-        dateOfBirth: newDate,
       }}
       render={({ handleSubmit, form, submitting, pristine, values }) => (
         <div>
-          <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-            <label>Full name:</label>
-            <Field
-              name="fullname"
-              component="input"
-              type="text"
-              placeholder="Type your Full name"
-            ></Field>
-            <label>Email:</label>
-            <Field
-              name="email"
-              component="input"
-              type="text"
-              placeholder="Type your Email"
-            ></Field>
-            <label>Phone:</label>
-            <Field
-              name="phone"
-              component="input"
-              type="number"
-              placeholder="Type your Phone"
-            ></Field>
-            <label>Address:</label>
-            <Field
-              name="address"
-              component="input"
-              type="text"
-              placeholder="Type your Address"
-            ></Field>
-            <label>
-              Knowledge:
-              <Field
-                name="knowledge"
-                component="input"
-                type="checkbox"
-                value="A"
-              />
-              A{" "}
-              <Field
-                name="knowledge"
-                component="input"
-                type="checkbox"
-                value="B"
-              />
-              B{" "}
-              <Field
-                name="knowledge"
-                component="input"
-                type="checkbox"
-                value="C"
-              />
-              C{" "}
-              <Field
-                name="knowledge"
-                component="input"
-                type="checkbox"
-                value="D"
-              />
-              D{" "}
-            </label>
-            <label>Birthdate:</label>
-            <Field
-              name="dateOfBirth"
-              component="input"
-              type="date"
-              newDate={newDate}
-            >
-              {(props) => (
-                <div>
-                  <input type="date" {...props.input} />
-                </div>
-              )}
-            </Field>
-            <label>Obs:</label>
-            <Field
-              name="obs"
-              component="textarea"
-              type="text"
-              placeholder="Type your Address"
-            ></Field>
-            <button type="submit">Submit</button>
+          <form
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+            style={formStyle}
+          >
+            <legend style={{ margin: 8 }}>
+              {props.editing ? "Edit Building" : "New Building"}
+            </legend>
+
+            <div style={{ display: "flex", border: "2px #ccc solid" }}>
+              <div style={columnStyle}>
+                <Field
+                  name="company"
+                  label="Company"
+                  options={props.companies}
+                  field={"name"}
+                  component={Select}
+                ></Field>
+
+                <Field
+                  name="boilers"
+                  label="Boilers"
+                  options={props.boilers}
+                  field={"serialNumber"}
+                  component={Select}
+                ></Field>
+
+                <Field
+                  name="name"
+                  label="Name"
+                  component="input"
+                  type="text"
+                  placeholder="Type your name"
+                  style={input}
+                ></Field>
+
+                <Field
+                  name="address"
+                  label="Address"
+                  component="input"
+                  type="text"
+                  placeholder="Type your address"
+                  style={input}
+                ></Field>
+
+                <Field
+                  name="zipcode"
+                  label="Zip Code"
+                  component="input"
+                  type="text"
+                  placeholder="Type your address"
+                ></Field>
+              </div>
+
+              <div style={columnStyle}>
+                <label>Contact: </label>
+                <Field
+                  name="contact"
+                  component="input"
+                  type="text"
+                  placeholder="Type contact name"
+                ></Field>
+
+                <label>Phone: </label>
+                <Field
+                  name="phone"
+                  component="input"
+                  type="number"
+                  placeholder="Type phone number"
+                ></Field>
+
+                <label>Email: </label>
+                <Field
+                  name="email"
+                  component="input"
+                  type="text"
+                  placeholder="Type an email"
+                ></Field>
+
+                <label>Observations:</label>
+                <Field
+                  name="obs"
+                  component="textarea"
+                  type="text"
+                  placeholder="Write some details"
+                ></Field>
+              </div>
+            </div>
+
+            <div style={btnContainer}>
+              <button style={btnStyle} type="button">
+                Cancel
+              </button>
+
+              <button style={btnStyle} type="submit">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       )}
     />
   );
+};
+
+const input = {
+  boxSizing: "border-box",
+  margin: "8",
+};
+
+const formStyle = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  padding: "10px",
+  marginBottom: "10px",
+  borderRadius: "15px",
+};
+
+const columnStyle = {
+  display: "flex",
+  flexDirection: "column",
+  margin: "20px",
+};
+
+const btnContainer = {
+  display: "flex",
+  margin: "10px 0px",
+};
+
+const btnStyle = {
+  display: "flex",
+  justifyContent: "center",
+  background: "#fff",
+  padding: "5px",
+  margin: "0 10px",
+  borderWidth: "1px",
+  borderRadius: "5px",
+  overflow: "hidden",
+  cursor: "pointer",
 };
 
 export default BuildingForm;
