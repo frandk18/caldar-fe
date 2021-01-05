@@ -1,57 +1,144 @@
 import { Form, Field } from "react-final-form";
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import { React, useState } from "react";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
-/*
-export default function BasicTextFields() {
-  const classes = useStyles();
-
-  return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <TextField id="standard-basic" label="Standard" />
-      <TextField id="filled-basic" label="Filled" variant="filled" />
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-    </form>
+const TechnicianForm = (props) => {
+  const technician = props.technicians.filter(
+    (technician) => technician._id === props.id
   );
-}*/
+  const [newOne, setNewOne] = useState({
+    fullname: props.editing ? technician[0].fullname : "",
+    email: props.editing ? technician[0].email : "",
+    phone: props.editing ? technician[0].phone : "",
+    address: props.editing ? technician[0].address : "",
+    dateOfBirth: props.editing ? technician[0].dateOfBirth : "09/12/2018",
+    obs: props.editing ? technician[0].obs : "",
+    knowledge: props.editing
+      ? JSON.parse(JSON.stringify(technician[0].knowledge))
+      : [],
+    services: [],
+  });
 
-const MyForm = () => {
-  const classes = useStyles();
+  //I hate date formats
+  //This is cause my db have this format: 8/22/1991 and need 08/22/1991
+  function normalizeDate(input) {
+    let parts = input.split("/");
+    return (
+      (parts[2] < 10 ? "0" : "") +
+      parseInt(parts[2]) +
+      "-" +
+      (parts[0] < 10 ? "0" : "") +
+      parseInt(parts[0]) +
+      "-" +
+      parseInt(parts[1])
+    );
+  }
+
+  const newDate = normalizeDate(newOne.dateOfBirth);
+
+  const onSubmitTechnician = () => {
+    console.log("submit");
+  };
+
   return (
     <Form
-      onSubmit={() => {
-        alert("Submitting!");
+      onSubmit={onSubmitTechnician}
+      initialValues={{
+        fullname: newOne.fullname,
+        email: newOne.email,
+        phone: newOne.phone,
+        knowledge: newOne.knowledge,
+        address: newOne.address,
+        obs: newOne.obs,
+        dateOfBirth: newDate,
       }}
-    >
-      {({ handleSubmit }) => (
-        <form
-          className={classes.root}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <input placeholder="Full name" type="text" />
-          <TextField
-            id="standard-basic"
-            label="Standard"
-            placeholder="HOLIIIS"
-          />
-          <input placeholder="Email" type="text" />
-          <input placeholder="Address" type="text" />
-          <button type="submit">Submit</button>
-        </form>
+      render={({ handleSubmit, form, submitting, pristine, values }) => (
+        <div>
+          <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+            <label>Full name:</label>
+            <Field
+              name="fullname"
+              component="input"
+              type="text"
+              placeholder="Type your Full name"
+            ></Field>
+            <label>Email:</label>
+            <Field
+              name="email"
+              component="input"
+              type="text"
+              placeholder="Type your Email"
+            ></Field>
+            <label>Phone:</label>
+            <Field
+              name="phone"
+              component="input"
+              type="number"
+              placeholder="Type your Phone"
+            ></Field>
+            <label>Address:</label>
+            <Field
+              name="address"
+              component="input"
+              type="text"
+              placeholder="Type your Address"
+            ></Field>
+            <label>
+              Knowledge:
+              <Field
+                name="knowledge"
+                component="input"
+                type="checkbox"
+                value="A"
+              />
+              A{" "}
+              <Field
+                name="knowledge"
+                component="input"
+                type="checkbox"
+                value="B"
+              />
+              B{" "}
+              <Field
+                name="knowledge"
+                component="input"
+                type="checkbox"
+                value="C"
+              />
+              C{" "}
+              <Field
+                name="knowledge"
+                component="input"
+                type="checkbox"
+                value="D"
+              />
+              D{" "}
+            </label>
+            <label>Birthdate:</label>
+            <Field
+              name="dateOfBirth"
+              component="input"
+              type="date"
+              newDate={newDate}
+            >
+              {(props) => (
+                <div>
+                  <input type="date" {...props.input} />
+                </div>
+              )}
+            </Field>
+            <label>Obs:</label>
+            <Field
+              name="obs"
+              component="textarea"
+              type="text"
+              placeholder="Type your Address"
+            ></Field>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       )}
-    </Form>
+    />
   );
 };
 
-export default MyForm;
+export default TechnicianForm;

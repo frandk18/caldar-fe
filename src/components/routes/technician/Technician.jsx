@@ -105,6 +105,7 @@ const Technician = ({
 
   return (
     <React.Fragment>
+      {/*}
       {showForm && (
         <FormUI
           technicians={data}
@@ -115,7 +116,17 @@ const Technician = ({
           toggleForm={toggleForm}
         />
       )}
-      <Form />
+      {*/}
+      {showForm && (
+        <Form
+          technicians={data}
+          id={id}
+          editing={editing}
+          addEdit={addEdit}
+          showForm={showForm}
+          toggleForm={toggleForm}
+        />
+      )}
       <TableUI
         headCells={headCells}
         data={data}
