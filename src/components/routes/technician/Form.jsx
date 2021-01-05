@@ -1,5 +1,16 @@
 import { Form, Field } from "react-final-form";
 import { React, useState } from "react";
+import {
+  required,
+  composeValidators,
+  validateName,
+  validateEmail,
+  validatePhone,
+} from "../../../utils/validations.js";
+import TextInput from "../../shared/TextInput.jsx";
+import NumberInput from "../../shared/NumberInput.jsx";
+import DateInput from "../../shared/DateInput.jsx";
+import TextArea from "../../shared/TextArea.jsx";
 
 const TechnicianForm = (props) => {
   const technician = props.technicians.filter(
@@ -19,7 +30,7 @@ const TechnicianForm = (props) => {
   });
 
   //I hate date formats
-  //This is cause my db have this format: 8/22/1991 and need 08/22/1991
+  //This is cause my db have this format: 8/22/1991 and i need 08/22/1991
   function normalizeDate(input) {
     let parts = input.split("/");
     return (
@@ -29,14 +40,22 @@ const TechnicianForm = (props) => {
       (parts[0] < 10 ? "0" : "") +
       parseInt(parts[0]) +
       "-" +
+      (parts[1] < 10 ? "0" : "") +
       parseInt(parts[1])
     );
   }
 
   const newDate = normalizeDate(newOne.dateOfBirth);
+  const _id = props.editing ? technician[0]._id : null;
 
-  const onSubmitTechnician = () => {
-    console.log("submit");
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const onSubmitTechnician = async (values) => {
+    await sleep(300);
+    window.alert(JSON.stringify(values, 0, 2));
+    console.log(values);
+    values.services = newOne.services;
+    console.log(values);
+    props.addEdit(values, _id);
   };
 
   return (
@@ -51,88 +70,86 @@ const TechnicianForm = (props) => {
         obs: newOne.obs,
         dateOfBirth: newDate,
       }}
-      render={({ handleSubmit, form, submitting, pristine, values }) => (
+      render={({
+        handleSubmit,
+        handleChange,
+        form,
+        submitting,
+        pristine,
+        values,
+      }) => (
         <div>
           <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-            <label>Full name:</label>
             <Field
               name="fullname"
-              component="input"
-              type="text"
+              component={TextInput}
               placeholder="Type your Full name"
-            ></Field>
-            <label>Email:</label>
+              label="Full name:"
+              validate={composeValidators(required, validateName)}
+            />
             <Field
               name="email"
-              component="input"
-              type="text"
+              component={TextInput}
               placeholder="Type your Email"
-            ></Field>
-            <label>Phone:</label>
+              label="Email:"
+              validate={composeValidators(required, validateEmail)}
+            />
             <Field
               name="phone"
-              component="input"
-              type="number"
+              component={NumberInput}
               placeholder="Type your Phone"
-            ></Field>
-            <label>Address:</label>
+              label="Phone:"
+              validate={composeValidators(required, validatePhone)}
+            />
             <Field
               name="address"
-              component="input"
+              component={TextInput}
               type="text"
               placeholder="Type your Address"
-            ></Field>
-            <label>
-              Knowledge:
-              <Field
-                name="knowledge"
-                component="input"
-                type="checkbox"
-                value="A"
-              />
-              A{" "}
-              <Field
-                name="knowledge"
-                component="input"
-                type="checkbox"
-                value="B"
-              />
-              B{" "}
-              <Field
-                name="knowledge"
-                component="input"
-                type="checkbox"
-                value="C"
-              />
-              C{" "}
-              <Field
-                name="knowledge"
-                component="input"
-                type="checkbox"
-                value="D"
-              />
-              D{" "}
-            </label>
-            <label>Birthdate:</label>
+              label="Address"
+              validate={required}
+            />
+            <label>Knowledge:</label>
+            <Field
+              name="knowledge"
+              component="input"
+              type="checkbox"
+              value="A"
+            />
+            A{" "}
+            <Field
+              name="knowledge"
+              component="input"
+              type="checkbox"
+              value="B"
+            />
+            B{" "}
+            <Field
+              name="knowledge"
+              component="input"
+              type="checkbox"
+              value="C"
+            />
+            C{" "}
+            <Field
+              name="knowledge"
+              component="input"
+              type="checkbox"
+              value="D"
+            />
+            D{" "}
             <Field
               name="dateOfBirth"
-              component="input"
-              type="date"
-              newDate={newDate}
-            >
-              {(props) => (
-                <div>
-                  <input type="date" {...props.input} />
-                </div>
-              )}
-            </Field>
-            <label>Obs:</label>
+              component={DateInput}
+              label="Date of birth"
+              validate={required}
+            />
             <Field
               name="obs"
-              component="textarea"
-              type="text"
-              placeholder="Type your Address"
-            ></Field>
+              component={TextArea}
+              placeholder="Obs"
+              label="obs"
+            />
             <button type="submit">Submit</button>
           </form>
         </div>

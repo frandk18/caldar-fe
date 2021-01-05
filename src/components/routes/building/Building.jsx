@@ -57,7 +57,7 @@ const Building = ({
     if (refresh === true) {
       getBuildings();
     }
-  }, [refresh]);
+  }, [refresh]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <div>... LOADING</div>;
