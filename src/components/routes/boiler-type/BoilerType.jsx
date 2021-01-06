@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TableUI from "../../shared/TableUI.jsx";
 import FormUI from "./FormUI.jsx";
+import Form from "./Form.jsx";
 import { connect } from "react-redux";
 import {
   deleteBoilerType as deleteBoilerTypeAction,
@@ -94,7 +95,7 @@ const BoilerType = ({
   return (
     <React.Fragment>
       {showForm && (
-        <FormUI
+        <Form
           boilerTypes={data}
           id={id}
           editing={editing}
