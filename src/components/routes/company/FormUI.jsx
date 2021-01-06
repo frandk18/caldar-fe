@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import ListItemText from "@material-ui/core/ListItemText";
+import Select from "@material-ui/core/Select";
+import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -8,7 +15,9 @@ import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
   const company = props.companies.filter((company) => company._id === props.id);
+
   const [newOne, setNewOne] = useState({
+    buildings: props.editing ? company[0].buildings : [],
     CIN: props.editing ? company[0].CIN : "",
     name: props.editing ? company[0].name : "",
     email: props.editing ? company[0].email : "",
@@ -32,6 +41,18 @@ function Form(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.addEdit(newOne, _id);
+  };
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+        overflow: "hide",
+      },
+    },
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -92,6 +113,28 @@ function Form(props) {
 
   const classes = useStyles();
 
+  const buildingId = [];
+  const buildingSN = [];
+
+  newOne.buildings.forEach((value) => {
+    const building = props.buildings.filter((building) => building._id === value);
+    buildingSN.push(building[0].serialNumber);
+  });
+  const [buildingSerialNumber, setBuildingSerialNumber] = useState(
+    props.editing ? BuildingSN : []
+  );
+
+  const handleSelectBuildingsChange = (e) => {
+    setBuildingSerialNumber(e.target.value);
+    e.target.value.forEach((value) => {
+      const building = props.buildings.filter(
+        (building) => building.serialNumber === value
+      );
+      buildingId.push(building[0]._id);
+    });
+    newOne.buildings = buildingId;
+  };
+
   return (
     <div>
       <Modal
@@ -125,6 +168,39 @@ function Form(props) {
                     style={{ display: "flex", justifyContent: "space-around" }}
                   >
                     <div className={classes.column}>
+
+                    <FormControl
+                        className={classes.formControl}
+                        style={{ margin: 8 }}
+                      >
+                        <InputLabel>Buildings</InputLabel>
+                        <Select
+                          labelId="buildings"
+                          id="buildings"
+                          value={buildingSerialNumber}
+                          multiple
+                          onChange={handleSelectBuildingsChange}
+                          input={<Input />}
+                          renderValue={(selected) => selected.join(", ")}
+                          MenuProps={MenuProps}
+                        >
+                          {props.buildings.map((building) => (
+                            <MenuItem
+                              key={building._id}
+                              value={building.serialNumber}
+                            >
+                              <Checkbox
+                                checked={
+                                  buildingSerialNumber.indexOf(
+                                    building.serialNumber
+                                  ) > -1
+                                }
+                              />
+                              <ListItemText primary={building.serialNumber} />
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
                       <TextField
                         name="CIN"
                         defaultValue={newOne.CIN}
@@ -234,7 +310,7 @@ function Form(props) {
                       />
 
                       <TextField
-                        name="observations"
+                        name="obs"
                         defaultValue={newOne.obs}
                         onChange={handleChange}
                         label="Observations"

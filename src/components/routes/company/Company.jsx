@@ -12,6 +12,7 @@ import { bindActionCreators } from "redux";
 
 const Company = ({
   companies,
+  buildings,
   isLoading,
   error,
   refresh,
@@ -37,6 +38,7 @@ const Company = ({
       disablePadding: false,
       label: "Name",
     },
+    { id: "contact", align: "center", disablePadding: false, label: "Contact" },
     { id: "email", align: "center", disablePadding: false, label: "E-mail" },
     { id: "phone", align: "center", disablePadding: false, label: "Phone" },
     { id: "address", align: "center", disablePadding: false, label: "Address" },
@@ -48,7 +50,7 @@ const Company = ({
     },
   ]);
 
-  const fieldObj = ["CIN", "name", "email", "phone", "address", "zipcode"];
+  const fieldObj = ["CIN", "name","contact", "email", "phone", "address", "zipcode"];
 
   const name = "Companies";
 
@@ -100,6 +102,7 @@ const Company = ({
       {showForm && (
         <FormUI
           companies={companies}
+          buildings={buildings}
           id={id}
           editing={editing}
           addEdit={addEdit}
