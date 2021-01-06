@@ -48,7 +48,7 @@ const BoilerType = ({
     if (refresh === true) {
       getBoilerTypes();
     }
-  }, [refresh]);
+  }, [refresh]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <div>... LOADING</div>;
@@ -114,7 +114,7 @@ const BoilerType = ({
       />
     </React.Fragment>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   data: state.boilerType.data,
