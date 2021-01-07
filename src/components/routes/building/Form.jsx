@@ -1,13 +1,31 @@
 import { Form, Field } from "react-final-form";
 import { React, useState } from "react";
-import Select from "../../shared/Select.jsx";
+import SimpleSelect from "../../shared/SimpleSelect.jsx";
+import MultipleSelect from "../../shared/MultipleSelect.jsx";
+import TextArea from "../../shared/TextArea.jsx";
+import TextInput from "../../shared/TextInput.jsx";
+import NumberInput from "../../shared/NumberInput.jsx";
+import {
+  required,
+  composeValidators,
+  validateName,
+  validateEmail,
+  validatePhone,
+} from "../../../utils/validations.js";
+import {
+  addBuilding as addBuildingAction,
+  editBuilding as editBuildingAction,
+} from "../../../redux/actions/buildingsActions";
+import { closeModal as closeModalAction } from "../../../redux/actions/modalActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 const BuildingForm = (props) => {
   const building = props.buildings.filter(
     (building) => building._id === props.id
   );
 
-  const [newOne, setNewOne] = useState({
+  const [newOne] = useState({
     company: props.editing
       ? building[0].company === undefined
         ? ""
@@ -22,18 +40,50 @@ const BuildingForm = (props) => {
     email: props.editing ? building[0].email : "",
     obs: props.editing ? building[0].obs : "",
   });
-  const _id = props.editing ? building[0]._id : null;
 
-  const handleSubmit = () => {
-    console.log("submit");
+  const id = props.editing ? building[0]._id : null;
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  // Handle Company Field
+  const [companyId, setCompanyId] = useState(
+    props.editing ? building[0].company : ""
+  );
+  const handleSelectCompanyChange = (e) => {
+    console.log("COMPANY CHANGED");
+    setCompanyId(e.target.value);
+  };
+
+  // Handle Boiler Field
+  const [boilerId, setBoilerId] = useState(
+    props.editing ? building[0].boilers : []
+  );
+  const handleSelectBoilersChange = (e) => {
+    console.log("BOILERS CHANGED");
+    setBoilerId(e.target.value);
+  };
+
+  const handleSubmit = async (values) => {
+    console.log(values);
+    await sleep(100);
+    console.log(values);
+    window.alert(JSON.stringify(values, 0, 2));
+    console.log(values);
+    if (!props.editing) {
+      props.addBuilding(values);
+      props.closeModal();
+    } else {
+      props.editBuilding(values, id);
+      props.closeModal();
+    }
   };
 
   return (
     <Form
       onSubmit={handleSubmit}
       initialValues={{
-        company: newOne.company,
-        boilers: newOne.boilers,
+        company: companyId,
+        boilers: boilerId,
         name: newOne.name,
         address: newOne.address,
         zipcode: newOne.zipcode,
@@ -41,6 +91,10 @@ const BuildingForm = (props) => {
         phone: newOne.phone,
         email: newOne.email,
         obs: newOne.obs,
+      }}
+      onChange={{
+        company: handleSelectCompanyChange,
+        boilers: handleSelectBoilersChange,
       }}
       render={({ handleSubmit, form, submitting, pristine, values }) => (
         <div>
@@ -56,86 +110,108 @@ const BuildingForm = (props) => {
 
             <div style={{ display: "flex", border: "2px #ccc solid" }}>
               <div style={columnStyle}>
-                <Field
-                  name="company"
-                  label="Company"
-                  options={props.companies}
-                  field={"name"}
-                  component={Select}
-                ></Field>
+                <div style={fieldStyle}>
+                  <Field
+                    name="company"
+                    label="Company"
+                    options={props.companies}
+                    field={"name"}
+                    onChange={handleSelectCompanyChange}
+                    component={SimpleSelect}
+                  ></Field>
+                </div>
 
-                <Field
-                  name="boilers"
-                  label="Boilers"
-                  options={props.boilers}
-                  field={"serialNumber"}
-                  component={Select}
-                ></Field>
+                <div style={fieldStyle}>
+                  <Field
+                    name="boilers"
+                    label="Boilers"
+                    options={props.boilers}
+                    type="select"
+                    field={"serialNumber"}
+                    onChange={handleSelectBoilersChange}
+                    component={MultipleSelect}
+                  ></Field>
+                </div>
 
-                <Field
-                  name="name"
-                  label="Name"
-                  component="input"
-                  type="text"
-                  placeholder="Type your name"
-                  style={input}
-                ></Field>
+                <div style={fieldStyle}>
+                  <Field
+                    name="name"
+                    label="Name"
+                    placeholder="Type your name"
+                    component={TextInput}
+                    validate={composeValidators(required, validateName)}
+                  ></Field>
+                </div>
 
-                <Field
-                  name="address"
-                  label="Address"
-                  component="input"
-                  type="text"
-                  placeholder="Type your address"
-                  style={input}
-                ></Field>
+                <div style={fieldStyle}>
+                  <Field
+                    name="address"
+                    label="Address"
+                    placeholder="Type your address"
+                    component={TextInput}
+                    validate={required}
+                  ></Field>
+                </div>
 
-                <Field
-                  name="zipcode"
-                  label="Zip Code"
-                  component="input"
-                  type="text"
-                  placeholder="Type your address"
-                ></Field>
+                <div style={fieldStyle}>
+                  <Field
+                    name="zipcode"
+                    label="Zip Code"
+                    placeholder="Type your address"
+                    component={TextInput}
+                    validate={required}
+                  ></Field>
+                </div>
               </div>
 
               <div style={columnStyle}>
-                <label>Contact: </label>
-                <Field
-                  name="contact"
-                  component="input"
-                  type="text"
-                  placeholder="Type contact name"
-                ></Field>
+                <div style={fieldStyle}>
+                  <Field
+                    name="contact"
+                    label="Contact"
+                    placeholder="Type contact name"
+                    component={TextInput}
+                    validate={required}
+                  ></Field>
+                </div>
 
-                <label>Phone: </label>
-                <Field
-                  name="phone"
-                  component="input"
-                  type="number"
-                  placeholder="Type phone number"
-                ></Field>
+                <div style={fieldStyle}>
+                  <Field
+                    name="phone"
+                    label="Phone"
+                    placeholder="Type phone number"
+                    component={NumberInput}
+                    validate={composeValidators(required, validatePhone)}
+                  ></Field>
+                </div>
 
-                <label>Email: </label>
-                <Field
-                  name="email"
-                  component="input"
-                  type="text"
-                  placeholder="Type an email"
-                ></Field>
+                <div style={fieldStyle}>
+                  <Field
+                    name="email"
+                    label="Email"
+                    placeholder="Type an email"
+                    component={TextInput}
+                    validate={composeValidators(required, validateEmail)}
+                  ></Field>
+                </div>
 
-                <label>Observations:</label>
-                <Field
-                  name="obs"
-                  component="textarea"
-                  type="text"
-                  placeholder="Write some details"
-                ></Field>
+                <div style={fieldStyle}>
+                  <Field
+                    name="obs"
+                    label="Observations"
+                    placeholder="Write some details"
+                    component={TextArea}
+                  ></Field>
+                </div>
               </div>
             </div>
 
             <div style={btnContainer}>
-              <button style={btnStyle} type="button">
+              <button
+                style={btnStyle}
+                type="button"
+                onClick={() => props.closeModal()}
+              >
                 Cancel
               </button>
 
@@ -150,11 +226,6 @@ const BuildingForm = (props) => {
   );
 };
 
-const input = {
-  boxSizing: "border-box",
-  margin: "8",
-};
-
 const formStyle = {
   display: "flex",
   flexDirection: "column",
@@ -167,7 +238,14 @@ const formStyle = {
 const columnStyle = {
   display: "flex",
   flexDirection: "column",
+  justifyContent: "space-between",
   margin: "20px",
+};
+
+const fieldStyle = {
+  display: "flex",
+  flexDirection: "column",
+  margin: "10px 0",
 };
 
 const btnContainer = {
@@ -187,4 +265,15 @@ const btnStyle = {
   cursor: "pointer",
 };
 
-export default BuildingForm;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      addBuilding: addBuildingAction,
+      editBuilding: editBuildingAction,
+      closeModal: closeModalAction,
+    },
+    dispatch
+  );
+};
+
+export default connect(null, mapDispatchToProps)(BuildingForm);

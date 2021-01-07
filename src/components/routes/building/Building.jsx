@@ -1,32 +1,19 @@
 import React, { useState, useEffect } from "react";
 import TableUI from "../../shared/TableUI.jsx";
-//import FormUI from "./FormUI.jsx";
-import Form from "./Form.jsx";
 import { connect } from "react-redux";
-import {
-  deleteBuilding as deleteBuildingAction,
-  addBuilding as addBuildingAction,
-  editBuilding as editBuildingAction,
-  getBuildings as getBuildingsAction,
-} from "../../../redux/actions/buildingsActions";
+import { getBuildings as getBuildingsAction } from "../../../redux/actions/buildingsActions";
+import { showModal as showModalAction } from "../../../redux/actions/modalActions";
+import modalTypes from "../../../redux/types/modalTypes";
 import { bindActionCreators } from "redux";
 
 const Building = ({
   buildings,
-  companies,
-  boilers,
   isLoading,
   error,
   refresh,
-  deleteBuilding,
-  addBuilding,
-  editBuilding,
   getBuildings,
+  showModal,
 }) => {
-  const [showForm, setShowForm] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [id, setId] = useState(null);
-
   const [headCells] = useState([
     { id: "company", align: "center", disablePadding: false, label: "Company" },
     { id: "name", align: "center", disablePadding: false, label: "Name" },
@@ -68,69 +55,34 @@ const Building = ({
     return <div>ERROR!!!</div>;
   }
 
-  const toggleForm = () => {
-    setShowForm(!showForm);
-    if (editing) {
-      setEditing(false);
-    }
-  };
-
-  const addEdit = (newOne, _id) => {
-    if (_id === null) {
-      addBuilding(newOne);
-      toggleForm();
+  const showAddEditModal = (id) => {
+    if (id === null) {
+      showModal(modalTypes.ADD_EDIT_ITEM, {
+        editing: false,
+      });
     } else {
-      editBuilding(newOne, id);
-      toggleForm();
+      showModal(modalTypes.ADD_EDIT_ITEM, {
+        id: id,
+        editing: true,
+      });
     }
   };
 
-  const toDelete = (id) => {
-    deleteBuilding(id);
-  };
-
-  const captureId = (id) => {
-    setId(id);
-    if (id !== null) {
-      setEditing(true);
-    }
-    toggleForm();
+  const showDeleteModal = (id) => {
+    showModal(modalTypes.DELETE_ITEM, {
+      id: id,
+    });
   };
 
   return (
     <React.Fragment>
-      {showForm && (
-        <Form
-          buildings={buildings}
-          companies={companies}
-          boilers={boilers}
-          id={id}
-          editing={editing}
-          addEdit={addEdit}
-          showForm={showForm}
-          toggleForm={toggleForm}
-        />
-      )}
-      {/*{showForm && (
-        <FormUI
-          buildings={buildings}
-          companies={companies}
-          boilers={boilers}
-          id={id}
-          editing={editing}
-          addEdit={addEdit}
-          showForm={showForm}
-          toggleForm={toggleForm}
-        />
-      )}*/}
       <TableUI
         headCells={headCells}
         data={buildings}
         fieldObj={fieldObj}
         name={name}
-        toDelete={toDelete}
-        toEdit={captureId}
-        toggleForm={toggleForm}
+        toDelete={showDeleteModal}
+        toAddEdit={showAddEditModal}
       />
     </React.Fragment>
   );
@@ -138,8 +90,6 @@ const Building = ({
 
 const mapStateToProps = (state) => ({
   buildings: state.buildings.data,
-  companies: state.companies.data,
-  boilers: state.boilers.data,
   isLoading: state.buildings.isLoading,
   error: state.buildings.error,
   refresh: state.buildings.refresh,
@@ -149,9 +99,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       getBuildings: getBuildingsAction,
-      deleteBuilding: deleteBuildingAction,
-      addBuilding: addBuildingAction,
-      editBuilding: editBuildingAction,
+      showModal: showModalAction,
     },
     dispatch
   );
