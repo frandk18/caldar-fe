@@ -7,8 +7,9 @@ import { bindActionCreators } from "redux";
 import { closeModal as closeModalAction } from "../../redux/actions/modalActions";
 import modalTypes from "../../redux/types/modalTypes";
 //import styles from "./modal.module.css";
-import Form from "../routes/building/Form";
-import RemoveMessage from "../routes/building/RemoveBuildingMessage";
+import FormBuilding from "../routes/building/Form";
+import FormTechnician from "../routes/technician/Form";
+import RemoveMessage from "../routes/technician/RemoveTechnicianMessage";
 
 const getModalStyle = () => {
   const top = 25;
@@ -45,15 +46,16 @@ const Modal = ({
   buildings,
   companies,
   boilers,
+  technicians,
 }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   let modalComponent;
 
   switch (modalType) {
-    case modalTypes.ADD_EDIT_ITEM:
+    case modalTypes.ADD_EDIT_BUILDING:
       modalComponent = (
-        <Form
+        <FormBuilding
           buildings={buildings}
           companies={companies}
           boilers={boilers}
@@ -62,7 +64,22 @@ const Modal = ({
         />
       );
       break;
-    case modalTypes.DELETE_ITEM:
+    case modalTypes.ADD_EDIT_TECHNICIAN:
+      modalComponent = (
+        <FormTechnician
+          technicians={technicians}
+          id={meta.id}
+          editing={meta.editing}
+          //addEdit={addEdit}
+          //showForm={showForm}
+          //toggleForm={toggleForm}
+        />
+      );
+      break;
+    case modalTypes.DELETE_TECHNICIAN:
+      modalComponent = <RemoveMessage id={meta.id} />;
+      break;
+    case modalTypes.DELETE_BUILDING:
       modalComponent = <RemoveMessage id={meta.id} />;
       break;
     default:
@@ -97,6 +114,7 @@ const mapStateToProps = (state) => {
     buildings: state.buildings.data,
     companies: state.companies.data,
     boilers: state.boilers.data,
+    technicians: state.technicians.data,
   };
 };
 

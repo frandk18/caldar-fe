@@ -11,6 +11,13 @@ import TextInput from "../../shared/TextInput.jsx";
 import NumberInput from "../../shared/NumberInput.jsx";
 import DateInput from "../../shared/DateInput.jsx";
 import TextArea from "../../shared/TextArea.jsx";
+import {
+  addTechnician as addTechnicianAction,
+  editTechnician as editTechnicianAction,
+} from "../../../redux/actions/techniciansActions";
+import { closeModal as closeModalAction } from "../../../redux/actions/modalActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 const TechnicianForm = (props) => {
   const technician = props.technicians.filter(
@@ -46,7 +53,7 @@ const TechnicianForm = (props) => {
   }
 
   const newDate = normalizeDate(newOne.dateOfBirth);
-  const _id = props.editing ? technician[0]._id : null;
+  const id = props.editing ? technician[0]._id : null;
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const onSubmitTechnician = async (values) => {
@@ -54,8 +61,13 @@ const TechnicianForm = (props) => {
     window.alert(JSON.stringify(values, 0, 2));
     console.log(values);
     values.services = newOne.services;
-    console.log(values);
-    props.addEdit(values, _id);
+    if (!props.editing) {
+      props.addTechnician(values);
+      props.closeModal();
+    } else {
+      props.editTechnician(values, id);
+      props.closeModal();
+    }
   };
 
   return (
@@ -158,4 +170,15 @@ const TechnicianForm = (props) => {
   );
 };
 
-export default TechnicianForm;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      addTechnician: addTechnicianAction,
+      editTechnician: editTechnicianAction,
+      closeModal: closeModalAction,
+    },
+    dispatch
+  );
+};
+
+export default connect(null, mapDispatchToProps)(TechnicianForm);

@@ -1,30 +1,22 @@
 import React, { useState, useEffect } from "react";
-//import { v4 as uuidv4 } from "uuid";
 import TableUI from "../../shared/TableUI.jsx";
-//import FormUI from "./FormUI.jsx";
-import Form from "./Form.jsx";
 import { connect } from "react-redux";
-import {
-  deleteTechnician as deleteTechnicianAction,
-  addTechnician as addTechnicianAction,
-  editTechnician as editTechnicianAction,
-  getTechnicians as getTechniciansAction,
-} from "../../../redux/actions/techniciansActions";
+import { getTechnicians as getTechniciansAction } from "../../../redux/actions/techniciansActions";
+import { showModal as showModalAction } from "../../../redux/actions/modalActions";
+import modalTypes from "../../../redux/types/modalTypes";
 import { bindActionCreators } from "redux";
 
 const Technician = ({
-  data,
+  technicians,
   isLoading,
   error,
   refresh,
-  deleteTechnician,
-  addTechnician,
-  editTechnician,
   getTechnicians,
+  showModal,
 }) => {
-  const [showForm, setShowForm] = useState(false);
+  /*const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [id, setId] = useState(null);
+  const [id, setId] = useState(null);*/
 
   const [headCells] = useState([
     {
@@ -60,6 +52,7 @@ const Technician = ({
   ];
 
   const name = "Technicians";
+
   useEffect(() => {
     if (refresh === true) {
       getTechnicians();
@@ -74,13 +67,32 @@ const Technician = ({
     return <div>ERROR!!!</div>;
   }
 
+  const showAddEditModal = (id) => {
+    if (id === null) {
+      showModal(modalTypes.ADD_EDIT_TECHNICIAN, {
+        editing: false,
+      });
+    } else {
+      showModal(modalTypes.ADD_EDIT_TECHNICIAN, {
+        id: id,
+        editing: true,
+      });
+    }
+  };
+  /*
   const toggleForm = () => {
     setShowForm(!showForm);
     if (editing) {
       setEditing(false);
     }
-  };
+  };*/
 
+  const showDeleteModal = (id) => {
+    showModal(modalTypes.DELETE_TECHNICIAN, {
+      id: id,
+    });
+  };
+  /*
   const addEdit = (newOne, _id) => {
     if (_id === null) {
       addTechnician(newOne);
@@ -102,7 +114,7 @@ const Technician = ({
     }
     toggleForm();
   };
-
+*/
   return (
     <React.Fragment>
       {/*}
@@ -116,7 +128,7 @@ const Technician = ({
           toggleForm={toggleForm}
         />
       )}
-      {*/}
+      {
       {showForm && (
         <Form
           technicians={data}
@@ -126,22 +138,22 @@ const Technician = ({
           showForm={showForm}
           toggleForm={toggleForm}
         />
-      )}
+      )}*/}
       <TableUI
         headCells={headCells}
-        data={data}
+        data={technicians}
         fieldObj={fieldObj}
         name={name}
-        toDelete={toDelete}
-        toEdit={captureId}
-        toggleForm={toggleForm}
+        toDelete={showDeleteModal}
+        toAddEdit={showAddEditModal}
+        //toggleForm={toggleForm}
       />
     </React.Fragment>
   );
 };
 
 const mapStateToProps = (state) => ({
-  data: state.technicians.data,
+  technicians: state.technicians.data,
   isLoading: state.technicians.isLoading,
   error: state.technicians.error,
   refresh: state.technicians.refresh,
@@ -151,9 +163,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       getTechnicians: getTechniciansAction,
-      deleteTechnician: deleteTechnicianAction,
-      addTechnician: addTechnicianAction,
-      editTechnician: editTechnicianAction,
+      showModal: showModalAction,
     },
     dispatch
   );

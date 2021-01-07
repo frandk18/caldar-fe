@@ -57,11 +57,11 @@ const Building = ({
 
   const showAddEditModal = (id) => {
     if (id === null) {
-      showModal(modalTypes.ADD_EDIT_ITEM, {
+      showModal(modalTypes.ADD_EDIT_BUILDING, {
         editing: false,
       });
     } else {
-      showModal(modalTypes.ADD_EDIT_ITEM, {
+      showModal(modalTypes.ADD_EDIT_BUILDING, {
         id: id,
         editing: true,
       });
@@ -69,7 +69,7 @@ const Building = ({
   };
 
   const showDeleteModal = (id) => {
-    showModal(modalTypes.DELETE_ITEM, {
+    showModal(modalTypes.DELETE_BUILDING, {
       id: id,
     });
   };
