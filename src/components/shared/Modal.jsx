@@ -9,7 +9,8 @@ import modalTypes from "../../redux/types/modalTypes";
 //import styles from "./modal.module.css";
 import FormBuilding from "../routes/building/Form";
 import FormTechnician from "../routes/technician/Form";
-import RemoveMessage from "../routes/technician/RemoveTechnicianMessage";
+import RemoveBuildingMessage from "../routes/building/RemoveBuildingMessage";
+import RemoveTechnicianMessage from "../routes/technician/RemoveTechnicianMessage";
 
 const getModalStyle = () => {
   const top = 25;
@@ -76,11 +77,11 @@ const Modal = ({
         />
       );
       break;
-    case modalTypes.DELETE_TECHNICIAN:
-      modalComponent = <RemoveMessage id={meta.id} />;
-      break;
     case modalTypes.DELETE_BUILDING:
-      modalComponent = <RemoveMessage id={meta.id} />;
+      modalComponent = <RemoveBuildingMessage id={meta.id} />;
+      break;
+    case modalTypes.DELETE_TECHNICIAN:
+      modalComponent = <RemoveTechnicianMessage id={meta.id} />;
       break;
     default:
       modalComponent = null;

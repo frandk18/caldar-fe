@@ -13,7 +13,7 @@ const RemoveTechnicianMessage = ({ closeModal, deleteTechnician, id }) => {
 
   return (
     <div>
-      Are you sure you want to delete this Technician?
+      Are you sure you want to delete this technician?
       <div style={btnContainer}>
         <button style={btnStyle} type="button" onClick={() => closeModal()}>
           Cancel

@@ -50,7 +50,6 @@ const BuildingForm = (props) => {
     props.editing ? building[0].company : ""
   );
   const handleSelectCompanyChange = (e) => {
-    console.log("COMPANY CHANGED");
     setCompanyId(e.target.value);
   };
 
@@ -59,14 +58,11 @@ const BuildingForm = (props) => {
     props.editing ? building[0].boilers : []
   );
   const handleSelectBoilersChange = (e) => {
-    console.log("BOILERS CHANGED");
     setBoilerId(e.target.value);
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
     await sleep(100);
-    console.log(values);
     window.alert(JSON.stringify(values, 0, 2));
     console.log(values);
     if (!props.editing) {
