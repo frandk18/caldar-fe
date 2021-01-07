@@ -1,22 +1,22 @@
 import { Form, Field } from "react-final-form";
 import { React, useState } from "react";
-import SimpleSelect from "../../shared/SimpleSelect.jsx";
-import MultipleSelect from "../../shared/MultipleSelect.jsx";
-import TextArea from "../../shared/TextArea.jsx";
-import TextInput from "../../shared/TextInput.jsx";
-import NumberInput from "../../shared/NumberInput.jsx";
+import SimpleSelect from "../../../shared/SimpleSelect.jsx";
+import MultipleSelect from "../../../shared/MultipleSelect.jsx";
+import TextArea from "../../../shared/TextArea.jsx";
+import TextInput from "../../../shared/TextInput.jsx";
+import NumberInput from "../../../shared/NumberInput.jsx";
 import {
   required,
   composeValidators,
   validateName,
   validateEmail,
   validatePhone,
-} from "../../../utils/validations.js";
+} from "../../../../utils/validations.js";
 import {
   addBuilding as addBuildingAction,
   editBuilding as editBuildingAction,
-} from "../../../redux/actions/buildingsActions";
-import { closeModal as closeModalAction } from "../../../redux/actions/modalActions";
+} from "../../../../redux/actions/buildingsActions";
+import { closeModal as closeModalAction } from "../../../../redux/actions/modalActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 

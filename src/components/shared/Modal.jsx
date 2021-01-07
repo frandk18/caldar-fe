@@ -7,9 +7,9 @@ import { bindActionCreators } from "redux";
 import { closeModal as closeModalAction } from "../../redux/actions/modalActions";
 import modalTypes from "../../redux/types/modalTypes";
 //import styles from "./modal.module.css";
-import FormBuilding from "../routes/building/Form";
+import FormBuilding from "../routes/building/BuildingForm/BuildingForm";
 import FormTechnician from "../routes/technician/Form";
-import RemoveBuildingMessage from "../routes/building/RemoveBuildingMessage";
+import RemoveBuildingMessage from "../routes/building/RemoveBuildingMessage/RemoveBuildingMessage";
 import RemoveTechnicianMessage from "../routes/technician/RemoveTechnicianMessage";
 
 const getModalStyle = () => {
