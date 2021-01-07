@@ -15,7 +15,11 @@ export const validateEmail = (value) => {
 };
 
 export const validatePhone = (value) => {
-  return value.length > 6 ? undefined : "Invalid Phone";
+  if (value.length === undefined) {
+    return undefined;
+  } else {
+    return value.length > 6 ? undefined : "Invalid Phone";
+  }
 };
 
 export const composeValidators = (...validators) => (value) =>
