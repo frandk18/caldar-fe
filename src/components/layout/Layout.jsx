@@ -4,6 +4,7 @@ import NavBar from "./NavBar.jsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
+import Modal from "../shared/Modal.jsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,7 @@ function Layout(props) {
         <Toolbar />
         {props.children}
       </main>
+      <Modal />
     </div>
   );
 }

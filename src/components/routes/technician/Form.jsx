@@ -16,7 +16,7 @@ const TechnicianForm = (props) => {
   const technician = props.technicians.filter(
     (technician) => technician._id === props.id
   );
-  const [newOne, setNewOne] = useState({
+  const [newOne] = useState({
     fullname: props.editing ? technician[0].fullname : "",
     email: props.editing ? technician[0].email : "",
     phone: props.editing ? technician[0].phone : "",
