@@ -20,7 +20,7 @@ const Home = ({
     getBoilers();
     getCompanies();
     getBoilerTypes();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return <h1>HOME</h1>;
 };
 const mapDispatchToProps = (dispatch) => {

@@ -62,7 +62,7 @@ const Boiler = ({
     if (refresh === true) {
       getBoilers();
     }
-  }, [refresh]);
+  }, [refresh]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <div>... LOADING</div>;

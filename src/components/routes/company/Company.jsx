@@ -58,7 +58,7 @@ const Company = ({
     if (refresh === true) {
       getCompanies();
     }
-  }, [refresh]);
+  }, [refresh]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <div>... LOADING</div>;
