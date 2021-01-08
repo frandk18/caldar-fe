@@ -91,78 +91,119 @@ const TechnicianForm = (props) => {
         values,
       }) => (
         <div>
-          <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-            <Field
-              name="fullname"
-              component={TextInput}
-              placeholder="Type your Full name"
-              label="Full name:"
-              validate={composeValidators(required, validateName)}
-            />
-            <Field
-              name="email"
-              component={TextInput}
-              placeholder="Type your Email"
-              label="Email:"
-              validate={composeValidators(required, validateEmail)}
-            />
-            <Field
-              name="phone"
-              component={NumberInput}
-              placeholder="Type your Phone"
-              label="Phone:"
-              validate={composeValidators(required, validatePhone)}
-            />
-            <Field
-              name="address"
-              component={TextInput}
-              type="text"
-              placeholder="Type your Address"
-              label="Address"
-              validate={required}
-            />
-            <label>Knowledge:</label>
-            <Field
-              name="knowledge"
-              component="input"
-              type="checkbox"
-              value="A"
-            />
-            A{" "}
-            <Field
-              name="knowledge"
-              component="input"
-              type="checkbox"
-              value="B"
-            />
-            B{" "}
-            <Field
-              name="knowledge"
-              component="input"
-              type="checkbox"
-              value="C"
-            />
-            C{" "}
-            <Field
-              name="knowledge"
-              component="input"
-              type="checkbox"
-              value="D"
-            />
-            D{" "}
-            <Field
-              name="dateOfBirth"
-              component={DateInput}
-              label="Date of birth"
-              validate={required}
-            />
-            <Field
-              name="obs"
-              component={TextArea}
-              placeholder="Obs"
-              label="obs"
-            />
-            <button type="submit">Submit</button>
+          <form
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+            style={formStyle}
+          >
+            <legend style={{ margin: 8 }}>
+              {props.editing ? "Edit Technician" : "New Technician"}
+            </legend>
+
+            <div style={{ display: "flex", border: "2px #ccc solid" }}>
+              <div style={columnStyle}>
+                <div style={fieldStyle}>
+                  <Field
+                    name="fullname"
+                    component={TextInput}
+                    placeholder="Type your Full name"
+                    label="Full name:"
+                    validate={composeValidators(required, validateName)}
+                  />
+                </div>
+                <div style={fieldStyle}>
+                  <Field
+                    name="email"
+                    component={TextInput}
+                    placeholder="Type your Email"
+                    label="Email:"
+                    validate={composeValidators(required, validateEmail)}
+                  />
+                </div>
+                <Field
+                  name="phone"
+                  component={NumberInput}
+                  placeholder="Type your Phone"
+                  label="Phone:"
+                  validate={composeValidators(required, validatePhone)}
+                />
+                <div style={fieldStyle}>
+                  <Field
+                    name="address"
+                    component={TextInput}
+                    type="text"
+                    placeholder="Type your Address"
+                    label="Address"
+                    validate={required}
+                  />
+                </div>
+              </div>
+              <div style={columnStyle}>
+                <div style={fieldStyle}>
+                  <label>Knowledge:</label>
+                  <div style={checkboxStyle}>
+                    <Field
+                      name="knowledge"
+                      component="input"
+                      type="checkbox"
+                      value="A"
+                    />
+                    A{" "}
+                    <Field
+                      name="knowledge"
+                      component="input"
+                      type="checkbox"
+                      value="B"
+                    />
+                    B{" "}
+                    <Field
+                      name="knowledge"
+                      component="input"
+                      type="checkbox"
+                      value="C"
+                    />
+                    C{" "}
+                    <Field
+                      name="knowledge"
+                      component="input"
+                      type="checkbox"
+                      value="D"
+                    />
+                    D{" "}
+                  </div>
+                </div>
+                <div style={fieldStyle}>
+                  <Field
+                    name="dateOfBirth"
+                    component={DateInput}
+                    label="Date of birth"
+                    validate={required}
+                  />
+                </div>
+                <div style={fieldStyle}>
+                  <Field
+                    name="obs"
+                    component={TextArea}
+                    placeholder="Obs"
+                    label="obs"
+                  />
+                </div>
+              </div>
+            </div>
+            <div style={btnContainer}>
+              <button
+                style={btnStyle}
+                type="button"
+                onClick={() => props.closeModal()}
+              >
+                Cancel
+              </button>
+
+              <button style={btnStyle} type="submit">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       )}
@@ -182,3 +223,48 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(null, mapDispatchToProps)(TechnicianForm);
+
+const formStyle = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  padding: "10px",
+  marginBottom: "10px",
+  borderRadius: "15px",
+};
+
+const columnStyle = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  margin: "20px",
+};
+
+const fieldStyle = {
+  display: "flex",
+  flexDirection: "column",
+  margin: "10px 0",
+};
+
+const checkboxStyle = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+};
+
+const btnContainer = {
+  display: "flex",
+  margin: "10px 0px",
+};
+
+const btnStyle = {
+  display: "flex",
+  justifyContent: "center",
+  background: "#fff",
+  padding: "5px",
+  margin: "0 10px",
+  borderWidth: "1px",
+  borderRadius: "5px",
+  overflow: "hidden",
+  cursor: "pointer",
+};
