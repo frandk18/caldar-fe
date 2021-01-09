@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { closeModal as closeModalAction } from "../../../redux/actions/modalActions";
-import { deleteTechnician as deleteTechnicianAction } from "../../../redux/actions/techniciansActions";
+import { closeModal as closeModalAction } from "../../../../redux/actions/modalActions";
+import { deleteTechnician as deleteTechnicianAction } from "../../../../redux/actions/techniciansActions";
 import { bindActionCreators } from "redux";
 //import styles from "./removeMessage.module.css";
 

@@ -1,17 +1,11 @@
 import { Form, Field } from "react-final-form";
 import { React, useState } from "react";
 import SimpleSelect from "../../../shared/SimpleSelect.jsx";
+import FixSelect from "../../../shared/FixSelect.jsx";
 import TextArea from "../../../shared/TextArea.jsx";
-import TextInput from "../../../shared/TextInput.jsx";
 import NumberInput from "../../../shared/NumberInput.jsx";
 import DateInput from "../../../shared/DateInput.jsx";
-import {
-  required,
-  composeValidators,
-  validateName,
-  validateEmail,
-  validatePhone,
-} from "../../../../utils/validations.js";
+import { required } from "../../../../utils/validations.js";
 import {
   addBoiler as addBoilerAction,
   editBoiler as editBoilerAction,
@@ -33,8 +27,12 @@ const BoilerForm = (props) => {
     type: props.editing ? boiler[0].type : "",
     manufacturingDate: props.editing
       ? boiler[0].manufacturingDate
-      : "12/09/2018",
-    installationDate: "",
+      : "01/01/1900",
+    installationDate: props.editing
+      ? boiler[0].installationDate === undefined
+        ? "01/01/1900"
+        : boiler[0].installationDate
+      : "01/01/1900",
     status: props.editing ? boiler[0].status : "",
     obs: props.editing ? boiler[0].obs : "",
   });
@@ -42,14 +40,6 @@ const BoilerForm = (props) => {
   const id = props.editing ? boiler[0]._id : null;
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  // Handle Building Field
-  const [buildingId, setBuildingId] = useState(
-    props.editing ? boiler[0].building : ""
-  );
-  const handleSelectBuildingChange = (e) => {
-    setBuildingId(e.target.value);
-  };
 
   // Handle Date Format
   function normalizeDate(input) {
@@ -73,7 +63,6 @@ const BoilerForm = (props) => {
   const [boilerType, setBoilerType] = useState(newOne.type);
   const handleSelectTypeChange = (e) => {
     setBoilerType(e.target.value);
-    newOne.type = e.target.value;
   };
 
   // Handle Status Field
@@ -81,7 +70,14 @@ const BoilerForm = (props) => {
   const [boilerStatus, setBoilerStatus] = useState(newOne.status);
   const handleSelectStatusChange = (e) => {
     setBoilerStatus(e.target.value);
-    newOne.status = e.target.value;
+  };
+
+  // Handle Building Field
+  const [buildingId, setBuildingId] = useState(
+    props.editing ? boiler[0].building : ""
+  );
+  const handleSelectBuildingChange = (e) => {
+    setBuildingId(e.target.value);
   };
 
   const handleSubmit = async (values) => {
@@ -103,14 +99,16 @@ const BoilerForm = (props) => {
       initialValues={{
         building: buildingId,
         serialNumber: newOne.serialNumber,
-        type: newOne.type,
+        type: boilerType,
         manufacturingDate: newManufacturingDate,
         installationDate: newInstallationDate,
-        status: newOne.status,
+        status: boilerStatus,
         obs: newOne.obs,
       }}
       onChange={{
         building: handleSelectBuildingChange,
+        status: handleSelectStatusChange,
+        type: handleSelectTypeChange,
       }}
       render={({ handleSubmit, form, submitting, pristine, values }) => (
         <div>
@@ -139,10 +137,10 @@ const BoilerForm = (props) => {
                   <Field
                     name="type"
                     label="Type"
-                    options={props.boilers}
-                    field={"name"}
-                    onChange={handleSelectBuildingChange}
-                    component={SimpleSelect}
+                    options={types}
+                    onChange={handleSelectTypeChange}
+                    component={FixSelect}
+                    validate={required}
                   />
                 </div>
 
@@ -150,10 +148,10 @@ const BoilerForm = (props) => {
                   <Field
                     name="status"
                     label="Status"
-                    options={props.boilers}
-                    field={"name"}
-                    onChange={handleSelectBuildingChange}
-                    component={SimpleSelect}
+                    options={status}
+                    onChange={handleSelectStatusChange}
+                    component={FixSelect}
+                    validate={required}
                   />
                 </div>
 
@@ -178,6 +176,14 @@ const BoilerForm = (props) => {
                     component={NumberInput}
                     validate={required}
                   ></Field>
+                </div>
+
+                <div style={fieldStyle}>
+                  <Field
+                    name="installationDate"
+                    label="Installation Date"
+                    component={DateInput}
+                  />
                 </div>
 
                 <div style={fieldStyle}>
