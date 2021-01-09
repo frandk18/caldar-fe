@@ -14,10 +14,6 @@ const Technician = ({
   getTechnicians,
   showModal,
 }) => {
-  /*const [showForm, setShowForm] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [id, setId] = useState(null);*/
-
   const [headCells] = useState([
     {
       id: "fullname",
@@ -79,66 +75,15 @@ const Technician = ({
       });
     }
   };
-  /*
-  const toggleForm = () => {
-    setShowForm(!showForm);
-    if (editing) {
-      setEditing(false);
-    }
-  };*/
 
   const showDeleteModal = (id) => {
     showModal(modalTypes.DELETE_TECHNICIAN, {
       id: id,
     });
   };
-  /*
-  const addEdit = (newOne, _id) => {
-    if (_id === null) {
-      addTechnician(newOne);
-      toggleForm();
-    } else {
-      editTechnician(newOne, id);
-      toggleForm();
-    }
-  };
 
-  const toDelete = (id) => {
-    deleteTechnician(id);
-  };
-
-  const captureId = (id) => {
-    setId(id);
-    if (id !== null) {
-      setEditing(true);
-    }
-    toggleForm();
-  };
-*/
   return (
     <React.Fragment>
-      {/*}
-      {showForm && (
-        <FormUI
-          technicians={data}
-          id={id}
-          editing={editing}
-          addEdit={addEdit}
-          showForm={showForm}
-          toggleForm={toggleForm}
-        />
-      )}
-      {
-      {showForm && (
-        <Form
-          technicians={data}
-          id={id}
-          editing={editing}
-          addEdit={addEdit}
-          showForm={showForm}
-          toggleForm={toggleForm}
-        />
-      )}*/}
       <TableUI
         headCells={headCells}
         data={technicians}
@@ -146,7 +91,6 @@ const Technician = ({
         name={name}
         toDelete={showDeleteModal}
         toAddEdit={showAddEditModal}
-        //toggleForm={toggleForm}
       />
     </React.Fragment>
   );
