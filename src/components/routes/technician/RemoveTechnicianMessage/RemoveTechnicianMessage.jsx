@@ -1,19 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 import { closeModal as closeModalAction } from "../../../../redux/actions/modalActions";
-import { deleteBuilding as deleteBuildingAction } from "../../../../redux/actions/buildingsActions";
+import { deleteTechnician as deleteTechnicianAction } from "../../../../redux/actions/techniciansActions";
 import { bindActionCreators } from "redux";
-//import styles from "./removeBuildingMessage.module.css";
+//import styles from "./removeMessage.module.css";
 
-const RemoveBuildingMessage = ({ closeModal, deleteBuilding, id }) => {
+const RemoveTechnicianMessage = ({ closeModal, deleteTechnician, id }) => {
   const toDelete = () => {
-    deleteBuilding(id);
+    deleteTechnician(id);
     closeModal();
   };
 
   return (
     <div>
-      Are you sure you want to delete this building?
+      Are you sure you want to delete this technician?
       <div style={btnContainer}>
         <button style={btnStyle} type="button" onClick={() => closeModal()}>
           Cancel
@@ -48,11 +48,11 @@ const btnStyle = {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      deleteBuilding: deleteBuildingAction,
+      deleteTechnician: deleteTechnicianAction,
       closeModal: closeModalAction,
     },
     dispatch
   );
 };
 
-export default connect(null, mapDispatchToProps)(RemoveBuildingMessage);
+export default connect(null, mapDispatchToProps)(RemoveTechnicianMessage);

@@ -1,19 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import { closeModal as closeModalAction } from "../../../redux/actions/modalActions";
-import { deleteTechnician as deleteTechnicianAction } from "../../../redux/actions/techniciansActions";
+import { closeModal as closeModalAction } from "../../../../redux/actions/modalActions";
+import { deleteBoiler as deleteBoilerAction } from "../../../../redux/actions/boilersActions";
 import { bindActionCreators } from "redux";
-//import styles from "./removeMessage.module.css";
+//import styles from "./removeBoilerMessage.module.css";
 
-const RemoveTechnicianMessage = ({ closeModal, deleteTechnician, id }) => {
+const RemoveBoilerMessage = ({ closeModal, deleteBoiler, id }) => {
   const toDelete = () => {
-    deleteTechnician(id);
+    deleteBoiler(id);
     closeModal();
   };
 
   return (
     <div>
-      Are you sure you want to delete this technician?
+      Are you sure you want to delete this boiler?
       <div style={btnContainer}>
         <button style={btnStyle} type="button" onClick={() => closeModal()}>
           Cancel
@@ -48,11 +48,11 @@ const btnStyle = {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      deleteTechnician: deleteTechnicianAction,
+      deleteBoiler: deleteBoilerAction,
       closeModal: closeModalAction,
     },
     dispatch
   );
 };
 
-export default connect(null, mapDispatchToProps)(RemoveTechnicianMessage);
+export default connect(null, mapDispatchToProps)(RemoveBoilerMessage);

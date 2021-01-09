@@ -6,11 +6,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { closeModal as closeModalAction } from "../../redux/actions/modalActions";
 import modalTypes from "../../redux/types/modalTypes";
-//import styles from "./modal.module.css";
 import FormBuilding from "../routes/building/BuildingForm/BuildingForm";
-import FormTechnician from "../routes/technician/Form";
+import FormTechnician from "../routes/technician/TechnicianForm/TechnicianForm";
+import FormBoiler from "../routes/boiler/BoilerForm/BoilerForm";
 import RemoveBuildingMessage from "../routes/building/RemoveBuildingMessage/RemoveBuildingMessage";
-import RemoveTechnicianMessage from "../routes/technician/RemoveTechnicianMessage";
+import RemoveTechnicianMessage from "../routes/technician/RemoveTechnicianMessage/RemoveTechnicianMessage";
+import RemoveBoilerMessage from "../routes/boiler/RemoveBoilerMessage/RemoveBoilerMessage";
 
 const getModalStyle = () => {
   const top = 25;
@@ -71,9 +72,16 @@ const Modal = ({
           technicians={technicians}
           id={meta.id}
           editing={meta.editing}
-          //addEdit={addEdit}
-          //showForm={showForm}
-          //toggleForm={toggleForm}
+        />
+      );
+      break;
+    case modalTypes.ADD_EDIT_BOILER:
+      modalComponent = (
+        <FormBoiler
+          boilers={boilers}
+          buildings={buildings}
+          id={meta.id}
+          editing={meta.editing}
         />
       );
       break;
@@ -82,6 +90,9 @@ const Modal = ({
       break;
     case modalTypes.DELETE_TECHNICIAN:
       modalComponent = <RemoveTechnicianMessage id={meta.id} />;
+      break;
+    case modalTypes.DELETE_BOILER:
+      modalComponent = <RemoveBoilerMessage id={meta.id} />;
       break;
     default:
       modalComponent = null;

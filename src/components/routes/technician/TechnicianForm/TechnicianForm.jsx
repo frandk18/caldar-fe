@@ -6,16 +6,16 @@ import {
   validateName,
   validateEmail,
   validatePhone,
-} from "../../../utils/validations.js";
-import TextInput from "../../shared/TextInput.jsx";
-import NumberInput from "../../shared/NumberInput.jsx";
-import DateInput from "../../shared/DateInput.jsx";
-import TextArea from "../../shared/TextArea.jsx";
+} from "../../../../utils/validations.js";
+import TextInput from "../../../shared/TextInput.jsx";
+import NumberInput from "../../../shared/NumberInput.jsx";
+import DateInput from "../../../shared/DateInput.jsx";
+import TextArea from "../../../shared/TextArea.jsx";
 import {
   addTechnician as addTechnicianAction,
   editTechnician as editTechnicianAction,
-} from "../../../redux/actions/techniciansActions";
-import { closeModal as closeModalAction } from "../../../redux/actions/modalActions";
+} from "../../../../redux/actions/techniciansActions";
+import { closeModal as closeModalAction } from "../../../../redux/actions/modalActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
