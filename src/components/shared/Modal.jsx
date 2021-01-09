@@ -9,8 +9,10 @@ import modalTypes from "../../redux/types/modalTypes";
 //import styles from "./modal.module.css";
 import FormBuilding from "../routes/building/BuildingForm/BuildingForm";
 import FormTechnician from "../routes/technician/Form";
+import FormCompany from "../routes/company/CompanyForm/CompanyForm";
 import RemoveBuildingMessage from "../routes/building/RemoveBuildingMessage/RemoveBuildingMessage";
 import RemoveTechnicianMessage from "../routes/technician/RemoveTechnicianMessage";
+import RemoveCompanyMessage from "../routes/company/RemoveCompanyMessage/RemoveCompanyMessage";
 
 const getModalStyle = () => {
   const top = 25;
@@ -77,12 +79,25 @@ const Modal = ({
         />
       );
       break;
+    case modalTypes.ADD_EDIT_COMPANY:
+      modalComponent = (
+        <FormCompany
+          companies={companies}
+          buildings={buildings}
+          id={meta.id}
+          editing={meta.editing}
+        />
+      );
+      break;
     case modalTypes.DELETE_BUILDING:
       modalComponent = <RemoveBuildingMessage id={meta.id} />;
       break;
     case modalTypes.DELETE_TECHNICIAN:
       modalComponent = <RemoveTechnicianMessage id={meta.id} />;
       break;
+    case modalTypes.DELETE_COMPANY:
+        modalComponent = <RemoveCompanyMessage id={meta.id} />;
+        break;
     default:
       modalComponent = null;
       break;

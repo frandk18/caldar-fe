@@ -14,24 +14,31 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
-  const company = props.companies.filter((company) => company._id === props.id);
+  const company = props.companies.filter(
+    (company) => company._id === props.id
+  );
 
   const [newOne, setNewOne] = useState({
-    buildings: props.editing ? company[0].buildings : [],
+    buildings: props.editing
+    ? company[0].buildings === undefined
+      ? ""
+      : company[0].buildings
+    : "",
     CIN: props.editing ? company[0].CIN : "",
     name: props.editing ? company[0].name : "",
-    email: props.editing ? company[0].email : "",
-    phone: props.editing ? company[0].phone : "",
     address: props.editing ? company[0].address : "",
     zipcode: props.editing ? company[0].zipcode : "",
     contact: props.editing ? company[0].contact : "",
+    phone: props.editing ? company[0].phone : "",
+    email: props.editing ? company[0].email : "",
     obs: props.editing ? company[0].obs : "",
   });
   const _id = props.editing ? company[0]._id : null;
 
-  const handleChange = (evt) => {
-    const value = evt.target.value;
-    const name = evt.target.name;
+  const handleChange = (e) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
     setNewOne({
       ...newOne,
       [name]: value,
@@ -121,7 +128,7 @@ function Form(props) {
     buildingSN.push(building[0].serialNumber);
   });
   const [buildingSerialNumber, setBuildingSerialNumber] = useState(
-    props.editing ? BuildingSN : []
+    props.editing ? buildingSN : []
   );
 
   const handleSelectBuildingsChange = (e) => {
@@ -168,8 +175,7 @@ function Form(props) {
                     style={{ display: "flex", justifyContent: "space-around" }}
                   >
                     <div className={classes.column}>
-
-                    <FormControl
+                      <FormControl
                         className={classes.formControl}
                         style={{ margin: 8 }}
                       >
@@ -201,12 +207,13 @@ function Form(props) {
                           ))}
                         </Select>
                       </FormControl>
+
                       <TextField
                         name="CIN"
                         defaultValue={newOne.CIN}
                         onChange={handleChange}
                         label="CIN"
-                        placeholder="123546"
+                        placeholder="444565"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
@@ -221,22 +228,7 @@ function Form(props) {
                         defaultValue={newOne.name}
                         onChange={handleChange}
                         label="Name"
-                        placeholder="Google"
-                        fullWidth
-                        margin="normal"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        variant="outlined"
-                        className={classes.input}
-                      />
-
-                      <TextField
-                        name="email"
-                        defaultValue={newOne.email}
-                        onChange={handleChange}
-                        label="Email"
-                        placeholder="marcos@gmail.com"
+                        placeholder="John Doe"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
@@ -251,7 +243,22 @@ function Form(props) {
                         defaultValue={newOne.address}
                         onChange={handleChange}
                         label="Address"
-                        placeholder="Avenida siempre viva 65"
+                        placeholder="Balcarce 54"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+
+                      <TextField
+                        name="zipcode"
+                        defaultValue={newOne.zipcode}
+                        onChange={handleChange}
+                        label="Zip Code"
+                        placeholder="4444"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
@@ -263,6 +270,21 @@ function Form(props) {
                     </div>
 
                     <div className={classes.column}>
+                      <TextField
+                        name="contact"
+                        defaultValue={newOne.contact}
+                        onChange={handleChange}
+                        label="Contact"
+                        placeholder="John Doe"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
+
                       <TextField
                         name="phone"
                         defaultValue={newOne.phone}
@@ -280,26 +302,11 @@ function Form(props) {
                       />
 
                       <TextField
-                        name="zipcode"
-                        defaultValue={newOne.zipcode}
+                        name="email"
+                        defaultValue={newOne.email}
                         onChange={handleChange}
-                        label="Zip Code"
-                        placeholder="5555-32"
-                        fullWidth
-                        margin="normal"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        variant="outlined"
-                        className={classes.input}
-                      />
-
-                      <TextField
-                        name="contact"
-                        defaultValue={newOne.contact}
-                        onChange={handleChange}
-                        label="Contact"
-                        placeholder="John Doe"
+                        label="Email"
+                        placeholder="example@something.com"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{

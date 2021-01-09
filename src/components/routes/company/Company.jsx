@@ -1,46 +1,22 @@
 import React, { useState, useEffect } from "react";
 import TableUI from "../../shared/TableUI.jsx";
-import FormUI from "./FormUI.jsx";
 import { connect } from "react-redux";
-import {
-  deleteCompany as deleteCompanyAction,
-  addCompany as addCompanyAction,
-  editCompany as editCompanyAction,
-  getCompanies as getCompaniesAction,
-} from "../../../redux/actions/companiesActions";
+import { getCompanies as getCompaniesAction } from "../../../redux/actions/companiesActions";
+import { showModal as showModalAction } from "../../../redux/actions/modalActions";
+import modalTypes from "../../../redux/types/modalTypes";
 import { bindActionCreators } from "redux";
 
 const Company = ({
   companies,
-  buildings,
   isLoading,
   error,
   refresh,
-  deleteCompany,
-  addCompany,
-  editCompany,
   getCompanies,
+  showModal,
 }) => {
-  const [showForm, setShowForm] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [id, setId] = useState(null);
-
   const [headCells] = useState([
-    {
-      id: "CIN",
-      align: "center",
-      disablePadding: false,
-      label: "CIN",
-    },
-    {
-      id: "name",
-      align: "center",
-      disablePadding: false,
-      label: "Name",
-    },
-    { id: "contact", align: "center", disablePadding: false, label: "Contact" },
-    { id: "email", align: "center", disablePadding: false, label: "E-mail" },
-    { id: "phone", align: "center", disablePadding: false, label: "Phone" },
+    { id: "CIN", align: "center", disablePadding: false, label: "CIN" },
+    { id: "name", align: "center", disablePadding: false, label: "Name" },
     { id: "address", align: "center", disablePadding: false, label: "Address" },
     {
       id: "zipcode",
@@ -48,9 +24,20 @@ const Company = ({
       disablePadding: false,
       label: "Zip Code",
     },
+    { id: "contact", align: "center", disablePadding: false, label: "Contact" },
+    { id: "phone", align: "center", disablePadding: false, label: "Phone" },
+    { id: "email", align: "center", disablePadding: false, label: "Email" },
   ]);
 
-  const fieldObj = ["CIN", "name","contact", "email", "phone", "address", "zipcode"];
+  const fieldObj = [
+    "CIN",
+    "name",
+    "address",
+    "zipcode",
+    "contact",
+    "phone",
+    "email",
+  ];
 
   const name = "Companies";
 
@@ -68,63 +55,40 @@ const Company = ({
     return <div>ERROR!!!</div>;
   }
 
-  const toggleForm = () => {
-    setShowForm(!showForm);
-    if (editing) {
-      setEditing(false);
-    }
-  };
-
-  const addEdit = (newOne, _id) => {
-    if (_id === null) {
-      addCompany(newOne);
-      toggleForm();
+  const showAddEditModal = (id) => {
+    if (id === null) {
+      showModal(modalTypes.ADD_EDIT_COMPANY, {
+        editing: false,
+      });
     } else {
-      editCompany(newOne, id);
-      toggleForm();
+      showModal(modalTypes.ADD_EDIT_COMPANY, {
+        id: id,
+        editing: true,
+      });
     }
   };
 
-  const toDelete = (id) => {
-    deleteCompany(id);
-  };
-
-  const captureId = (id) => {
-    setId(id);
-    if (id !== null) {
-      setEditing(true);
-    }
-    toggleForm();
+  const showDeleteModal = (id) => {
+    showModal(modalTypes.DELETE_COMPANY, {
+      id: id,
+    });
   };
 
   return (
     <React.Fragment>
-      {showForm && (
-        <FormUI
-          companies={companies}
-          buildings={buildings}
-          id={id}
-          editing={editing}
-          addEdit={addEdit}
-          showForm={showForm}
-          toggleForm={toggleForm}
-        />
-      )}
       <TableUI
         headCells={headCells}
         data={companies}
         fieldObj={fieldObj}
         name={name}
-        toDelete={toDelete}
-        toEdit={captureId}
-        toggleForm={toggleForm}
+        toDelete={showDeleteModal}
+        toAddEdit={showAddEditModal}
       />
     </React.Fragment>
   );
 };
 
 const mapStateToProps = (state) => ({
-  buildings: state.buildings.data,
   companies: state.companies.data,
   isLoading: state.companies.isLoading,
   error: state.companies.error,
@@ -135,9 +99,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       getCompanies: getCompaniesAction,
-      deleteCompany: deleteCompanyAction,
-      addCompany: addCompanyAction,
-      editCompany: editCompanyAction,
+      showModal: showModalAction,
     },
     dispatch
   );
