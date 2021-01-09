@@ -225,7 +225,7 @@ export default function EnhancedTable(props) {
             aria-label="Add"
             style={{ float: "right" }}
             onClick={() => {
-              props.toggleForm();
+              props.toAddEdit(null);
             }}
           >
             <AddBoxIcon />
@@ -298,8 +298,7 @@ export default function EnhancedTable(props) {
                           <IconButton
                             aria-label="edit"
                             onClick={() => {
-                              props.toEdit(row._id);
-                              props.toggleForm();
+                              props.toAddEdit(row._id);
                             }}
                           >
                             <EditIcon />

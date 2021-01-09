@@ -11,6 +11,9 @@ import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import { Link } from "react-router-dom";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -70,9 +73,16 @@ function Header() {
       <AppBar className={classes.appBar}>
         <Toolbar>
           <TrendingUpIcon />
-          <Typography className={classes.title} variant="h6" noWrap>
-            CaldAR
-          </Typography>
+          <Typography
+            className={classes.title}
+            variant="h6"
+            noWrap
+          ></Typography>
+          <div style={{ width: "80px", fontSize: "20px" }}>
+            <ListItem button key={"Home"} component={Link} to={"/"}>
+              <ListItemText primary={"CaldAR"} style={{ fontSize: "20px" }} />
+            </ListItem>
+          </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">

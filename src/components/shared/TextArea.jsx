@@ -4,7 +4,7 @@ const TextArea = ({ input, meta, label, placeholder }) => {
   return (
     <>
       <label>{label}</label>
-      <textarea {...input} rows="4" cols="50" placeholder={placeholder}>
+      <textarea {...input} rows="4" placeholder={placeholder}>
         {meta.error && meta.touched && <div>{meta.error}</div>}
       </textarea>
     </>

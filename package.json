@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "final-form": "^4.20.1",
+    "final-form-arrays": "^3.0.2",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",

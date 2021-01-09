@@ -1,91 +1,202 @@
 import { Form, Field } from "react-final-form";
-import React, { useState } from "react";
+import { React, useState } from "react";
+import MultipleSelect from "../../shared/MultipleSelect.jsx";
+import TextArea from "../../shared/TextArea.jsx";
+import TextInput from "../../shared/TextInput.jsx";
+import NumberInput from "../../shared/NumberInput.jsx";
 import {
     required,
     composeValidators,
-    validateName,
-    validateEmail,
-    validatePhone,
-    validateBoilerType,
     validateStdMaintainance,
-} from "../../../utils/validations";
-import TextInput from "../../shared/TextInput.jsx";
-import NumberInput from "../../shared/NumberInput.jsx";
-import DateInput from "../../shared/DateInput.jsx";
-import TextArea from "../../shared/TextArea.jsx";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
+    validateBoilerType,
+} from "../../../utils/validations.js";
+import {
+    addBoilerType as addBoilerTypeAction,
+    editBoilerType as editBoilerTypeAction,
+} from "../../../redux/actions/boilerTypeActions";
+import { closeModal as closeModalAction } from "../../../redux/actions/modalActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-function BoilerTypeForm(props) {
-    const boilerType = props.boilerTypes.filter(
-        (boilerType) => boilerType._id === props.id
+const BoilerTypeForm = (props) => {
+    const boilerType = props.boilerType.filter(
+        (boilerT) => boilerT._id === props.id
     );
 
-    const [newOne, setNewOne] = useState({
-        boilerType: props.editing ? boilerType[0].boilerType : "",
+    const [newOne] = useState({
+        model: props.editing ? boilerType[0].model : [],
         stdMaintainance: props.editing ? boilerType[0].stdMaintainance : "",
         obs: props.editing ? boilerType[0].obs : "",
+        technician: props.editing ? boilerType[0].technician : [],
     });
-    const _id = props.editing ? boilerType[0]._id : null;
+
+    const id = props.editing ? boilerType[0]._id : null;
 
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    const onSubmitBoilerType = async (values) => {
-      await sleep(300);
-      window.alert(JSON.stringify(values, 0, 2));
-      console.log(values);
-      values.services = newOne.services;
-      console.log(values);
-      props.addEdit(values, _id);
+
+
+
+    // Handle Technician Field
+    const [technicianId, setTechnicianId] = useState(
+        props.editing ? boilerType[0].technician : ""
+    );
+    const handleSelectTechnicianChange = (e) => {
+        setTechnicianId(e.target.value);
+    };
+
+    const handleSubmit = async (values) => {
+        await sleep(100);
+        window.alert(JSON.stringify(values, 0, 2));
+        console.log(values);
+        if (!props.editing) {
+            props.addBoilerType(values);
+            props.closeModal();
+        } else {
+            props.editBoilerType(values, id);
+            props.closeModal();
+        }
     };
 
     return (
         <Form
-            onSubmit={onSubmitBoilerType}
+            onSubmit={handleSubmit}
             initialValues={{
-                boilerType: newOne.boilerType,
+                technician: technicianId,
+                model: newOne.model,
                 stdMaintainance: newOne.stdMaintainance,
                 obs: newOne.obs,
             }}
-            render={({
-                handleSubmit,
-                handleChange,
-                form,
-                submitting,
-                pristine,
-                values,
-            }) => (
+            onChange={{
+                technician: handleSelectTechnicianChange,
+            }}
+            render={({ handleSubmit, form, submitting, pristine, values }) => (
                 <div>
-                    <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-                        <Field
-                            name="boilerType"
-                            component={TextInput}
-                            placeholder="Enter the boiler model"
-                            label="Boiler Model:"
-                            validate={composeValidators(required, validateBoilerType)}
-                        />
-                        <Field
-                            name="stdMaintainance"
-                            component={TextInput}
-                            placeholder="Type the standard maintainance time"
-                            label="Standard maintainance time:"
-                            validate={composeValidators(required, validateStdMaintainance)}
-                        />
-                        <Field
-                            name="obs"
-                            component={TextInput}
-                            placeholder="Type the observation"
-                            label="Observation:"
-                        />
-                        <button type="submit">Submit</button>
+                    <form
+                        noValidate
+                        autoComplete="off"
+                        onSubmit={handleSubmit}
+                        style={formStyle}
+                    >
+                        <legend style={{ margin: 8 }}>
+                            {props.editing ? "Edit Boiler Type" : "New Boiler Type"}
+                        </legend>
+
+                        <div style={{ display: "flex", border: "2px #ccc solid" }}>
+                            <div style={columnStyle}>
+
+                                <div style={fieldStyle}>
+                                    <Field
+                                        name="model"
+                                        label="Boiler Model"
+                                        placeholder="Detail which model boiler it is"
+                                        component={TextArea}
+                                        validate={composeValidators(required, validateBoilerType)}
+                                    ></Field>
+                                </div>
+
+                                <div style={fieldStyle}>
+                                    <Field
+                                        name="stdMaintainance"
+                                        label="Standard mantainance required time"
+                                        placeholder="Detail the number of hours required of hours to repare this model"
+                                        component={TextArea}
+                                        validate={composeValidators(required, validateStdMaintainance)}
+                                    ></Field>
+                                </div>
+
+                                <div style={fieldStyle}>
+                                    <Field
+                                        name="obs"
+                                        label="Observations"
+                                        placeholder="Write some details"
+                                        component={TextArea}
+                                    ></Field>
+                                </div>
+
+                                <div style={fieldStyle}>
+                                    <Field
+                                        name="technician"
+                                        label="Technician"
+                                        options={props.technicians}
+                                        type="select"
+                                        field={"technician"}
+                                        onChange={handleSelectTechnicianChange}
+                                        component={MultipleSelect}
+                                    ></Field>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div style={btnContainer}>
+                            <button
+                                style={btnStyle}
+                                type="button"
+                                onClick={() => props.closeModal()}
+                            >
+                                Cancel
+                            </button>
+
+                            <button style={btnStyle} type="submit">
+                                Submit
+                            </button>
+                        </div>
                     </form>
                 </div>
             )}
-            />
-        );
-}
+        />
+    );
+};
 
-export default BoilerTypeForm;
+const formStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "10px",
+    marginBottom: "10px",
+    borderRadius: "15px",
+};
+
+const columnStyle = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    margin: "20px",
+};
+
+const fieldStyle = {
+    display: "flex",
+    flexDirection: "column",
+    margin: "10px 0",
+};
+
+const btnContainer = {
+    display: "flex",
+    margin: "10px 0px",
+};
+
+const btnStyle = {
+    display: "flex",
+    justifyContent: "center",
+    background: "#fff",
+    padding: "5px",
+    margin: "0 10px",
+    borderWidth: "1px",
+    borderRadius: "5px",
+    overflow: "hidden",
+    cursor: "pointer",
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(
+        {
+            addBoilerType: addBoilerTypeAction,
+            editBoilerType: editBoilerTypeAction,
+            closeModal: closeModalAction,
+        },
+        dispatch
+    );
+};
+
+export default connect(null, mapDispatchToProps)(BoilerTypeForm);

@@ -1,7 +1,7 @@
 import React from "react";
 
 const NumberInput = ({ input, meta, label, placeholder }) => {
-  console.log(input, meta, label, placeholder);
+
   return (
     <>
       <label>{label}</label>
