@@ -78,9 +78,9 @@ function Header() {
             variant="h6"
             noWrap
           ></Typography>
-          <div style={{ width: "80px" }}>
+          <div style={{ width: "80px", fontSize: "20px" }}>
             <ListItem button key={"Home"} component={Link} to={"/"}>
-              <ListItemText primary={"CaldAR"} />
+              <ListItemText primary={"CaldAR"} style={{ fontSize: "20px" }} />
             </ListItem>
           </div>
           <div className={classes.grow} />
