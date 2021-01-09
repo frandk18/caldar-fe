@@ -28,7 +28,7 @@ const TechnicianForm = (props) => {
     email: props.editing ? technician[0].email : "",
     phone: props.editing ? technician[0].phone : "",
     address: props.editing ? technician[0].address : "",
-    dateOfBirth: props.editing ? technician[0].dateOfBirth : "09/12/2018",
+    dateOfBirth: props.editing ? technician[0].dateOfBirth : "2018-12-09",
     obs: props.editing ? technician[0].obs : "",
     knowledge: props.editing
       ? JSON.parse(JSON.stringify(technician[0].knowledge))
@@ -36,23 +36,6 @@ const TechnicianForm = (props) => {
     services: [],
   });
 
-  //I hate date formats
-  //This is cause my db have this format: 8/22/1991 and i need 08/22/1991
-  function normalizeDate(input) {
-    let parts = input.split("/");
-    return (
-      (parts[2] < 10 ? "0" : "") +
-      parseInt(parts[2]) +
-      "-" +
-      (parts[0] < 10 ? "0" : "") +
-      parseInt(parts[0]) +
-      "-" +
-      (parts[1] < 10 ? "0" : "") +
-      parseInt(parts[1])
-    );
-  }
-
-  const newDate = normalizeDate(newOne.dateOfBirth);
   const id = props.editing ? technician[0]._id : null;
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -80,7 +63,7 @@ const TechnicianForm = (props) => {
         knowledge: newOne.knowledge,
         address: newOne.address,
         obs: newOne.obs,
-        dateOfBirth: newDate,
+        dateOfBirth: newOne.dateOfBirth,
       }}
       render={({
         handleSubmit,
