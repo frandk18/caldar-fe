@@ -55,7 +55,6 @@ const Modal = ({
     const classes = useStyles();
     const [modalStyle] = useState(getModalStyle);
     let modalComponent;
-
     switch (modalType) {
        /* case modalTypes.ADD_EDIT_BUILDING:
             modalComponent = (

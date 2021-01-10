@@ -24,14 +24,13 @@ const BoilerTypeForm = (props) => {
     );
 
     const [newOne] = useState({
-        model: props.editing ? boilerType[0].model : [],
+        boilerType: props.editing ? boilerType[0].boilerType : [],
         stdMaintainance: props.editing ? boilerType[0].stdMaintainance : "",
         obs: props.editing ? boilerType[0].obs : "",
         technician: props.editing ? boilerType[0].technician : [],
     });
-
     const id = props.editing ? boilerType[0]._id : null;
-
+    console.log(newOne)
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 
@@ -62,7 +61,7 @@ const BoilerTypeForm = (props) => {
             onSubmit={handleSubmit}
             initialValues={{
                 technician: technicianId,
-                model: newOne.model,
+                boilerType: newOne.boilerType,
                 stdMaintainance: newOne.stdMaintainance,
                 obs: newOne.obs,
             }}
@@ -86,7 +85,7 @@ const BoilerTypeForm = (props) => {
 
                                 <div style={fieldStyle}>
                                     <Field
-                                        name="model"
+                                        name="boilerType"
                                         label="Boiler Model"
                                         placeholder="Detail which model boiler it is"
                                         component={TextArea}
@@ -118,8 +117,8 @@ const BoilerTypeForm = (props) => {
                                         name="technician"
                                         label="Technician"
                                         options={props.technicians}
+                                        field={"fullname"}
                                         type="select"
-                                        field={"technician"}
                                         onChange={handleSelectTechnicianChange}
                                         component={MultipleSelect}
                                     ></Field>
