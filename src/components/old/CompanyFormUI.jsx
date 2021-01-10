@@ -14,26 +14,24 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 function Form(props) {
-  const building = props.buildings.filter(
-    (building) => building._id === props.id
-  );
+  const company = props.companies.filter((company) => company._id === props.id);
 
   const [newOne, setNewOne] = useState({
-    company: props.editing
-      ? building[0].company === undefined
+    buildings: props.editing
+      ? company[0].buildings === undefined
         ? ""
-        : building[0].company
+        : company[0].buildings
       : "",
-    boilers: props.editing ? building[0].boilers : [],
-    name: props.editing ? building[0].name : "",
-    address: props.editing ? building[0].address : "",
-    zipcode: props.editing ? building[0].zipcode : "",
-    contact: props.editing ? building[0].contact : "",
-    phone: props.editing ? building[0].phone : "",
-    email: props.editing ? building[0].email : "",
-    obs: props.editing ? building[0].obs : "",
+    CIN: props.editing ? company[0].CIN : "",
+    name: props.editing ? company[0].name : "",
+    address: props.editing ? company[0].address : "",
+    zipcode: props.editing ? company[0].zipcode : "",
+    contact: props.editing ? company[0].contact : "",
+    phone: props.editing ? company[0].phone : "",
+    email: props.editing ? company[0].email : "",
+    obs: props.editing ? company[0].obs : "",
   });
-  const _id = props.editing ? building[0]._id : null;
+  const _id = props.editing ? company[0]._id : null;
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -120,42 +118,28 @@ function Form(props) {
 
   const classes = useStyles();
 
-  const company = props.companies.filter(
-    (company) => company._id === newOne.company
-  );
+  const buildingId = [];
+  const buildingSN = [];
 
-  const [companyName, setCompanyName] = useState(
-    props.editing ? (company[0] === undefined ? "" : company[0].name) : ""
-  );
-
-  const handleSelectCompanyChange = (e) => {
-    const company = props.companies.filter(
-      (company) => company.name === e.target.value
+  newOne.buildings.forEach((value) => {
+    const building = props.buildings.filter(
+      (building) => building._id === value
     );
-    setCompanyName(e.target.value);
-    newOne.company = company[0]._id;
-  };
-
-  const boilerId = [];
-  const boilerSN = [];
-
-  newOne.boilers.forEach((value) => {
-    const boiler = props.boilers.filter((boiler) => boiler._id === value);
-    boilerSN.push(boiler[0].serialNumber);
+    buildingSN.push(building[0].serialNumber);
   });
-  const [boilerSerialNumber, setBoilerSerialNumber] = useState(
-    props.editing ? boilerSN : []
+  const [buildingSerialNumber, setBuildingSerialNumber] = useState(
+    props.editing ? buildingSN : []
   );
 
-  const handleSelectBoilersChange = (e) => {
-    setBoilerSerialNumber(e.target.value);
+  const handleSelectBuildingsChange = (e) => {
+    setBuildingSerialNumber(e.target.value);
     e.target.value.forEach((value) => {
-      const boiler = props.boilers.filter(
-        (boiler) => boiler.serialNumber === value
+      const building = props.buildings.filter(
+        (building) => building.serialNumber === value
       );
-      boilerId.push(boiler[0]._id);
+      buildingId.push(building[0]._id);
     });
-    newOne.boilers = boilerId;
+    newOne.buildings = buildingId;
   };
 
   return (
@@ -184,7 +168,7 @@ function Form(props) {
                   }}
                 >
                   <h1 style={{ margin: 8 }}>
-                    {props.editing ? "Edit Building" : "New Building"}
+                    {props.editing ? "Edit Company" : "New Company"}
                   </h1>
 
                   <div
@@ -195,55 +179,49 @@ function Form(props) {
                         className={classes.formControl}
                         style={{ margin: 8 }}
                       >
-                        <InputLabel>Company</InputLabel>
+                        <InputLabel>Buildings</InputLabel>
                         <Select
-                          labelId="company"
-                          id="company"
-                          value={companyName}
-                          onChange={handleSelectCompanyChange}
+                          labelId="buildings"
+                          id="buildings"
+                          value={buildingSerialNumber}
+                          multiple
+                          onChange={handleSelectBuildingsChange}
                           input={<Input />}
+                          renderValue={(selected) => selected.join(", ")}
                           MenuProps={MenuProps}
                         >
-                          {props.companies.map((company) => (
-                            <MenuItem key={company._id} value={company.name}>
-                              {company.name}
+                          {props.buildings.map((building) => (
+                            <MenuItem
+                              key={building._id}
+                              value={building.serialNumber}
+                            >
+                              <Checkbox
+                                checked={
+                                  buildingSerialNumber.indexOf(
+                                    building.serialNumber
+                                  ) > -1
+                                }
+                              />
+                              <ListItemText primary={building.serialNumber} />
                             </MenuItem>
                           ))}
                         </Select>
                       </FormControl>
 
-                      <FormControl
-                        className={classes.formControl}
-                        style={{ margin: 8 }}
-                      >
-                        <InputLabel>Boilers</InputLabel>
-                        <Select
-                          labelId="boilers"
-                          id="boilers"
-                          value={boilerSerialNumber}
-                          multiple
-                          onChange={handleSelectBoilersChange}
-                          input={<Input />}
-                          renderValue={(selected) => selected.join(", ")}
-                          MenuProps={MenuProps}
-                        >
-                          {props.boilers.map((boiler) => (
-                            <MenuItem
-                              key={boiler._id}
-                              value={boiler.serialNumber}
-                            >
-                              <Checkbox
-                                checked={
-                                  boilerSerialNumber.indexOf(
-                                    boiler.serialNumber
-                                  ) > -1
-                                }
-                              />
-                              <ListItemText primary={boiler.serialNumber} />
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
+                      <TextField
+                        name="CIN"
+                        defaultValue={newOne.CIN}
+                        onChange={handleChange}
+                        label="CIN"
+                        placeholder="444565"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                        className={classes.input}
+                      />
 
                       <TextField
                         name="name"
