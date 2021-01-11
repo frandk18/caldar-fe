@@ -7,7 +7,7 @@ import Building from "./components/routes/building/Building.jsx";
 import Company from "./components/routes/company/Company.jsx";
 import Boiler from "./components/routes/boiler/Boiler.jsx";
 import BoilerType from "./components/routes/boiler-type/BoilerType.jsx";
-import Login from "./components/routes/au/Login";
+import Login from "./components/routes/login/Login";
 
 import "./App.css";
 
