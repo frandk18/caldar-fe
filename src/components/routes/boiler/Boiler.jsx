@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from "react";
 import TableUI from "../../shared/TableUI.jsx";
-import FormUI from "./FormUI.jsx";
 import { connect } from "react-redux";
-import {
-  deleteBoiler as deleteBoilerAction,
-  addBoiler as addBoilerAction,
-  editBoiler as editBoilerAction,
-  getBoilers as getBoilersAction,
-} from "../../../redux/actions/boilersActions";
+import { getBoilers as getBoilersAction } from "../../../redux/actions/boilersActions";
+import { showModal as showModalAction } from "../../../redux/actions/modalActions";
+import modalTypes from "../../../redux/types/modalTypes";
 import { bindActionCreators } from "redux";
 
 const Boiler = ({
-  buildings,
   boilers,
   isLoading,
   error,
   refresh,
-  deleteBoiler,
-  addBoiler,
-  editBoiler,
   getBoilers,
+  showModal,
 }) => {
-  const [showForm, setShowForm] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [id, setId] = useState(null);
-
   const [headCells] = useState([
     {
       id: "serialNumber",
@@ -62,7 +51,7 @@ const Boiler = ({
     if (refresh === true) {
       getBoilers();
     }
-  }, [refresh]);
+  }, [refresh]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <div>... LOADING</div>;
@@ -72,63 +61,40 @@ const Boiler = ({
     return <div>ERROR!!!</div>;
   }
 
-  const toggleForm = () => {
-    setShowForm(!showForm);
-    if (editing) {
-      setEditing(false);
-    }
-  };
-
-  const addEdit = (newOne, _id) => {
-    if (_id === null) {
-      addBoiler(newOne);
-      toggleForm();
+  const showAddEditModal = (id) => {
+    if (id === null) {
+      showModal(modalTypes.ADD_EDIT_BOILER, {
+        editing: false,
+      });
     } else {
-      editBoiler(newOne, id);
-      toggleForm();
+      showModal(modalTypes.ADD_EDIT_BOILER, {
+        id: id,
+        editing: true,
+      });
     }
   };
 
-  const toDelete = (id) => {
-    deleteBoiler(id);
-  };
-
-  const captureId = (id) => {
-    setId(id);
-    if (id !== null) {
-      setEditing(true);
-    }
-    toggleForm();
+  const showDeleteModal = (id) => {
+    showModal(modalTypes.DELETE_BOILER, {
+      id: id,
+    });
   };
 
   return (
     <React.Fragment>
-      {showForm && (
-        <FormUI
-          boilers={boilers}
-          buildings={buildings}
-          id={id}
-          editing={editing}
-          addEdit={addEdit}
-          showForm={showForm}
-          toggleForm={toggleForm}
-        />
-      )}
       <TableUI
         headCells={headCells}
         data={boilers}
         fieldObj={fieldObj}
         name={name}
-        toDelete={toDelete}
-        toEdit={captureId}
-        toggleForm={toggleForm}
+        toDelete={showDeleteModal}
+        toAddEdit={showAddEditModal}
       />
     </React.Fragment>
   );
 };
 
 const mapStateToProps = (state) => ({
-  buildings: state.buildings.data,
   boilers: state.boilers.data,
   isLoading: state.boilers.isLoading,
   error: state.boilers.error,
@@ -139,9 +105,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       getBoilers: getBoilersAction,
-      deleteBoiler: deleteBoilerAction,
-      addBoiler: addBoilerAction,
-      editBoiler: editBoilerAction,
+      showModal: showModalAction,
     },
     dispatch
   );

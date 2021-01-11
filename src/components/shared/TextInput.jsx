@@ -1,7 +1,7 @@
 import React from "react";
 
 const TextInput = ({ input, meta, label, placeholder }) => {
-
+  //console.log(input, meta, label, placeholder);
   return (
     <>
       <label>{label}</label>
@@ -10,4 +10,5 @@ const TextInput = ({ input, meta, label, placeholder }) => {
     </>
   );
 };
+
 export default TextInput;

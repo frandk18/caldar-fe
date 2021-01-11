@@ -10,4 +10,5 @@ const TextArea = ({ input, meta, label, placeholder }) => {
     </>
   );
 };
+
 export default TextArea;

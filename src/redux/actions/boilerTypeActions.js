@@ -2,6 +2,8 @@ import { ACTIONS_TYPES } from "../types/actionTypes";
 
 const URL = "http://localhost:4000/api/boiler-type";
 
+// GET
+
 export const getBoilerTypesFetching = () => ({
   type: ACTIONS_TYPES.GET_BOILERTYPES_FETCHING,
 });
@@ -26,6 +28,8 @@ export const getBoilerTypes = () => (dispatch) => {
       dispatch(getBoilerTypesRejected());
     });
 };
+
+// ADD
 
 export const addBoilerTypeFetching = () => ({
   type: ACTIONS_TYPES.ADD_BOILERTYPE_FETCHING,
@@ -58,6 +62,8 @@ export const addBoilerType = (newOne) => (dispatch) => {
       return dispatch(addBoilerTypeRejected());
     });
 };
+
+// EDIT
 
 export const editBoilerTypeFetching = () => ({
   type: ACTIONS_TYPES.EDIT_BOILERTYPE_FETCHING,
@@ -92,6 +98,8 @@ export const editBoilerType = (newOne, id) => (dispatch) => {
       return dispatch(editBoilerTypeRejected());
     });
 };
+
+// DELETE
 
 export const deleteBoilerTypeFetching = () => ({
   type: ACTIONS_TYPES.DELETE_BOILERTYPE_FETCHING,

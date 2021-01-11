@@ -9,4 +9,5 @@ const DateInput = ({ input, meta, label, placeholder }) => {
     </>
   );
 };
+
 export default DateInput;
