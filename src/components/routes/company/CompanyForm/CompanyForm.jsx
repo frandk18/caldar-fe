@@ -101,7 +101,7 @@ const CompanyForm = (props) => {
                     label="Buildings"
                     options={props.buildings}
                     type="select"
-                    field={"serialNumber"}
+                    field={"name"}
                     onChange={handleSelectBuildingsChange}
                     component={MultipleSelect}
                   ></Field>
