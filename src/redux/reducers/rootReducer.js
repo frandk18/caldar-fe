@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   buildings: buildingsReducer,
   companies: companiesReducer,
   boilers: boilersReducer,
-  boilerType: boilerTypesReducer,
+  boilerTypes: boilerTypesReducer,
   modal: modalReducer,
 });
 

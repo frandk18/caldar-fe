@@ -81,6 +81,7 @@ export const editBoilerTypeRejected = () => ({
 
 export const editBoilerType = (newOne, id) => (dispatch) => {
   dispatch(editBoilerTypeFetching());
+  console.log(id);
   fetch(`${URL}/${id}`, {
     method: "PUT",
     headers: {
@@ -116,7 +117,7 @@ export const deleteBoilerTypeRejected = () => ({
 export const deleteBoilerType = (id) => (dispatch) => {
   dispatch(deleteBoilerTypeFetching());
   fetch(`${URL}/${id}`, {
-    method: "ACTIONS_TYPES.DELETE",
+    method: "DELETE",
   })
     .then((res) => {
       if (!res.ok) throw Error;
