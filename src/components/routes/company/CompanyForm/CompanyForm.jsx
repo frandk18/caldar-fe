@@ -1,6 +1,5 @@
 import { Form, Field } from "react-final-form";
 import { React, useState } from "react";
-import SimpleSelect from "../../../shared/SimpleSelect.jsx";
 import MultipleSelect from "../../../shared/MultipleSelect.jsx";
 import TextArea from "../../../shared/TextArea.jsx";
 import TextInput from "../../../shared/TextInput.jsx";
