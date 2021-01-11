@@ -9,6 +9,8 @@ import modalTypes from "../../redux/types/modalTypes";
 import FormBuilding from "../routes/building/BuildingForm/BuildingForm";
 import FormTechnician from "../routes/technician/TechnicianForm/TechnicianForm";
 import FormBoiler from "../routes/boiler/BoilerForm/BoilerForm";
+import FormCompany from "../routes/company/CompanyForm/CompanyForm";
+import RemoveCompanyMessage from "../routes/company/RemoveCompanyMessage/RemoveCompanyMessage";
 import RemoveBuildingMessage from "../routes/building/RemoveBuildingMessage/RemoveBuildingMessage";
 import RemoveTechnicianMessage from "../routes/technician/RemoveTechnicianMessage/RemoveTechnicianMessage";
 import RemoveBoilerMessage from "../routes/boiler/RemoveBoilerMessage/RemoveBoilerMessage";
@@ -75,6 +77,16 @@ const Modal = ({
         />
       );
       break;
+    case modalTypes.ADD_EDIT_COMPANY:
+      modalComponent = (
+        <FormCompany
+          companies={companies}
+          buildings={buildings}
+          id={meta.id}
+          editing={meta.editing}
+        />
+      );
+      break;
     case modalTypes.ADD_EDIT_BOILER:
       modalComponent = (
         <FormBoiler
@@ -90,6 +102,9 @@ const Modal = ({
       break;
     case modalTypes.DELETE_TECHNICIAN:
       modalComponent = <RemoveTechnicianMessage id={meta.id} />;
+      break;
+    case modalTypes.DELETE_COMPANY:
+      modalComponent = <RemoveCompanyMessage id={meta.id} />;
       break;
     case modalTypes.DELETE_BOILER:
       modalComponent = <RemoveBoilerMessage id={meta.id} />;
