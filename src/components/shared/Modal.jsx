@@ -78,7 +78,7 @@ const Modal = ({
       );
     case modalTypes.ADD_EDIT_BOILERTYPE:
       modalComponent = (
-        <FormBoiler
+        <FormBoilerType
           boilers={boilers}
           technicians={technicians}
           id={meta.id}
