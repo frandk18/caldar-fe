@@ -93,10 +93,10 @@ const BoilerType = ({
 };
 
 const mapStateToProps = (state) => ({
-  boilerType: state.boilerType.data,
-  isLoading: state.boilerType.isLoading,
-  error: state.boilerType.error,
-  refresh: state.boilerType.refresh,
+  boilerTypes: state.boilerTypes.data,
+  isLoading: state.boilerTypes.isLoading,
+  error: state.boilerTypes.error,
+  refresh: state.boilerTypes.refresh,
 });
 
 const mapDispatchToProps = (dispatch) => {

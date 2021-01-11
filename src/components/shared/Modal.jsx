@@ -6,13 +6,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { closeModal as closeModalAction } from "../../redux/actions/modalActions";
 import modalTypes from "../../redux/types/modalTypes";
-import styles from "./modal.module.css";
 import FormBuilding from "../routes/building/BuildingForm/BuildingForm";
-import FormTechnician from "../routes/technician/Form";
-import FormBoilerType from "../routes/boiler-type/Form"
+import FormTechnician from "../routes/technician/TechnicianForm/TechnicianForm";
+import FormBoiler from "../routes/boiler/BoilerForm/BoilerForm";
+import FormBoilerType from "../routes/boiler-type/BoilerTypeForm/BoilerTypeForm"
 import RemoveBuildingMessage from "../routes/building/RemoveBuildingMessage/RemoveBuildingMessage";
-import RemoveTechnicianMessage from "../routes/technician/RemoveTechnicianMessage";
-import RemoveBoilerTypeMessage from "../routes/boiler-type/RemoveBoilerTypeMessage";
+import RemoveTechnicianMessage from "../routes/technician/RemoveTechnicianMessage/RemoveTechnicianMessage";
+import RemoveBoilerMessage from "../routes/boiler/RemoveBoilerMessage/RemoveBoilerMessage";
+import RemoveBoilerTypeMessage from "../routes/boiler-type/RemoveBoilerTypeMessage/RemoveBoilerTypeMessage";
 
 const getModalStyle = () => {
   const top = 25;
@@ -50,7 +51,7 @@ const Modal = ({
   companies,
   boilers,
   technicians,
-  boilerType
+  boilerTypes,
 }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -77,9 +78,18 @@ const Modal = ({
       );
     case modalTypes.ADD_EDIT_BOILERTYPE:
       modalComponent = (
-        <FormBoilerType
-          boilerType={boilerType}
+        <FormBoiler
+          boilers={boilers}
           technicians={technicians}
+          id={meta.id}
+          editing={meta.editing}
+        />
+      );
+    case modalTypes.ADD_EDIT_BOILER:
+      modalComponent = (
+        <FormBoiler
+          boilers={boilers}
+          buildings={buildings}
           id={meta.id}
           editing={meta.editing}
         />
@@ -94,6 +104,8 @@ const Modal = ({
     case modalTypes.DELETE_BOILERTYPE:
       modalComponent = <RemoveBoilerTypeMessage id={meta.id} />;
       break;
+    case modalTypes.DELETE_BOILER:
+      modalComponent = <RemoveBoilerMessage id={meta.id} />;
     default:
       modalComponent = null;
       break;
@@ -127,7 +139,7 @@ const mapStateToProps = (state) => {
     companies: state.companies.data,
     boilers: state.boilers.data,
     technicians: state.technicians.data,
-    boilerType: state.boilerType.data,
+    boilerTypes: state.boilerTypes.data,
   };
 };
 

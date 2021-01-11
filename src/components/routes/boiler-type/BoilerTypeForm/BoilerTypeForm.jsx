@@ -1,20 +1,18 @@
 import { Form, Field } from "react-final-form";
 import { React, useState } from "react";
-import MultipleSelect from "../../shared/MultipleSelect.jsx";
-import TextArea from "../../shared/TextArea.jsx";
-import TextInput from "../../shared/TextInput.jsx";
-import NumberInput from "../../shared/NumberInput.jsx";
+import MultipleSelect from "../../../shared/MultipleSelect.jsx";
+import TextArea from "../../../shared/TextArea.jsx";
 import {
     required,
     composeValidators,
     validateStdMaintainance,
     validateBoilerType,
-} from "../../../utils/validations.js";
+} from "../../../../utils/validations.js";
 import {
     addBoilerType as addBoilerTypeAction,
     editBoilerType as editBoilerTypeAction,
-} from "../../../redux/actions/boilerTypeActions";
-import { closeModal as closeModalAction } from "../../../redux/actions/modalActions";
+} from "../../../../redux/actions/boilerTypeActions";
+import { closeModal as closeModalAction } from "../../../../redux/actions/modalActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 

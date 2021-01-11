@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { closeModal as closeModalAction } from "../../../redux/actions/modalActions";
-import { deleteBoilerType as deleteBoilerTypeAction } from "../../../redux/actions/boilerTypeActions";
+import { closeModal as closeModalAction } from "../../../../redux/actions/modalActions";
+import { deleteBoilerType as deleteBoilerTypeAction } from "../../../../redux/actions/boilerTypeActions";
 import { bindActionCreators } from "redux";
 
 const RemoveBoilerTypeMessage = ({ closeModal, deleteBoilerType, id }) => {
