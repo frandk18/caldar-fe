@@ -7,6 +7,7 @@ import Building from "./components/routes/building/Building.jsx";
 import Company from "./components/routes/company/Company.jsx";
 import Boiler from "./components/routes/boiler/Boiler.jsx";
 import BoilerType from "./components/routes/boiler-type/BoilerType.jsx";
+import Login from "./components/routes/au/Login";
 
 import "./App.css";
 
@@ -16,6 +17,7 @@ function App() {
       <Layout>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/login" component={Login} />
           <Route path="/technician" component={Technician} />
           <Route path="/building" component={Building} />
           <Route path="/company" component={Company} />
