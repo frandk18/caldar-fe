@@ -9,11 +9,13 @@ import modalTypes from "../../redux/types/modalTypes";
 import FormBuilding from "../routes/building/BuildingForm/BuildingForm";
 import FormTechnician from "../routes/technician/TechnicianForm/TechnicianForm";
 import FormBoiler from "../routes/boiler/BoilerForm/BoilerForm";
+import FormBoilerType from "../routes/boiler-type/BoilerTypeForm/BoilerTypeForm";
 import FormCompany from "../routes/company/CompanyForm/CompanyForm";
 import RemoveCompanyMessage from "../routes/company/RemoveCompanyMessage/RemoveCompanyMessage";
 import RemoveBuildingMessage from "../routes/building/RemoveBuildingMessage/RemoveBuildingMessage";
 import RemoveTechnicianMessage from "../routes/technician/RemoveTechnicianMessage/RemoveTechnicianMessage";
 import RemoveBoilerMessage from "../routes/boiler/RemoveBoilerMessage/RemoveBoilerMessage";
+import RemoveBoilerTypeMessage from "../routes/boiler-type/RemoveBoilerTypeMessage/RemoveBoilerTypeMessage";
 
 const getModalStyle = () => {
   const top = 25;
@@ -51,11 +53,11 @@ const Modal = ({
   companies,
   boilers,
   technicians,
+  boilerTypes,
 }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   let modalComponent;
-
   switch (modalType) {
     case modalTypes.ADD_EDIT_BUILDING:
       modalComponent = (
@@ -71,6 +73,16 @@ const Modal = ({
     case modalTypes.ADD_EDIT_TECHNICIAN:
       modalComponent = (
         <FormTechnician
+          technicians={technicians}
+          id={meta.id}
+          editing={meta.editing}
+        />
+      );
+      break;
+    case modalTypes.ADD_EDIT_BOILERTYPE:
+      modalComponent = (
+        <FormBoilerType
+          boilerTypes={boilerTypes}
           technicians={technicians}
           id={meta.id}
           editing={meta.editing}
@@ -102,6 +114,9 @@ const Modal = ({
       break;
     case modalTypes.DELETE_TECHNICIAN:
       modalComponent = <RemoveTechnicianMessage id={meta.id} />;
+      break;
+    case modalTypes.DELETE_BOILERTYPE:
+      modalComponent = <RemoveBoilerTypeMessage id={meta.id} />;
       break;
     case modalTypes.DELETE_COMPANY:
       modalComponent = <RemoveCompanyMessage id={meta.id} />;
@@ -142,6 +157,7 @@ const mapStateToProps = (state) => {
     companies: state.companies.data,
     boilers: state.boilers.data,
     technicians: state.technicians.data,
+    boilerTypes: state.boilerTypes.data,
   };
 };
 

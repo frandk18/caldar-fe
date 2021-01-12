@@ -116,7 +116,7 @@ export const deleteBoilerTypeRejected = () => ({
 export const deleteBoilerType = (id) => (dispatch) => {
   dispatch(deleteBoilerTypeFetching());
   fetch(`${URL}/${id}`, {
-    method: "ACTIONS_TYPES.DELETE",
+    method: "DELETE",
   })
     .then((res) => {
       if (!res.ok) throw Error;
