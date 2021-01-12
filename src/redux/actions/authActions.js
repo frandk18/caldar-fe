@@ -35,7 +35,7 @@ export const login = (credentials) => (dispatch) => {
 
 export const setAuthentication = () => {
   return {
-    type: SET_AUTHENTICATION,
+    type: ACTIONS_TYPES.SET_AUTHENTICATION,
   };
 };
 

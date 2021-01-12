@@ -12,7 +12,8 @@ import { bindActionCreators } from "redux";
 
 const Login = ({ login }) => {
   const onSubmitLogin = (values) => {
-    login(values);
+    console.log("LOGIN");
+    //login(values);
   };
 
   return (

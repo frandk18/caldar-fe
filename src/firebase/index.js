@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import { store } from "../redux";
+import { store } from "../index";
 require("dotenv").config();
 
 // Web app's Firebase configuration
