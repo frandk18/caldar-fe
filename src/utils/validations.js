@@ -24,11 +24,11 @@ export const validatePhone = (value) => {
 
 export const validateBoilerType = (value) => {
   return value.length < 2 ? undefined : "Invalid Boiler Model";
-}
+};
 
 export const validateStdMaintainance = (value) => {
-  return value > 0 ? undefined : "Invalid standard maintainance time";
-}
+  return value >= 0 ? undefined : "Invalid standard maintainance time";
+};
 
 export const composeValidators = (...validators) => (value) =>
   validators.reduce((error, validator) => error || validator(value), undefined);

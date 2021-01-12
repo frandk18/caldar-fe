@@ -81,7 +81,6 @@ export const editBoilerTypeRejected = () => ({
 
 export const editBoilerType = (newOne, id) => (dispatch) => {
   dispatch(editBoilerTypeFetching());
-  console.log(id);
   fetch(`${URL}/${id}`, {
     method: "PUT",
     headers: {

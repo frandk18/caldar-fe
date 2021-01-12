@@ -7,7 +7,7 @@ import modalTypes from "../../../redux/types/modalTypes";
 import { bindActionCreators } from "redux";
 
 const BoilerType = ({
-  boilerType,
+  boilerTypes,
   isLoading,
   error,
   refresh,
@@ -19,26 +19,26 @@ const BoilerType = ({
       id: "boilerType",
       align: "center",
       disablePadding: false,
-      label: "Boiler Model",
+      label: "Model",
     },
     {
       id: "stdMaintainance",
       align: "center",
       disablePadding: false,
-      label: "Standard maintainance time",
+      label: "Accumulated maintenance hours",
     },
     {
       id: "obs",
       align: "center",
       disablePadding: false,
-      label: "Observation",
+      label: "Observations",
     },
-    {
+    /*{
       id: "technician",
       align: "center",
       disablePadding: false,
       label: "Technician that knows how to repair it",
-    },
+    },*/
   ]);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const BoilerType = ({
     return <div>ERROR!!!</div>;
   }
 
-  const fieldObj = ["boilerType", "stdMaintainance", "obs", "technician"];
+  const fieldObj = ["boilerType", "stdMaintainance", "obs"]; //, "technician"];
 
   const name = "Boiler Types";
 
@@ -82,7 +82,7 @@ const BoilerType = ({
     <React.Fragment>
       <TableUI
         headCells={headCells}
-        data={boilerType}
+        data={boilerTypes}
         fieldObj={fieldObj}
         name={name}
         toDelete={showDeleteModal}
