@@ -49,6 +49,7 @@ function Header() {
   };
 
   const handleMenuClose = () => {
+    console.log("Logout");
     setAnchorEl(null);
   };
 
@@ -64,7 +65,7 @@ function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
