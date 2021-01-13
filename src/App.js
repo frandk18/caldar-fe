@@ -12,8 +12,7 @@ import Building from "./components/routes/building/Building.jsx";
 import Company from "./components/routes/company/Company.jsx";
 import Boiler from "./components/routes/boiler/Boiler.jsx";
 import BoilerType from "./components/routes/boiler-type/BoilerType.jsx";
-//import Login from "./components/routes/login/Login";
-import LoginUI from "./components/routes/login/LoginUI";
+import Login from "./components/routes/login/Login";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setAuthentication as setAuthenticationAction } from "./redux/actions/authActions";
@@ -21,6 +20,9 @@ import { tokenListener } from "./firebase";
 import "./App.css";
 
 function App(authenticated, setAuthentication) {
+  console.log(authenticated.authenticated);
+  console.log(setAuthentication);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -54,7 +56,7 @@ function App(authenticated, setAuthentication) {
   return (
     <Router>
       <Switch>
-        <Route path="/login" exact component={LoginUI} />
+        <Route path="/login" exact component={Login} />
         <Redirect path="/" to="/login" />
       </Switch>
     </Router>

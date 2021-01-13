@@ -34,6 +34,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        error: false,
         authenticated: false,
       };
     case ACTIONS_TYPES.LOGOUT_REJECTED:
