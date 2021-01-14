@@ -118,7 +118,7 @@ const Header = ({ logout }) => {
       {renderMenu}
     </div>
   );
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
