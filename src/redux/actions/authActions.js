@@ -8,8 +8,9 @@ const loginFetching = () => {
 };
 
 const loginFullfilled = () => {
+  console.log("FULFILLED");
   return {
-    type: ACTIONS_TYPES.LOGIN_FULLFILLED,
+    type: ACTIONS_TYPES.LOGIN_FULFILLED,
   };
 };
 
@@ -20,7 +21,10 @@ const loginRejected = () => {
 };
 
 export const login = (credentials) => (dispatch) => {
+  console.log(credentials.email);
+  console.log(credentials.password);
   dispatch(loginFetching());
+
   return Firebase.auth()
     .signInWithEmailAndPassword(credentials.email, credentials.password)
     .then(async (response) => {

@@ -11,7 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import background from "../../../img/login2.jpg";
-import { login as loginAction } from "../../../redux/actions/authActions";
+import { login as loginAction } from "../../redux/actions/authActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 const Login = ({ login }) => {
   const onSubmitLogin = (values) => {
     console.log("LOGIN");
+    console.log(values);
     login(values);
   };
   const classes = useStyles();
