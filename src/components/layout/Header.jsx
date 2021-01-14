@@ -14,6 +14,9 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Link } from "react-router-dom";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { logout as logoutAction } from "../../redux/actions/authActions";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header() {
+const Header = ({ logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -49,8 +52,11 @@ function Header() {
   };
 
   const handleMenuClose = () => {
-    console.log("Logout");
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   const menuId = "primary-search-account-menu";
@@ -65,7 +71,7 @@ function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -114,4 +120,13 @@ function Header() {
   );
 }
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      logout: logoutAction,
+    },
+    dispatch
+  );
+};
+
+export default connect(null, mapDispatchToProps)(Header);

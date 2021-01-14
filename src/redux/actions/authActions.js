@@ -7,8 +7,7 @@ const loginFetching = () => {
   };
 };
 
-const loginFullfilled = () => {
-  console.log("FULFILLED");
+const loginFulfilled = () => {
   return {
     type: ACTIONS_TYPES.LOGIN_FULFILLED,
   };
@@ -21,16 +20,13 @@ const loginRejected = () => {
 };
 
 export const login = (credentials) => (dispatch) => {
-  console.log(credentials.email);
-  console.log(credentials.password);
   dispatch(loginFetching());
-
   return Firebase.auth()
     .signInWithEmailAndPassword(credentials.email, credentials.password)
     .then(async (response) => {
       const token = await response.user.getIdToken();
       localStorage.setItem("token", token);
-      return dispatch(loginFullfilled());
+      return dispatch(loginFulfilled());
     })
     .catch(() => {
       return dispatch(loginRejected());
@@ -49,9 +45,9 @@ const logoutFetching = () => {
   };
 };
 
-const logoutFullfilled = (data) => {
+const logoutFulfilled = (data) => {
   return {
-    type: ACTIONS_TYPES.LOGOUT_FULLFILLED,
+    type: ACTIONS_TYPES.LOGOUT_FULFILLED,
   };
 };
 
@@ -67,7 +63,7 @@ export const logout = () => (dispatch) => {
     .signOut()
     .then(() => {
       localStorage.removeItem("token");
-      return dispatch(logoutFullfilled());
+      return dispatch(logoutFulfilled());
     })
     .catch(() => {
       return dispatch(logoutRejected());

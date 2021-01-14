@@ -20,9 +20,6 @@ import { tokenListener } from "./firebase";
 import "./App.css";
 
 function App(authenticated, setAuthentication) {
-  console.log(authenticated.authenticated);
-  console.log(setAuthentication);
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {

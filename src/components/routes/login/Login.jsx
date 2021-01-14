@@ -70,8 +70,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = ({ login }) => {
   const onSubmitLogin = (values) => {
-    console.log("LOGIN");
-    console.log(values);
     login(values);
   };
 
@@ -103,7 +101,6 @@ const Login = ({ login }) => {
                     <Field
                       name="email"
                       label="Email Address"
-                      //placeholder="Type your email"
                       component={TextInput}
                       validate={composeValidators(required, validateEmail)}
                     ></Field>
@@ -114,7 +111,6 @@ const Login = ({ login }) => {
                       name="password"
                       label="Password"
                       type="password"
-                      //placeholder="Type your password"
                       component={TextInput}
                       validate={required}
                     ></Field>
@@ -152,23 +148,11 @@ const formStyle = {
   borderRadius: "15px",
 };
 
-//const columnStyle = {
-//  display: "flex",
-//  flexDirection: "column",
-//  justifyContent: "space-between",
-//  margin: "20px",
-//};
-
 const fieldStyle = {
   display: "flex",
   flexDirection: "column",
   margin: "10px 0",
 };
-
-/*const btnContainer = {
-  display: "flex",
-  margin: "10px 0px",
-};*/
 
 const btnStyle = {
   display: "flex",
