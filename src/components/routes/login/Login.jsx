@@ -20,8 +20,8 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
 
 function Copyright() {
   return (
@@ -77,19 +77,19 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px",
     marginBottom: "10px",
     borderRadius: "15px",
-    width: "60%"
+    width: "60%",
   },
   fieldStyle: {
     display: "flex",
     flexDirection: "column",
     margin: "10px 0",
-    width: "100%"
+    width: "100%",
   },
   btnContainer: {
     display: "flex",
     flexDirection: "column",
     marginTop: "30px",
-    width: "100%"
+    width: "100%",
   },
 }));
 
@@ -141,7 +141,11 @@ const Login = ({ login }) => {
                   </div>
 
                   <div className={classes.btnContainer}>
-                    <Button disabled={submitting || pristine} type="submit" className="btn btn-primary">
+                    <Button
+                      disabled={submitting || pristine}
+                      type="submit"
+                      className="btn btn-primary"
+                    >
                       Login
                     </Button>
                   </div>
