@@ -21,7 +21,7 @@ const Home = ({
     getCompanies();
     getBoilerTypes();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return <h1>HOME</h1>;
+  return <h1>Welcome to CaldAR App</h1>;
 };
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(

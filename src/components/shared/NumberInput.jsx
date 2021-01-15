@@ -1,7 +1,6 @@
 import React from "react";
 
 const NumberInput = ({ input, meta, label, placeholder }) => {
-  //console.log(meta.invalid,meta.error,meta.touched,meta.submitError);
   return (
     <>
       <label>{label}</label>

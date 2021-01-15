@@ -103,7 +103,7 @@ const BuildingForm = (props) => {
             <legend style={{ margin: 8 }}>
               {props.editing ? "Edit Building" : "New Building"}
             </legend>
-
+            
             <div style={{ display: "flex", border: "2px #ccc solid" }}>
               <div style={columnStyle}>
                 <div style={fieldStyle}>

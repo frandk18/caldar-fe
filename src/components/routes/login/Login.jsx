@@ -1,6 +1,7 @@
 import { Form, Field } from "react-final-form";
 import React from "react";
 import TextInput from "../../shared/TextInput.jsx";
+import PassInput from "../../shared/PassInput.jsx";
 import {
   required,
   composeValidators,
@@ -19,6 +20,8 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 function Copyright() {
   return (
@@ -66,6 +69,28 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  formStyle: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "10px",
+    marginBottom: "10px",
+    borderRadius: "15px",
+    width: "60%"
+  },
+  fieldStyle: {
+    display: "flex",
+    flexDirection: "column",
+    margin: "10px 0",
+    width: "100%"
+  },
+  btnContainer: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "30px",
+    width: "100%"
+  },
 }));
 
 const Login = ({ login }) => {
@@ -89,15 +114,15 @@ const Login = ({ login }) => {
           </Typography>
           <Form
             onSubmit={onSubmitLogin}
-            render={({ handleSubmit, form, submitting, pristine, values }) => (
-              <div style={formStyle}>
+            render={({ handleSubmit, submitting, pristine }) => (
+              <div className={classes.formStyle}>
                 <form
                   noValidate
                   autoComplete="off"
                   onSubmit={handleSubmit}
                   className={classes.form}
                 >
-                  <div style={fieldStyle}>
+                  <div className={classes.fieldStyle}>
                     <Field
                       name="email"
                       label="Email Address"
@@ -106,24 +131,20 @@ const Login = ({ login }) => {
                     ></Field>
                   </div>
 
-                  <div style={fieldStyle}>
+                  <div className={classes.fieldStyle}>
                     <Field
                       name="password"
                       label="Password"
-                      type="password"
-                      component={TextInput}
+                      component={PassInput}
                       validate={required}
                     ></Field>
                   </div>
 
-                  <button
-                    style={btnStyle}
-                    disabled={submitting || pristine}
-                    type="submit"
-                    className={classes.submit}
-                  >
-                    Login
-                  </button>
+                  <div className={classes.btnContainer}>
+                    <Button disabled={submitting || pristine} type="submit" className="btn btn-primary">
+                      Login
+                    </Button>
+                  </div>
 
                   <Box mt={5}>
                     <Copyright />
@@ -136,35 +157,6 @@ const Login = ({ login }) => {
       </Grid>
     </Grid>
   );
-};
-
-const formStyle = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "10px",
-  marginBottom: "10px",
-  borderRadius: "15px",
-};
-
-const fieldStyle = {
-  display: "flex",
-  flexDirection: "column",
-  margin: "10px 0",
-};
-
-const btnStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  background: "#fff",
-  padding: "5px",
-  margin: "0 10px",
-  borderWidth: "1px",
-  borderRadius: "5px",
-  overflow: "hidden",
-  cursor: "pointer",
 };
 
 const mapDispatchToProps = (dispatch) => {

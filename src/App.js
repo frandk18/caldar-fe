@@ -44,6 +44,7 @@ function App(authenticated, setAuthentication) {
             <Route path="/boiler-type" component={BoilerType} />
             <Route path="/service" />
             <Route path="/reports" />
+            <Redirect path="/" to="/" />
           </Switch>
         </Layout>
       </Router>
